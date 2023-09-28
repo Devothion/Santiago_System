@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Zona extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'zona',
+        'status',
+        'distrito_id',
+        'tipo'
+    ];
+
+    public function distrito()
+    {
+        return $this->belongsTo(Distrito::class);
+    }
+
+}
