@@ -19,4 +19,9 @@ class Provincia extends Model
         return $this->hasMany(Distrito::class);
     }
 
+    public function sucursal()
+    {
+        return $this->hasMany(Sucursal::class);
+    }
+
 }

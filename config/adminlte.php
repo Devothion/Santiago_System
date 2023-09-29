@@ -468,7 +468,7 @@ return [
                 ],
                 [
                     'text' => 'Nueva Sucursal',
-                    // 'route' => 'admin.sucursales.nuevasucursal',
+                    'route' => 'admin.sucursales.create',
                 ]
             ]
         ],

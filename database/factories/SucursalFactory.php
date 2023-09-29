@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Departamento;
+use App\Models\Provincia;
+use App\Models\Distrito;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sucursal>
@@ -17,10 +20,10 @@ class SucursalFactory extends Factory
     public function definition(): array
     {
         return [
-            'sucursal' => $this->faker->randomElement(['Puente Piedra I', 'Puente Piedra II', 'Lima Centro', 'Lima Norte']),
-            'departamento' => '2',
-            'provincia' => '24',
-            'distrito' => '213'
+            // 'sucursal' => $this->faker->randomElement(['Puente Piedra I', 'Puente Piedra II', 'Lima Centro', 'Lima Norte']),
+            // 'departamento_id' => Departamento::where('departamento', '')->first()->id,
+            // 'provincia_id' => Provincia::where('provincia', 'nombre_de_la_provincia')->first()->id,
+            // 'distrito_id' => Distrito::where('distrito', 'nombre_del_distrito')->first()->id
         ];
     }
 }

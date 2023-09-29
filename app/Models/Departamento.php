@@ -14,4 +14,9 @@ class Departamento extends Model
         return $this->hasMany(Provincia::class);
     }
 
+    public function sucursal()
+    {
+        return $this->hasMany(Sucursal::class);
+    }
+
 }

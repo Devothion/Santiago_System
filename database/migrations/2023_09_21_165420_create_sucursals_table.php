@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('sucursal');
-            $table->string('departamento');
-            $table->string('provincia');
-            $table->string('distrito');
+            $table->foreignId('departamento_id')->references('id')->on('departamentos');
+            $table->foreignId('provincia_id')->references('id')->on('provincias');
+            $table->foreignId('distrito_id')->references('id')->on('distritos');;
 
             $table->timestamps();
         });

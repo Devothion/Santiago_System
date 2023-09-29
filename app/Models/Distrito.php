@@ -19,4 +19,9 @@ class Distrito extends Model
         return $this->hasMany(Zona::class);
     }
 
+    public function sucursal()
+    {
+        return $this->hasMany(Sucursal::class);
+    }
+
 }

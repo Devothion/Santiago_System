@@ -17,7 +17,8 @@ class EntidadBancariaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'banco' => $this->faker->randomElement(['BCP', 'BBVA', 'Interbank', 'Scotiabank']),
+            'status' => '1'
         ];
     }
 }

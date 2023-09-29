@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departamento;
+use App\Models\Distrito;
+use App\Models\Provincia;
+use App\Models\Sucursal;
 use Illuminate\Http\Request;
 
 class SucursalesController extends Controller
@@ -20,7 +24,11 @@ class SucursalesController extends Controller
      */
     public function create()
     {
-        //
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+
+        return view('admin.Sucursales.create', compact('departamentos', 'provincias', 'distritos'));
     }
 
     /**
@@ -28,7 +36,16 @@ class SucursalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+
+        Sucursal::create([
+            'sucursal' => $request->nombreSucursal,
+            'departamento_id' => $request->departamento,
+            'provincia_id' => $request->provincia,
+            'distrito_id' => $request->distrito
+        ]);
+
+        return redirect()->route('admin.sucursales.index');
     }
 
     /**
@@ -44,7 +61,15 @@ class SucursalesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+
+        $sucursal = Sucursal::with(['departamento', 'provincia', 'distrito'])->find($id);
+
+        //dd($sucursal);
+
+        return view('admin.Sucursales.edit', compact('sucursal', 'departamentos', 'provincias', 'distritos'));
     }
 
     /**
