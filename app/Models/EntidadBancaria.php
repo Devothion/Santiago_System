@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class EntidadBancaria extends Model
 {
     use HasFactory;
+
+    public function cuenta()
+    {        
+        return $this->hasMany(Cuenta::class);
+    }
+
 }

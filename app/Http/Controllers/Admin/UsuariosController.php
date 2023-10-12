@@ -65,7 +65,11 @@ class UsuariosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $roles = Role::all();
+
+        $usuario = User::find($id);
+
+        return view('admin.Usuarios.edit', compact('roles', 'usuario'));
     }
 
     /**

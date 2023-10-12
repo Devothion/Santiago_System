@@ -18,5 +18,4 @@ class Departamento extends Model
     {
         return $this->hasMany(Sucursal::class);
     }
-
 }

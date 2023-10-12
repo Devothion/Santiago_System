@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\SimuladorController;
 use App\Http\Controllers\Admin\SucursalesController;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\CuentasController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SolicitudesController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.index');
 
@@ -22,11 +24,17 @@ Route::resource('/zona', ZonasController::class)->names('admin.zonas');
 //Simulador
 Route::resource('/simulador', SimuladorController::class)->names('admin.simulador');
 
-//Sucursales
-Route::resource('/sucursales', SucursalesController::class)->names('admin.sucursales');
+//Solicitudes
+Route::resource('/solicitudes', SolicitudesController::class)->names('admin.solicitudes');
 
 //Usuarios
 Route::resource('/usuarios', UsuariosController::class)->middleware('can:admin.usuarios.index')->names('admin.usuarios');
 
+//Sucursales
+Route::resource('/sucursales', SucursalesController::class)->names('admin.sucursales');
+
 //Cuentas
 Route::resource('/cuentas', CuentasController::class)->names('admin.cuentas');
+
+//Perfil
+Route::resource('/perfil', ProfileController::class)->names('admin.perfil');

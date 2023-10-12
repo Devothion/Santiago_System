@@ -11,8 +11,9 @@
     <!-- NO OLVIDAR QUE TODO ESTO TIENE QUE ESTAR DENTRO DE -->
     <!-- DE UNA ETIQUETA FORM PARA QUE SE MANEJEN LOS DATOS -->
     <!-------------------------------------------------------->
-    <form action="{{ route('admin.clientes.store') }}" method="POST">
+    <form action="{{ route('admin.clientes.update', ['cliente' => $cliente->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="card">
             <div class="card-body">
                 <div class="row">

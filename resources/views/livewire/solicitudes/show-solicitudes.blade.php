@@ -2,17 +2,15 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex w-full justify-content-around">
-                {{-- <div class="row " style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;">
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #c8eeba;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Habilitado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">200</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #f2c0c0;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Inhabilitado:</p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">40</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #ecdaae;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Pasivo: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">840</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #dac2f2;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Fallecido: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">385</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #a5e8fd;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Vitalicio: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">985</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #d9d9d9;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Retirado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">57</p></div>
-                </div> --}}
+                <div class="row " style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;">
+                    <div style="display: flex;padding: 12px;width: 150px;background-color: #5cb85c;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Aprobado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_aprobado}}</p></div>
+                    <div style="display: flex;padding: 12px;width: 150px;background-color: #5bc0de;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">En Analisis:</p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_analisis}}</p></div>
+                    <div style="display: flex;padding: 12px;width: 150px;background-color: #f0ad4e;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">En Espera: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_espera}}</p></div>
+                    <div style="display: flex;padding: 12px;width: 150px;background-color: #d9534f;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Finalizado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_finalizado}}</p></div>
+                </div>
             </div>
             <div class="d-flex">
-                <a href="{{ route('admin.prestamos.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Nueva Solicitud</a>
+                <a href="{{ route('admin.solicitudes.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Nueva Solicitud</a>
                 <button class="btn btn-block btn-success w-25 m-2" wire:click='export'><i class="fa fa-file-excel mr-1"></i>Descargar Patron</button>
                 <button class="btn btn-block btn-primary w-25 m-2" wire:click='export1'><i class="fa-solid fa-circle-plus mr-1"></i>Asignar otros conceptos</button>
                 <a href="#" class="btn btn-block btn-dark w-25 m-2"><i class="fa-solid fa-file-pen mr-1"></i>Actualizar Status</a>
@@ -23,7 +21,7 @@
         </div>
         <div class="card-body">
 
-            @if ($prestamos->count())
+            @if ($solicitudes->count())
                 <table id="" class="table table-bordered table-striped">
                     <thead class="text-center">
                         <tr>
@@ -76,31 +74,31 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach ($prestamos as $prestamo)
+                        @foreach ($solicitudes as $solicitud)
                         <tr>
-                            <td>{{$prestamo->id}}</td>
-                            <td>{{$prestamo->cliente}}</td>
-                            <td>S/. {{$prestamo->mon_sol}}</td>
+                            <td>{{$solicitud->id}}</td>
+                            <td>{{$solicitud->cliente}}</td>
+                            <td>S/. {{$solicitud->mon_sol}}</td>
                             <td>
-                                @if ($prestamo->estado == 'Aprobado')
+                                @if ($solicitud->estado == 'Aprobado')
                                     <span class="badge badge-success">Aprobado</span>
-                                @elseif ($prestamo->estado == 'En Analisis')
+                                @elseif ($solicitud->estado == 'En Analisis')
                                     <span class="badge badge-info">En Analisis</span>
-                                @elseif ($prestamo->estado == 'En Espera')
+                                @elseif ($solicitud->estado == 'En Espera')
                                     <span class="badge badge-warning">En Espera</span>
                                 @else
                                     <span class="badge badge-danger">Finalizado</span>
                                 @endif
                                     
                             </td>
-                            <td>{{$prestamo->fech_ate}}</td>
+                            <td>{{$solicitud->fech_ate}}</td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         Acciones
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estados de Cuenta</a>
+                                        <a href="{{ route('admin.solicitudes.show', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estados de Cuenta</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Control de Pagos</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Cronograma</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>

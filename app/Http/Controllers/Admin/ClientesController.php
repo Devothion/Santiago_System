@@ -125,9 +125,51 @@ class ClientesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        //
+        if ($request->hasFile('file')) {
+            // Almacena la imagen en el disco 'public' y obtén su nombre
+            $nombreImagen = $request->file('file')->store('img/cientes_img', 'public');
+        } else {
+            $nombreImagen = $request->file;
+        }
+
+        // Resto del código del método store...
+        $cliente->update([
+            'imagen' => $nombreImagen,
+            'sucursal' => $request->sucursal,  
+            'jcc' => $request->jcc,  
+            'asesor' => $request->asesorCredito, 
+            'documento' => $request->nDocumento,  
+            'nombres' => $request->nombres,  
+            'ape_pat' => $request->aPaterno,  
+            'ape_mat' => $request->aMaterno,  
+            'telefono' => $request->telefono,  
+            'departamento' => $request->departamento,  
+            'provincia' => $request->provincia,  
+            'distrito' => $request->distrito,  
+            'zona' => $request->zona,   
+            'nlote' => $request->nLotes,  
+            'direccion' => $request->direcDomicilio,  
+            'referencia' => $request->referDomiciliaria,  
+            'tipoCuenta' => $request->tCuenta,  
+            'entidad' => $request->entidadFinanciera,  
+            'cuentafi' => $request->f_nCuenta,  
+            'entidadter' => $request->ct_eFinanciera,  
+            'cuentater' => $request->ct_nCuenta,  
+            'titularter' => $request->ct_Titular,
+            'aval' => $request->aval,  
+            'documentoav' => $request->av_nDocumento,  
+            'nombresav' => $request->av_nombres,  
+            'ape_patav' => $request->av_aPaterno,  
+            'ape_matav' => $request->av_aMaterno,  
+            'direccionav' => $request->av_direcDomicilio,  
+            'celularav' => $request->av_telefono, 
+            'observ' => $request->av_observaciones  
+        ]);
+
+        return redirect()->route('admin.clientes.index');
+        
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Livewire\Prestamos;
 
 use Livewire\Component;
 use App\Models\Prestamo;
+use App\Models\Solicitud;
 
 class ShowPrestamos extends Component
 {
@@ -13,10 +14,7 @@ class ShowPrestamos extends Component
 
     public function render()
     {
-        $prestamos = Prestamo::where('id', 'like', '%'. $this->search . '%')
-                           ->orWhere('cliente', 'like', '%'. $this->search . '%')
-                           ->orderBy($this->sort, $this->direction)
-                           ->get();
+        $prestamos = Solicitud::where('estado', 'Aprobado')->get();
         return view('livewire.prestamos.show-prestamos', compact('prestamos'));
     }
 

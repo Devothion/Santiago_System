@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Nuevo Prestamo')
+@section('title', 'Nueva Solicitud')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Crear Solicitud</h1>
@@ -12,7 +12,7 @@
     <!-- FALTAN ARREGLAR LOS ID's Y LOS NAME's -->
     <!-- FALTAN ARREGLAR LA ETIQUETA FORM ------->
     <!-- ------------------------------------- -->
-    <form action="{{ route('admin.prestamos.store') }}" method="POST">
+    <form action="{{ route('admin.solicitudes.store') }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">
@@ -31,7 +31,7 @@
                                 <option>En Analisis</option>
                                 <option>En Espera</option>
                                 <option>Finalizado</option>
-                                <option>Aprobada</option>
+                                <option>Aprobado</option>
                             </select>  
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-12">
                         <div class="d-flex justify-content-between mb-4">
-                            <a href="{{ route('admin.prestamos.index') }}" class="btn btn-lg btn-dark mr-4"><i class="fa-solid fa-right-from-bracket mr-1"></i>Cancelar</a>
+                            <a href="{{ route('admin.solicitudes.index') }}" class="btn btn-lg btn-dark mr-4"><i class="fa-solid fa-right-from-bracket mr-1"></i>Cancelar</a>
                             <button type="submit" class="btn btn-lg btn-success"><i class="fa-solid fa-floppy-disk mr-1"></i>Guardar</button>
                         </div>
                     </div>

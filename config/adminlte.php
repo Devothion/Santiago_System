@@ -192,7 +192,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -311,78 +311,6 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
         ['header' => 'acctions'],
         [
             'text' => 'loans',
@@ -394,7 +322,19 @@ return [
                 ],
                 [
                     'text' => 'Nuevo Prestamo',
-                    'route'  => 'admin.prestamos.create',
+                    //'route'  => 'admin.prestamos.create',
+                ],
+                [
+                    'text' => 'operations',
+                    'url' => 'admin/settings',
+                ],
+                [
+                    'text' => 'efforts',
+                    'url' => 'admin/settings',
+                ],
+                [
+                    'text' => 'commitments',
+                    'url' => 'admin/settings',
                 ]
             ]
         ],
@@ -412,31 +352,23 @@ return [
                 ]
             ]
         ],
-        [   
-            'text' => 'simulator',
-            'route'  => 'admin.simulador.index',
-            'icon' => 'fas fa-fw fa-calculator mr-1',
-            'can' => 'admin.simulador.index',
-        ],
-        [
-            'text' => 'operations',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-boxes-stacked mr-1',
-        ],
-        [
-            'text' => 'efforts',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-arrow-right-arrow-left mr-1',
-        ],
-        [
-            'text' => 'commitments',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-thumbs-up mr-1',
-        ],
         [
             'text' => 'requests',
-            'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-square-check mr-1',
+            'submenu' => [
+                [
+                    'text' => 'Listar Solicitudes',
+                    'route' => 'admin.solicitudes.index',
+                ],
+                [
+                    'text' => 'Nueva Solicitud',
+                    'route' => 'admin.solicitudes.create',
+                ],
+                [
+                    'text' => 'simulator',
+                    'route' => 'admin.simulador.index',
+                ],
+            ]
         ],
         [
             'text' => 'reports',
@@ -474,8 +406,28 @@ return [
         ],
         [
             'text' => 'accounts',
-            'route'  => 'admin.cuentas.index',
             'icon' => 'fas fa-fw fa-credit-card mr-1',
+            'submenu' => [
+                [
+                    'text' => 'Listar Cuentas',
+                    'route' => 'admin.cuentas.index',
+                ],
+                [
+                    'text' => 'Crear Cuenta',
+                    'route' => 'admin.cuentas.create'
+                ]
+            ]
+        ],
+        ['header' => 'account_settings'],
+        [
+            'text' => 'profile',
+            'route'  => 'admin.perfil.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'change_password',
+            'route'  => 'admin.perfil.create',
+            'icon' => 'fas fa-fw fa-lock',
         ],
     ],
 

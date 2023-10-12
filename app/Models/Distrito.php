@@ -23,5 +23,4 @@ class Distrito extends Model
     {
         return $this->hasMany(Sucursal::class);
     }
-
 }
