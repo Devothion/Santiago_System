@@ -29,4 +29,6 @@ return [
     'users'                         => 'Usuarios',
     'branches'                      => 'Sucursales',
     'accounts'                      => 'Cuentas',
+    'config'                        => 'CONFIGURACIÓN',
+    'profiles'                      => 'PERFIL',
 ];

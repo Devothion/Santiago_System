@@ -83,7 +83,7 @@
                             <td>{{$cliente->created_at}}</td>
                             <td>
                                 <a href="{{ route('admin.clientes.edit', ['cliente' => $cliente->id ]) }}" class="btn btn-success btn-sm"><i class="fa-solid fa-user-pen mr-1"></i>Editar</a>
-                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-money-bill-wave mr-1"></i>Registrar Pago</button>
+                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-money-bill-wave mr-1"></i>Ver Creditos</button>
                                 <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-file-invoice-dollar mr-1"></i>Nueva Solicitud</button>
                             </td>
                         </tr>

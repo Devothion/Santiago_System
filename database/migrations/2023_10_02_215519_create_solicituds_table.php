@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('fre_pag');
             $table->date('fpri_pag');
             $table->string('ana_cre');
-            $table->text('observ');
+            $table->text('observ')->nullable();
 
             $table->timestamps();
         });

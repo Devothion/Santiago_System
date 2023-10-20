@@ -9,11 +9,9 @@
                     <div style="display: flex;padding: 12px;width: 150px;background-color: #d9534f;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Finalizado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_finalizado}}</p></div>
                 </div>
             </div>
-            <div class="d-flex">
+            <div class="d-flex justify-content-center">
                 <a href="{{ route('admin.solicitudes.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Nueva Solicitud</a>
                 <button class="btn btn-block btn-success w-25 m-2" wire:click='export'><i class="fa fa-file-excel mr-1"></i>Descargar Patron</button>
-                <button class="btn btn-block btn-primary w-25 m-2" wire:click='export1'><i class="fa-solid fa-circle-plus mr-1"></i>Asignar otros conceptos</button>
-                <a href="#" class="btn btn-block btn-dark w-25 m-2"><i class="fa-solid fa-file-pen mr-1"></i>Actualizar Status</a>
             </div>
             <div class="d-flex">
                 <input type="text" wire:model.live="search" class="form-control" placeholder="Buscar por DNI, Apellidos o Estado">
@@ -98,12 +96,10 @@
                                         Acciones
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('admin.solicitudes.show', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estados de Cuenta</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Control de Pagos</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Cronograma</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pago Libre</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-chart-simple mr-1"></i>Gestion Cobranza</a> 
+                                        <a href="{{ route('admin.solicitudes.edit', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="far fa-pen-to-square mr-1"></i>Editar</a>
+                                        <a href="{{ route('admin.solicitudes.show', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Ver Cronograma</a>
+                                        <a href="#" class="dropdown-item"><i class="fas fa-trash mr-1"></i>Eliminar</a>
+                                        <a href="#" class="dropdown-item"><i class="fas fa-money-bills mr-1"></i>Fondo Provicional</a>
                                     </div>
                                 </div>
                             </td>

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Nueva Solicitud')
+@section('title', 'Editar Solicitud')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Crear Solicitud</h1>
+    <h1 class="m-0 text-dark">Editar Solicitud</h1>
 @stop
 
 @section('content')
@@ -27,11 +27,11 @@
                         <div class="form-group">
                             <label for="estado">Estado</label>
                             <select class="form-control" id="estado" name="estado">
-                                <option value="" selected>Selecciona</option>
-                                <option>En Analisis</option>
-                                <option>En Espera</option>
-                                <option>Finalizado</option>
-                                <option>Aprobado</option>
+                                <option value="" {{ old('estado', $solicitud->estado) == '' ? 'selected' : '' }}>Selecciona</option>
+                                <option {{ old('estado', $solicitud->estado) == 'En Analisis' ? 'selected' : '' }}>En Analisis</option>
+                                <option {{ old('estado', $solicitud->estado) == 'En Espera' ? 'selected' : '' }}>En Espera</option>
+                                <option {{ old('estado', $solicitud->estado) == 'Finalizado' ? 'selected' : '' }}>Finalizado</option>
+                                <option {{ old('estado', $solicitud->estado) == 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
                             </select>  
                         </div>
                     </div>
@@ -40,9 +40,9 @@
                             <label for="cliente">Cliente</label>
                             <div class="input-group mb-3">
                                 <select class="custom-select" id="cliente" name="cliente" data-live-search="true">
-                                    <option selected>Selecciona</option>
+                                    <option value="" {{ old('cliente', $solicitud->cliente_id) == '' ? 'selected' : '' }}>Selecciona</option>
                                     @foreach ($clientes as $cliente)
-                                        <option value="{{$cliente->id}}">{{$cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat}}</option>
+                                        <option value="{{$cliente->id}}" {{ old('cliente', $solicitud->id_cli) == $cliente->id ? 'selected' : '' }}>{{$cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat}}</option>
                                     @endforeach
                                 </select>
                                 <div class="input-group-append">
@@ -55,9 +55,9 @@
                         <div class="form-group">
                             <label for="tSolicitud">Tipo Solicitud</label>
                             <select class="form-control" id="tSolicitud" name="tSolicitud">
-                                <option value="" selected>Selecciona</option>
-                                <option>Nueva</option>
-                                <option>Antigua</option>
+                                <option value="" {{ old('tSolicitud', $solicitud->tip_sol) == '' ? 'selected' : '' }}>Selecciona</option>
+                                <option {{ old('tSolicitud', $solicitud->tip_sol) == 'Nueva' ? 'selected' : '' }}>Nueva</option>
+                                <option {{ old('tSolicitud', $solicitud->tip_sol) == 'Antigua' ? 'selected' : '' }}>Antigua</option>
                             </select>
                         </div>
                     </div>
@@ -77,25 +77,25 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="fechaAtencion">Fecha de atencion</label>
-                            <input type="date" class="form-control" name="fechaAtencion" id="fechaAtencion">
+                            <input type="date" class="form-control" name="fechaAtencion" id="fechaAtencion" value="{{ old('fechaAtencion', $solicitud->fech_ate) }}">
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="plazo">Plazo</label>
                             <select class="form-control" id="plazo" name="plazo">
-                                <option value="" selected>Selecciona</option>
-                                <option value="12">12 semanas</option>
-                                <option value="15">15 semanas</option>
-                                <option value="18">18 semanas</option>
-                                <option value="20">20 semanas</option>
+                                <option value="" {{ old('plazo', $solicitud->plazo) == '' ? 'selected' : '' }}>Selecciona</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '12 semanas' ? 'selected' : '' }}>12 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '15 semanas' ? 'selected' : '' }}>15 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '18 semanas' ? 'selected' : '' }}>18 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '20 semanas' ? 'selected' : '' }}>20 semanas</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="montoSolicitado">Monto Solicitado</label>
-                            <input type="number" class="form-control" name="montoSolicitado" id="montoSolicitado" placeholder="0.00">
+                            <input type="number" class="form-control" name="montoSolicitado" id="montoSolicitado" placeholder="0.00" value="{{$solicitud->mon_sol}}">
                         </div>
                     </div>
                     <div class="col-3">
@@ -120,24 +120,24 @@
                         <div class="form-group">
                             <label for="frecuenciaPago">Frecuencia de Pago</label>
                             <select class="form-control" id="frecuenciaPago" name="frecuenciaPago">
-                                <option value="" selected>Selecciona</option>
-                                <option>Semanal</option>
+                                <option value="" {{ old('frecuenciaPago', $solicitud->frecuenciaPago) == '' ? 'selected' : '' }}>Selecciona</option>
+                                <option {{ old('frecuenciaPago', $solicitud->fre_pag) == 'Semanal' ? 'selected' : '' }}>Semanal</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="fechaPrimerPago">Fecha de Primer pago</label>
-                            <input type="date" class="form-control" name="fechaPrimerPago" id="fechaPrimerPago">
+                            <input type="date" class="form-control" name="fechaPrimerPago" id="fechaPrimerPago" value="{{ old('fechaAtencion', $solicitud->fpri_pag) }}">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="asesorCredito">Asesor de credito</label>
                             <select class="form-control" id="asesorCredito" name="asesorCredito">
-                                <option value="1" selected>Selecciona</option>
+                                <option value="1" {{ old('asesorCredito', $solicitud->asesorCredito) == 1 ? 'selected' : '' }}>Selecciona</option>
                                 @foreach ($asesores as $asesor)
-                                    <option value="{{$asesor->id}}">{{$asesor->codigo.' '.$asesor->nombres}}</option>
+                                    <option value="{{$asesor->id}}" {{ old('asesorCredito', $solicitud->ana_cre) == $asesor->id ? 'selected' : '' }}>{{$asesor->codigo.' '.$asesor->nombres}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -145,7 +145,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="observaciones">Observaciones</label>
-                            <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+                            <textarea class="form-control" id="observaciones" name="observaciones" rows="3">{{$solicitud->observ}}</textarea>
                         </div>
                     </div>
                     <div class="col-12">
@@ -172,30 +172,22 @@
                 var plazo = $(this).val();
                 var tasaInteres;
                 switch(plazo) {
-                case '12':
+                case '12 semanas':
                     tasaInteres = 104;
-                    tasaCliente = 44/100;
                     break;
-                case '15':
+                case '15 semanas':
                     tasaInteres = 130;
-                    tasaCliente = 50/100;
                     break;
-                case '18':
+                case '18 semanas':
                     tasaInteres = 156;
-                    tasaCliente = 50/100;
                     break;
-                case '20':
+                case '20 semanas':
                     tasaInteres = 173;
-                    tasaCliente = 50/100;
                     break;
                 default:
                     tasaInteres = '';
-                    tasaCliente = '';
                 }
                 $('#tasaInteres').val(tasaInteres);
-            });
-            $('#montoSolicitado').on('input', function() {
-                $('#capitaInteres').val(this.value * (1 + tasaCliente));
             });
         });
     </script>

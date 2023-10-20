@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Cliente;
 use App\Models\Asesor;
 use App\Http\Controllers\Controller;
+use App\Models\Cuenta;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SolicitudesController extends Controller
 {
@@ -25,8 +27,9 @@ class SolicitudesController extends Controller
     {
         $clientes = Cliente::all();
         $asesores = Asesor::all();
+        $cuentas = Cuenta::all();
 
-        return view('admin.Solicitudes.create', compact('clientes', 'asesores'));
+        return view('admin.Solicitudes.create', compact('clientes', 'asesores', 'cuentas'));
     }
 
     /**
@@ -34,9 +37,14 @@ class SolicitudesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $calculo = realizar_calculo($request->montoSolicitado, $request->plazo);
+
+        //dd($calculo);
         $cliente = Cliente::find($request->cliente);
         $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
+        $tipo = $request->frecuenciaPago;
+        $tasa_interes = $request->tasaInteres;
+        $fecha_pago = $request->fechaPrimerPago;
 
         Solicitud::create([
             'id_cli' => $request->cliente,
@@ -55,16 +63,20 @@ class SolicitudesController extends Controller
             'ana_cre' => $request->asesorCredito,
             'observ' => $request->observaciones
         ]);
-
-        return redirect()->route('admin.solicitudes.index');
+        
+        //return redirect()->route('admin.solicitudes.index');
+        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago'));
     }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
+    {   
+        //return view('admin.PDF.calculo', compact('id'));
+        $pdf = Pdf::loadView('admin.PDF.pdf', ['id' => $id]);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream();
     }
 
     /**
@@ -72,7 +84,12 @@ class SolicitudesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $clientes = Cliente::all();
+        $asesores = Asesor::all();
+        $solicitud = Solicitud::find($id);
+
+        return view('admin.Solicitudes.edit', compact('solicitud', 'clientes', 'asesores'));
     }
 
     /**
@@ -88,6 +105,19 @@ class SolicitudesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Encuentra el registro por su ID
+        $registro = Solicitud::find($id);
+
+        // Verifica si el registro existe
+        if ($registro) {
+            // Elimina el registro
+            $registro->delete();
+
+            // Redirige a la página anterior con un mensaje de éxito
+            return redirect()->back()->with('success', 'Registro eliminado con éxito.');
+        } else {
+            // Redirige a la página anterior con un mensaje de error
+            return redirect()->back()->with('error', 'Registro no encontrado.');
+        }
     }
 }

@@ -12,7 +12,7 @@
                 </div> --}}
             </div>
             <div class="d-flex">
-                <a href="{{ route('admin.prestamos.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Nueva Solicitud</a>
+                <a href="{{ route('admin.solicitudes.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-hand-holding-dollar mr-1"></i>Nueva Solicitud</a>
                 <button class="btn btn-block btn-success w-25 m-2" wire:click='export'><i class="fa fa-file-excel mr-1"></i>Descargar Patron</button>
                 <button class="btn btn-block btn-primary w-25 m-2" wire:click='export1'><i class="fa-solid fa-circle-plus mr-1"></i>Asignar otros conceptos</button>
                 <a href="#" class="btn btn-block btn-dark w-25 m-2"><i class="fa-solid fa-file-pen mr-1"></i>Actualizar Status</a>
@@ -100,7 +100,7 @@
                                         Acciones
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estados de Cuenta</a>
+                                        <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estado de Cuenta</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Control de Pagos</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Cronograma</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>

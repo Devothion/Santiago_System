@@ -313,6 +313,38 @@ return [
         ],
         ['header' => 'acctions'],
         [
+            'text' => 'clients',
+            'icon' => 'fas fa-fw fa-users mr-1',
+            'submenu' => [
+                [
+                    'text' => 'Listar Clientes',
+                    'route'  => 'admin.clientes.index',
+                ],
+                [
+                    'text' => 'Nuevo Cliente',
+                    'route'  => 'admin.clientes.create',
+                ]
+            ]
+        ],
+        [
+            'text' => 'requests',
+            'icon' => 'fas fa-fw fa-square-check mr-1',
+            'submenu' => [
+                [
+                    'text' => 'Listar Solicitudes',
+                    'route' => 'admin.solicitudes.index',
+                ],
+                [
+                    'text' => 'Nueva Solicitud',
+                    'route' => 'admin.solicitudes.create',
+                ],
+                // [
+                //     'text' => 'simulator',
+                //     'route' => 'admin.simulador.index',
+                // ],
+            ]
+        ],
+        [
             'text' => 'loans',
             'icon' => 'fas fa-fw fa-briefcase mr-1',
             'submenu' => [
@@ -339,42 +371,11 @@ return [
             ]
         ],
         [
-            'text' => 'clients',
-            'icon' => 'fas fa-fw fa-users mr-1',
-            'submenu' => [
-                [
-                    'text' => 'Listar Clientes',
-                    'route'  => 'admin.clientes.index',
-                ],
-                [
-                    'text' => 'Nuevo Cliente',
-                    'route'  => 'admin.clientes.create',
-                ]
-            ]
-        ],
-        [
-            'text' => 'requests',
-            'icon' => 'fas fa-fw fa-square-check mr-1',
-            'submenu' => [
-                [
-                    'text' => 'Listar Solicitudes',
-                    'route' => 'admin.solicitudes.index',
-                ],
-                [
-                    'text' => 'Nueva Solicitud',
-                    'route' => 'admin.solicitudes.create',
-                ],
-                [
-                    'text' => 'simulator',
-                    'route' => 'admin.simulador.index',
-                ],
-            ]
-        ],
-        [
             'text' => 'reports',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-chart-simple mr-1',
         ],
+        ['header' => 'config'],
         [
             'text' => 'users',
             'icon' => 'fas fa-fw fa-user mr-1',
@@ -418,17 +419,18 @@ return [
                 ]
             ]
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'profiles'],
         [
             'text' => 'profile',
-            'route'  => 'admin.perfil.index',
+            'url' => '/user/profile',
+            //'route'  => 'admin.perfil.index',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'route'  => 'admin.perfil.create',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // [
+        //     'text' => 'change_password',
+        //     'route'  => 'admin.perfil.create',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
     ],
 
     /*
