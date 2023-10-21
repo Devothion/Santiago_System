@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\CuentasController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SolicitudesController;
+use App\Http\Controllers\Admin\ValidacionesController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.index');
 
@@ -20,6 +21,7 @@ Route::resource('/prestamos', PrestamosController::class)->names('admin.prestamo
 //Clientes
 Route::resource('/clientes', ClientesController::class)->names('admin.clientes');
 Route::resource('/zona', ZonasController::class)->names('admin.zonas');
+Route::post('/validar-dni', 'App\Http\Controllers\Admin\ValidacionesController@validarDNI')->name('validar-dni');
 
 //Simulador
 Route::resource('/simulador', SimuladorController::class)->names('admin.simulador');

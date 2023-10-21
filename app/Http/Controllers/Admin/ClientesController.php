@@ -48,6 +48,10 @@ class ClientesController extends Controller
     {
         //dd($request->all());
 
+        $request->validate([
+            'documento' => 'required|unique:Cliente',
+        ]);
+
         // Valida que el archivo haya sido cargado
         if ($request->hasFile('file')) {
             // Almacena la imagen en el disco 'public' y obtén su nombre

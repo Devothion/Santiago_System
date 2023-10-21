@@ -38,8 +38,9 @@ class ZonasController extends Controller
             'tipo' => $request->tipoZona
         ]);
 
-        return redirect()->route('admin.clientes.create');
-
+        return response()->json([
+            'zona' => $request->nombreZona,
+            'tipo' => $request->tipoZona]);
     }
 
     /**

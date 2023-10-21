@@ -73,6 +73,12 @@
                         <div class="form-group">
                             <label for="nDocumento">Numero de documento</label>
                             <input type="number" class="form-control" name="nDocumento" id="nDocumento">
+                            <div class="valid-feedback">
+                                DNI Valido!
+                            </div>
+                            <div class="invalid-feedback">
+                                DNI Invalido!
+                            </div>
                         </div>
                     </div>
                     <div class="col-6">
@@ -311,7 +317,52 @@
             </div>
         </div>
     </div>
-    @livewire('clientes.zona.create-zona')
+    <div id="agregarZona-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="#" id="agregarZona-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ingresar nueva zona</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12" hidden>
+                                <div class="form-group">
+                                    <label for="distritoZona_id">Distrito ID</label>
+                                    <input type="text" class="form-control" name="distritoZona_id" id="distritoZona_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="distritoZona">Distrito</label>
+                                    <input type="text" class="form-control" name="distritoZona" id="distritoZona" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="nombreZona">Ingrese el nombre de la zona</label>
+                                    <input type="text" class="form-control" name="nombreZona" id="nombreZona">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="tipoZona">Tipo de zona</label>
+                                    <input type="text" class="form-control" name="tipoZona" id="tipoZona">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @stop
 
@@ -436,6 +487,72 @@
             document.getElementById('distritoZona_id').value = valorInptuDistrito;
             document.getElementById('distritoZona').value = nombreInputDitrito;
         });
+
+        // Obtén el elemento input y el elemento de feedback una vez en lugar de varias veces
+        var inputElement = $('#nDocumento');
+        var feedbackElement = $('.invalid-feedback');
+
+        inputElement.on('input', function() {
+            var documento = $(this).val();
+
+            $.ajax({
+                url: "{{ route('validar-dni') }}",
+                method: 'post',
+                data: {
+                    documento: documento,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Usa jQuery para agregar la clase y cambiar el mensaje de feedback
+                    inputElement.removeClass('is-invalid');
+                    inputElement.addClass('is-valid');
+                    //feedbackElement.text('DNI Valido!');
+                    console.log(response.mensaje);
+                },
+                error: function(response) {
+                    if (response.responseJSON.errors && response.responseJSON.errors.documento) {
+                        // Usa jQuery para remover la clase y cambiar el mensaje de feedback
+                        inputElement.removeClass('is-valid');
+                        inputElement.addClass('is-invalid');
+                        feedbackElement.text(response.responseJSON.errors.documento[0]);
+                        console.log(response.responseJSON.errors.documento[0]);
+                    }
+                },
+            });
+        });
+
+        $('#agregarZona-form').on('submit', function(e) {
+            // Previene la acción por defecto del formulario (recargar la página)
+            e.preventDefault();
+
+            // Obtiene los datos del formulario
+            var formData = $(this).serialize();
+            formData += '&_token=' + '{{ csrf_token() }}';
+            // Envía los datos al servidor con AJAX
+            $.ajax({
+                url: "{{ route('admin.zonas.store') }}",  // Reemplaza esto con la URL de tu servidor
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    // Si la solicitud fue exitosa...
+
+                    // Cierra el modal
+                    $('#agregarZona-modal').modal('hide');
+
+                    // Actualiza el formulario principal con los nuevos datos
+                    // Esto dependerá de cómo esté estructurado tu formulario y qué datos quieras actualizar
+                    $('#zona').append(new Option(response.zona, response.zona, true, true));
+                    $('#tZona').append(new Option(response.tipo, response.tipo, true, true));
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Si hubo un error...
+
+                    // Muestra un mensaje de error
+                    console.error('Error: ' + textStatus + ': ' + errorThrown);
+                }
+            });
+        });
+
     </script>
 
 @stop
