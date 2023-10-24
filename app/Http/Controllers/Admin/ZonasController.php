@@ -31,16 +31,27 @@ class ZonasController extends Controller
     {
         //dd($request->all());
 
+        if (!empty($request->nuevoTipoZona)) {
+            $tipo = $request->nuevoTipoZona;
+        } else {
+            $tipo = $request->tipoZona;
+        }
+
+        $validarDatos = $request->validate([
+            'nombreZona' => 'required|unique:Zonas,zona',
+            'nuevoTipoZona' => 'unique:Zonas,tipo'
+        ]);
+
         Zona::create([
             'zona' => $request->nombreZona,
             'status' => '1',
             'distrito_id' => $request->distritoZona_id,
-            'tipo' => $request->tipoZona
+            'tipo' => $tipo
         ]);
 
         return response()->json([
             'zona' => $request->nombreZona,
-            'tipo' => $request->tipoZona]);
+            'tipo' => $tipo]);
     }
 
     /**

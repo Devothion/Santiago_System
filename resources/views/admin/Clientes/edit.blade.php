@@ -127,6 +127,7 @@
                             <label for="distrito">Distrito</label>
                             <select class="form-control" id="distrito" name="distrito">
                                 <option value=""{{ old('sucursal', $cliente->distrito) == '' ? ' selected' : '' }}>Selecciona</option>
+                                <option value="">Selecciona</option>
                                 @foreach ($distritos as $distrito)
                                     <option value="{{ $distrito->id }}"{{ old('sucursal', $cliente->distrito) == $distrito->id ? ' selected' : '' }}>{{ $distrito->distrito }}</option>
                                 @endforeach
@@ -387,43 +388,41 @@
                     options = options + `<option value='${element.id}'>${element.provincia}</option>`
                 })
                 provincia.innerHTML = options
-                provincia.addEventListener('change', async (e)=> {
-                    const response = await fetch(`/api/provincia/${e.target.value}/distritos`)
-                    const data = await response.json();
-                    let options = '';
-                    data.forEach(element => {
-                        options = options + `<option value='${element.id}'>${element.distrito}</option>`
-                    })
-                    distrito.innerHTML = options
-                    
-                    distrito.addEventListener('change', async (e)=> {
-                        const response = await fetch(`/api/distrito/${e.target.value}/zonas`)
-                        const data = await response.json();
-                        let options_z = '';
-                        let options_tz = '';
-                        data.forEach(element_z => {
-                            options_z = options_z + `<option value='${element_z.id}'>${element_z.zona}</option>`
-                        })
-                        data.forEach(element_tz => {
-                            options_tz = options_tz + `<option value='${element_tz.id}'>${element_tz.tipo}</option>`
-                        })
-                        zona.innerHTML = options_z
-                        tZona.innerHTML = options_tz
-                    })
-
-                    // Dispara el evento change para la distrito
-                    var event_d = new Event('change');
-                    distrito.dispatchEvent(event_d);
-
-                })
-
-                // Dispara el evento change para la provincia
-                var event_p = new Event('change');
-                provincia.dispatchEvent(event_p);
-    
-                
             }
         })
+
+        provincia.addEventListener('change', async (e)=> {
+            const response = await fetch(`/api/provincia/${e.target.value}/distritos`)
+            const data = await response.json();
+            let options = '';
+            data.forEach(element => {
+                options = options + `<option value='${element.id}'>${element.distrito}</option>`
+            })
+            distrito.innerHTML = options
+        })
+
+        // Dispara el evento change para la provincia
+        var event_p = new Event('change');
+        provincia.dispatchEvent(event_p);
+
+        distrito.addEventListener('change', async (e)=> {
+            const response = await fetch(`/api/distrito/${e.target.value}/zonas`)
+            const data = await response.json();
+            let options_z = '';
+            let options_tz = '';
+            data.forEach(element_z => {
+                options_z = options_z + `<option value='${element_z.id}'>${element_z.zona}</option>`
+            })
+            data.forEach(element_tz => {
+                options_tz = options_tz + `<option value='${element_tz.id}'>${element_tz.tipo}</option>`
+            })
+            zona.innerHTML = options_z
+            tZona.innerHTML = options_tz
+        })
+
+        // Dispara el evento change para la distrito
+        var event_d = new Event('change');
+        distrito.dispatchEvent(event_d);
 
         const defaultFile = 'https://th.bing.com/th/id/OIP.SZEx8juvNTfQweNxIMGUxgHaHa?pid=ImgDet&rs=1';
 

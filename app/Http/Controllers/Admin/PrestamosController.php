@@ -66,7 +66,7 @@ class PrestamosController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.prestamos.show');
+        return view('admin.Prestamos.show');
     }
 
     /**
@@ -74,7 +74,7 @@ class PrestamosController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.prestamos.edit');
+        return view('admin.Prestamos.edit');
     }
 
     /**

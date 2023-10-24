@@ -88,16 +88,41 @@ class SolicitudesController extends Controller
         $clientes = Cliente::all();
         $asesores = Asesor::all();
         $solicitud = Solicitud::find($id);
+        $cuentas = Cuenta::all();
 
-        return view('admin.Solicitudes.edit', compact('solicitud', 'clientes', 'asesores'));
+        return view('admin.Solicitudes.edit', compact('solicitud', 'clientes', 'asesores', 'cuentas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Solicitud $solicitude)
     {
-        //
+
+        //dd($request->all());
+
+        $cliente = Cliente::find($request->cliente);
+        $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
+
+        $solicitude->update([
+            'id_cli' => $request->cliente,
+            'estado' => $request->estado,
+            'cliente' => $nombre,
+            'tip_sol' => $request->tSolicitud,
+            'cta_asig' => $request->cuentaAsignada,
+            'fech_ate' => $request->fechaAtencion,
+            'plazo' => $request->plazo,
+            'mon_sol' => $request->montoSolicitado,
+            'tas_int' => $request->tasaInteres,
+            'cap_int' => $request->capitaInteres,
+            'tas_mor' => $request->tasaMora,
+            'fre_pag' => $request->frecuenciaPago,
+            'fpri_pag' => $request->fechaPrimerPago,
+            'ana_cre' => $request->asesorCredito,
+            'observ' => $request->observaciones
+        ]);
+
+        return redirect()->route('admin.solicitudes.index');
     }
 
     /**

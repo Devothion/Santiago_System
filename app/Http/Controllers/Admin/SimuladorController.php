@@ -21,7 +21,7 @@ class SimuladorController extends Controller
         $jccs = JCC::all();
         $asesores = Asesor::all();
 
-        return view('admin.simulador.index', compact('entBancarias', 'analistas', 'jccs', 'asesores'));
+        return view('admin.Simulador.index', compact('entBancarias', 'analistas', 'jccs', 'asesores'));
     }
 
     /**

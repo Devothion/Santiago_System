@@ -22,6 +22,8 @@ Route::resource('/prestamos', PrestamosController::class)->names('admin.prestamo
 Route::resource('/clientes', ClientesController::class)->names('admin.clientes');
 Route::resource('/zona', ZonasController::class)->names('admin.zonas');
 Route::post('/validar-dni', 'App\Http\Controllers\Admin\ValidacionesController@validarDNI')->name('validar-dni');
+Route::post('/validar-zona', 'App\Http\Controllers\Admin\ValidacionesController@validarZona')->name('validar-zona');
+Route::post('/validar-tipozona', 'App\Http\Controllers\Admin\ValidacionesController@validarTipoZona')->name('validar-tipozona');
 
 //Simulador
 Route::resource('/simulador', SimuladorController::class)->names('admin.simulador');

@@ -345,12 +345,40 @@
                                 <div class="form-group">
                                     <label for="nombreZona">Ingrese el nombre de la zona</label>
                                     <input type="text" class="form-control" name="nombreZona" id="nombreZona">
+                                    <div class="valid-feedback">
+                                        Zona valida!
+                                    </div>
+                                    <div class="invalid-feedback errorZona">
+                                        Looks good!
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="tipoZona">Tipo de zona</label>
-                                    <input type="text" class="form-control" name="tipoZona" id="tipoZona">
+                                    <div class="input-group">
+                                        <select class="custom-select" id="tipoZona" name="tipoZona">
+                                            <option value="" selected>Selecciona</option>
+                                            @foreach ($zonas as $zona)
+                                                <option value="{{$zona->tipo}}">{{$zona->tipo}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-info" id="btnNuevoTipoZona"><i class='fa-solid fa-circle-plus'></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="nuevoTipoZona-section">
+                                <div class="form-group">
+                                    <label for="nuevoTipoZona">Ingrese el tipo de zona</label>
+                                    <input type="text" class="form-control" name="nuevoTipoZona" id="nuevoTipoZona">
+                                    <div class="valid-feedback">
+                                        Tipo de zona valida!
+                                    </div>
+                                    <div class="invalid-feedback errorTipoZona">
+                                        Looks good!
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -521,6 +549,42 @@
             });
         });
 
+        // Obtén el elemento input y el elemento de feedback una vez en lugar de varias veces
+        var nombreZona = $('#nombreZona');
+        var errorZona = $('.errorZona');
+
+        nombreZona.on('input', function() {
+            var zona = $(this).val();
+            var distrito_id = $('#distrito').val();
+
+            $.ajax({
+                url: "{{ route('validar-zona') }}",
+                method: 'post',
+                data: {
+                    zona: zona,
+                    distrito_id: distrito_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Usa jQuery para agregar la clase y cambiar el mensaje de feedback
+                    nombreZona.removeClass('is-invalid');
+                    nombreZona.addClass('is-valid');
+                    //errorZona.text('DNI Valido!');
+                    console.log(response.mensaje);
+                },
+                error: function(response) {
+                    if (response.responseJSON.errors && response.responseJSON.errors.zona) {
+                        // Usa jQuery para remover la clase y cambiar el mensaje de feedback
+                        nombreZona.removeClass('is-valid');
+                        nombreZona.addClass('is-invalid');
+                        errorZona.text(response.responseJSON.errors.zona[0]);
+                        console.log(response.responseJSON.errors.zona[0]);
+                    }
+                },
+            });
+        });
+
+
         $('#agregarZona-form').on('submit', function(e) {
             // Previene la acción por defecto del formulario (recargar la página)
             e.preventDefault();
@@ -540,9 +604,20 @@
                     $('#agregarZona-modal').modal('hide');
 
                     // Actualiza el formulario principal con los nuevos datos
-                    // Esto dependerá de cómo esté estructurado tu formulario y qué datos quieras actualizar
                     $('#zona').append(new Option(response.zona, response.zona, true, true));
                     $('#tZona').append(new Option(response.tipo, response.tipo, true, true));
+
+                    // Limpia el formulario
+                    $('#agregarZona-form')[0].reset();
+                    $('#nombreZona').removeClass('is-valid');
+                    $('#nombreZona').removeClass('is-invalid');
+                    $('#nuevoTipoZona').removeClass('is-valid');
+                    $('#nuevoTipoZona').removeClass('is-invalid');
+                    var valorInputDistrito = $('#distrito').val();
+                    $('#distritoZona_id').val(valorInputDistrito);
+                    var nombreInputDitrito = $('#distrito option:selected').text();
+                    $('#distritoZona').val(nombreInputDitrito);
+                    
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     // Si hubo un error...
@@ -550,6 +625,49 @@
                     // Muestra un mensaje de error
                     console.error('Error: ' + textStatus + ': ' + errorThrown);
                 }
+            });
+        });
+
+        $('#nuevoTipoZona-section').hide();
+
+        $('#btnNuevoTipoZona').click(function () {
+            $('#nuevoTipoZona-section').toggle();
+        })
+
+        // Obtén el elemento input y el elemento de feedback una vez en lugar de varias veces
+        var nuevoTipoZona = $('#nuevoTipoZona');
+        var errorTipoZona = $('.errorTipoZona');
+
+        nuevoTipoZona.on('input', function() {
+            var tipo = $(this).val();
+
+            $.ajax({
+                url: "{{ route('validar-tipozona') }}",
+                method: 'post',
+                data: {
+                    tipo: tipo,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Usa jQuery para agregar la clase y cambiar el mensaje de feedback
+                    nuevoTipoZona.removeClass('is-invalid');
+                    nuevoTipoZona.addClass('is-valid');
+                    if ($('#nuevoTipoZona').val() === "") {
+                        $('#nuevoTipoZona').removeClass('is-valid');
+                    }
+                    //errorTipoZona.text('DNI Valido!');
+                    
+                    console.log(response.mensaje);
+                },
+                error: function(response) {
+                    if (response.responseJSON.errors && response.responseJSON.errors.tipo) {
+                        // Usa jQuery para remover la clase y cambiar el mensaje de feedback
+                        nuevoTipoZona.removeClass('is-valid');
+                        nuevoTipoZona.addClass('is-invalid');
+                        errorTipoZona.text(response.responseJSON.errors.tipo[0]);
+                        console.log(response.responseJSON.errors.tipo[0]);
+                    }
+                },
             });
         });
 

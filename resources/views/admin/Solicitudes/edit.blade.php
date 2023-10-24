@@ -12,8 +12,9 @@
     <!-- FALTAN ARREGLAR LOS ID's Y LOS NAME's -->
     <!-- FALTAN ARREGLAR LA ETIQUETA FORM ------->
     <!-- ------------------------------------- -->
-    <form action="{{ route('admin.solicitudes.store') }}" method="POST">
+    <form action="{{ route('admin.solicitudes.update', ['solicitude' => $solicitud->id]) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="card">
             <div class="card-body">
                 <div class="alert alert-info alert-dismissible fade show absolute-right" role="alert">

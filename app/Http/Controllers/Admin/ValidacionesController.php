@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ValidacionesController extends Controller
 {
@@ -14,5 +15,26 @@ class ValidacionesController extends Controller
         ]);
 
         return response()->json(['mensaje' => 'DNI válido']);
+    }
+    public function validarZona(Request $request)
+    {
+        $request->validate([
+            'zona' => [
+                'required',
+                Rule::unique('zonas')->where(function ($query) use ($request) {
+                    return $query->where('distrito_id', $request->distrito_id);
+                }),
+            ],
+        ]);
+
+        return response()->json(['mensaje' => 'Zona válida']);
+    }
+    public function validarTipoZona(Request $request)
+    {
+        $request->validate([
+            'tipo' => 'unique:Zonas',
+        ]);
+
+        return response()->json(['mensaje' => 'Tipo de zona válida']);
     }
 }

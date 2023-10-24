@@ -22,7 +22,7 @@
                         <dd class="col-sm-6">{{$nombre}}</dd>
                         <dt class="col-sm-6">Nro de contrato:</dt>
                         <dd class="col-sm-6">2023-xxxx (*)</dd>
-                        <dt class="col-sm-6">Prestamo (Principal):</dt>
+                        <dt class="col-sm-6">Saldo Capital:</dt>
                         <dd class="col-sm-6">{{"S/. ".$calculo['prestamo']}}</dd>
                         <dt class="col-sm-6">Tipo de prestamo:</dt>
                         <dd class="col-sm-6">{{$tipo}}</dd>
@@ -40,19 +40,15 @@
                         <dd class="col-sm-8">{{$calculo['tasa_interes_semanal']." %"}}</dd>
                         <dt class="col-sm-4">Nro de cuotas:</dt>
                         <dd class="col-sm-8">{{$calculo['semanas']}}</dd>
-                        <dt class="col-sm-4">Valor cuota:</dt>
-                        <dd class="col-sm-8">S/. 189.17 (*)</dd>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="row">
-                        <dt class="col-sm-7">Tasa de interes 18 semanas:</dt>
-                        <dd class="col-sm-5">{{$tasa_interes. " %"}}</dd>
-                        {{-- <dt class="col-sm-7">Tasa de interes mensual:</dt>
-                        <dd class="col-sm-5"></dd> --}}
-                        <dt class="col-sm-7">Tasa de interes semanal:</dt>
-                        <dd class="col-sm-5">{{$calculo['tasa_interes_semanal']." %"}}</dd>
-                        <dt class="col-sm-7">Valor cuota correcto:</dt>
+                        {{-- <dt class="col-sm-7">Tasa de interes 18 semanas:</dt>
+                        <dd class="col-sm-5">{{$tasa_interes. " %"}}</dd> --}}
+                        {{-- <dt class="col-sm-7">Tasa de interes semanal:</dt>
+                        <dd class="col-sm-5">{{$calculo['tasa_interes_semanal']." %"}}</dd> --}}
+                        <dt class="col-sm-7">Valor cuota:</dt>
                         <dd class="col-sm-5">{{"S/. ".$calculo['valor_cuota_correcto']}}</dd>
                         <dt class="col-sm-7">Saldo principal:</dt>
                         <dd class="col-sm-5">S/. 0.00 (*)</dd>

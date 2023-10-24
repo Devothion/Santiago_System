@@ -22,7 +22,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        return view('admin.clientes.index');
+        return view('admin.Clientes.index');
     }
 
     /**
@@ -37,8 +37,9 @@ class ClientesController extends Controller
         $departamentos = Departamento::all();
         $entBancarias = EntidadBancaria::all();
         $tipoCuentas = TipoCuenta::all();
+        $zonas = Zona::select('tipo')->distinct()->get();
 
-        return view('admin.clientes.create', compact('sucursales', 'jccs', 'asesores', 'departamentos', 'entBancarias', 'tipoCuentas'));
+        return view('admin.Clientes.create', compact('sucursales', 'jccs', 'asesores', 'departamentos', 'entBancarias', 'tipoCuentas', 'zonas'));
     }
 
     /**
@@ -48,9 +49,9 @@ class ClientesController extends Controller
     {
         //dd($request->all());
 
-        $request->validate([
-            'documento' => 'required|unique:Cliente',
-        ]);
+        // $request->validate([
+        //     'documento' => 'required|unique:cliente',
+        // ]);
 
         // Valida que el archivo haya sido cargado
         if ($request->hasFile('file')) {
@@ -103,7 +104,7 @@ class ClientesController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.clientes.show');
+        return view('admin.Clientes.show');
     }
 
     /**
@@ -123,7 +124,7 @@ class ClientesController extends Controller
         $tipoCuentas = TipoCuenta::all();
 
         $cliente = Cliente::find($id);
-        return view('admin.clientes.edit', compact('cliente', 'sucursales', 'jccs', 'asesores', 'departamentos', 'provincias', 'distritos', 'zonas', 'entBancarias', 'tipoCuentas'));
+        return view('admin.Clientes.edit', compact('cliente', 'sucursales', 'jccs', 'asesores', 'departamentos', 'provincias', 'distritos', 'zonas', 'entBancarias', 'tipoCuentas'));
     }
 
     /**
