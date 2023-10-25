@@ -10,9 +10,9 @@ class Solicitud extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_cli',
+        'cliente_id',
         'estado',
-        'cliente',
+        'nombre_cliente',
         'tip_sol',
         'cta_asig',
         'fech_ate',
@@ -26,5 +26,10 @@ class Solicitud extends Model
         'ana_cre',
         'observ'
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 
 }

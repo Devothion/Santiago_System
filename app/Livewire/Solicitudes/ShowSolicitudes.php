@@ -20,10 +20,29 @@ class ShowSolicitudes extends Component
         $cant_finalizado = Solicitud::where('estado', 'Finalizado')->count();
 
         $solicitudes = Solicitud::where('id', 'like', '%'. $this->search . '%')
-                           ->orWhere('cliente', 'like', '%'. $this->search . '%')
-                           ->orderBy($this->sort, $this->direction)
-                           ->get();
+                                ->orWhere('nombre_cliente', 'like', '%'. $this->search . '%')
+                                ->orWhere('estado', 'like', '%'. $this->search . '%')
+                                ->orWhereHas('cliente', function ($query) {
+                                    $query->where('documento', 'like', '%'. $this->search . '%');
+                                })
+                                ->with('cliente')
+                                ->orderBy($this->sort, $this->direction)
+                                ->paginate(10);
 
         return view('livewire.solicitudes.show-solicitudes', compact('solicitudes', 'cant_aprobado', 'cant_analisis', 'cant_espera', 'cant_finalizado'));
+    }
+
+    public function order($sort)
+    {
+        if ($this->sort == $sort) {
+            if ($this->direction == 'desc') {
+                $this->direction = 'asc';
+            } else {
+                $this->direction = 'desc';
+            }
+        } else {
+            $this->sort = $sort;
+            $this->direction = 'desc';
+        }
     }
 }

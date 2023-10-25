@@ -42,4 +42,9 @@ class Cliente extends Model
         'observ'
     ];
 
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
+
 }

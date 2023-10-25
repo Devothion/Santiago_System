@@ -9,6 +9,7 @@ use App\Models\Cuenta;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class SolicitudesController extends Controller
 {
@@ -40,16 +41,17 @@ class SolicitudesController extends Controller
         $calculo = realizar_calculo($request->montoSolicitado, $request->plazo);
 
         //dd($calculo);
+        //dd($request->all());
         $cliente = Cliente::find($request->cliente);
         $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
         $tipo = $request->frecuenciaPago;
         $tasa_interes = $request->tasaInteres;
         $fecha_pago = $request->fechaPrimerPago;
 
-        Solicitud::create([
-            'id_cli' => $request->cliente,
+        $solicitud = Solicitud::create([
+            'cliente_id' => $request->cliente,
             'estado' => $request->estado,
-            'cliente' => $nombre,
+            'nombre_cliente' => $nombre,
             'tip_sol' => $request->tSolicitud,
             'cta_asig' => $request->cuentaAsignada,
             'fech_ate' => $request->fechaAtencion,
@@ -63,9 +65,12 @@ class SolicitudesController extends Controller
             'ana_cre' => $request->asesorCredito,
             'observ' => $request->observaciones
         ]);
+
+        $id = $solicitud->id;
+        $year = Carbon::now()->year;
         
         //return redirect()->route('admin.solicitudes.index');
-        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago'));
+        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'year'));
     }
 
     /**
@@ -105,7 +110,7 @@ class SolicitudesController extends Controller
         $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
 
         $solicitude->update([
-            'id_cli' => $request->cliente,
+            'cliente_id' => $request->cliente,
             'estado' => $request->estado,
             'cliente' => $nombre,
             'tip_sol' => $request->tSolicitud,

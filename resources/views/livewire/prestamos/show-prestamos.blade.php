@@ -18,7 +18,7 @@
                 <a href="#" class="btn btn-block btn-dark w-25 m-2"><i class="fa-solid fa-file-pen mr-1"></i>Actualizar Status</a>
             </div>
             <div class="d-flex">
-                <input type="text" wire:model.live="search" class="form-control" placeholder="Buscar por DNI, Apellidos o Estado">
+                <input type="text" wire:model.live="search" class="form-control" placeholder="Buscar por DNI o Apellidos">
             </div>
         </div>
         <div class="card-body">
@@ -38,13 +38,24 @@
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
                             @endif</th>
-                            <th style="cursor: pointer;" wire:click="order('cliente')">Nombres
+                            <th style="cursor: pointer;" wire:click="order('nombre_cliente')">Nombres
                             <!-- Sort -->
-                            @if ($sort == 'cliente')
+                            @if ($sort == 'nombre_cliente')
                                 @if ($direction == 'asc')
                                     <i class="fa-solid fa-arrow-down-a-z float-right mt-1"></i>
                                 @else
                                     <i class="fa-solid fa-arrow-down-z-a float-right mt-1"></i>
+                                @endif
+                            @else
+                                <i class="fa-solid fa-sort float-right mt-1"></i>
+                            @endif</th>
+                            <th style="cursor: pointer;">DNI
+                            <!-- Sort -->
+                            @if ($sort == 'nombre_cliente')
+                                @if ($direction == 'asc')
+                                    <i class="fa-solid fa-arrow-down-1-9 float-right mt-1"></i>
+                                @else
+                                    <i class="fa-solid fa-arrow-down-9-1 float-right mt-1"></i>
                                 @endif
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
@@ -79,7 +90,8 @@
                         @foreach ($prestamos as $prestamo)
                         <tr>
                             <td>{{$prestamo->id}}</td>
-                            <td>{{$prestamo->cliente}}</td>
+                            <td>{{$prestamo->nombre_cliente}}</td>
+                            <td>{{$prestamo->cliente->documento}}</td>
                             <td>S/. {{$prestamo->mon_sol}}</td>
                             <td>
                                 @if ($prestamo->estado == 'Aprobado')
@@ -110,11 +122,13 @@
                                 </div>
                             </td>
                         </tr>
+                        
                         @endforeach
-                        <!-- -------------------------------------------------------------------------------------------------------- -->
-                        <!-- -------------------------------------------------------------------------------------------------------- -->
                     </tbody>
                 </table>
+                <div class="float-right mt-3">
+                    {{$prestamos->links()}}
+                </div>
             @else
                 <div class="text-center">
                     <p class="font-weight-bold text-muted">No hemos encontrado algun registro coincidente</p>

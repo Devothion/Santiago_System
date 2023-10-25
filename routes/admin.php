@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SimuladorController;
 use App\Http\Controllers\Admin\SucursalesController;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\CuentasController;
+use App\Http\Controllers\Admin\FondoProvicionalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SolicitudesController;
 use App\Http\Controllers\Admin\ValidacionesController;
@@ -30,6 +31,7 @@ Route::resource('/simulador', SimuladorController::class)->names('admin.simulado
 
 //Solicitudes
 Route::resource('/solicitudes', SolicitudesController::class)->names('admin.solicitudes');
+Route::resource('/solicitudes/fondo-provicional', FondoProvicionalController::class)->names('admin.fondosprovicionales');
 
 //Usuarios
 Route::resource('/usuarios', UsuariosController::class)->middleware('can:admin.usuarios.index')->names('admin.usuarios');

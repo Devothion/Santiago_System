@@ -34,13 +34,24 @@
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
                             @endif</th>
-                            <th style="cursor: pointer;" wire:click="order('cliente')">Nombres
+                            <th style="cursor: pointer;" wire:click="order('nombre_cliente')">Nombres
                             <!-- Sort -->
-                            @if ($sort == 'cliente')
+                            @if ($sort == 'nombre_cliente')
                                 @if ($direction == 'asc')
                                     <i class="fa-solid fa-arrow-down-a-z float-right mt-1"></i>
                                 @else
                                     <i class="fa-solid fa-arrow-down-z-a float-right mt-1"></i>
+                                @endif
+                            @else
+                                <i class="fa-solid fa-sort float-right mt-1"></i>
+                            @endif</th>
+                            <th style="cursor: pointer;" wire:click="order('')">DNI
+                            <!-- Sort -->
+                            @if ($sort == '')
+                                @if ($direction == 'asc')
+                                    <i class="fa-solid fa-arrow-down-1-9 float-right mt-1"></i>
+                                @else
+                                    <i class="fa-solid fa-arrow-down-9-1 float-right mt-1"></i>
                                 @endif
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
@@ -75,7 +86,8 @@
                         @foreach ($solicitudes as $solicitud)
                         <tr>
                             <td>{{$solicitud->id}}</td>
-                            <td>{{$solicitud->cliente}}</td>
+                            <td>{{$solicitud->nombre_cliente}}</td>
+                            <td>{{$solicitud->cliente->documento}}</td>
                             <td>S/. {{$solicitud->mon_sol}}</td>
                             <td>
                                 @if ($solicitud->estado == 'Aprobado')
@@ -99,16 +111,17 @@
                                         <a href="{{ route('admin.solicitudes.edit', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="far fa-pen-to-square mr-1"></i>Editar</a>
                                         <a href="{{ route('admin.solicitudes.show', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Ver Cronograma</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-trash mr-1"></i>Eliminar</a>
-                                        <a href="#" class="dropdown-item"><i class="fas fa-money-bills mr-1"></i>Fondo Provicional</a>
+                                        <a href="{{ route('admin.fondosprovicionales.edit', ['fondo_provicional' => $solicitud->id]) }}" class="dropdown-item"><i class="fas fa-money-bills mr-1"></i>Fondo Provicional</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         @endforeach
-                        <!-- -------------------------------------------------------------------------------------------------------- -->
-                        <!-- -------------------------------------------------------------------------------------------------------- -->
                     </tbody>
                 </table>
+                <div class="float-right mt-3">
+                    {{$solicitudes->links()}}
+                </div>
             @else
                 <div class="text-center">
                     <p class="font-weight-bold text-muted">No hemos encontrado algun registro coincidente</p>

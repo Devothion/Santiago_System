@@ -17,7 +17,7 @@ class ShowClientes extends Component
         $clientes = Cliente::where('documento', 'like', '%'. $this->search .'%')
                           ->orWhere('nombres', 'like', '%'. $this->search .'%')
                           ->orderBy($this->sort, $this->direction)                      
-                          ->get();
+                          ->paginate(10);
 
         return view('livewire.clientes.show-clientes', compact('clientes'));
     }

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('id_cli');
+            $table->foreignId('cliente_id')->references('id')->on('clientes');
             $table->string('estado');
-            $table->string('cliente');
+            $table->string('nombre_cliente');
             $table->string('tip_sol');
             $table->string('cta_asig');
             $table->date('fech_ate');

@@ -14,7 +14,16 @@ class ShowPrestamos extends Component
 
     public function render()
     {
-        $prestamos = Solicitud::where('estado', 'Aprobado')->get();
+        $prestamos = Solicitud::where('estado', 'Aprobado')
+                                ->where(function ($query) {
+                                    $query->where('nombre_cliente', 'like', '%'. $this->search . '%')
+                                        ->orWhereHas('cliente', function ($query) {
+                                            $query->where('documento', 'like', '%'. $this->search . '%');
+                                        });
+                                })
+                                ->with('cliente')
+                                ->orderBy($this->sort, $this->direction)            
+                                ->paginate(10);
         return view('livewire.prestamos.show-prestamos', compact('prestamos'));
     }
 

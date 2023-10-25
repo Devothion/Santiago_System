@@ -21,7 +21,7 @@
                         <dt class="col-sm-6">Nombres de cliente:</dt>
                         <dd class="col-sm-6">{{$nombre}}</dd>
                         <dt class="col-sm-6">Nro de contrato:</dt>
-                        <dd class="col-sm-6">2023-xxxx (*)</dd>
+                        <dd class="col-sm-6">{{$year}}-{{$id}}</dd>
                         <dt class="col-sm-6">Saldo Capital:</dt>
                         <dd class="col-sm-6">{{"S/. ".$calculo['prestamo']}}</dd>
                         <dt class="col-sm-6">Tipo de prestamo:</dt>

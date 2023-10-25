@@ -89,8 +89,10 @@
                         </tr>
                         @endforeach
                     </tbody>
-
                 </table>
+                <div class="float-right mt-3">
+                    {{$clientes->links()}}
+                </div>
             @else
                 <div class="text-center">
                     <p class="font-weight-bold text-muted">No hemos encontrado algun registro coincidente</p>
