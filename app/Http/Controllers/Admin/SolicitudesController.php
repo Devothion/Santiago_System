@@ -47,6 +47,7 @@ class SolicitudesController extends Controller
         $tipo = $request->frecuenciaPago;
         $tasa_interes = $request->tasaInteres;
         $fecha_pago = $request->fechaPrimerPago;
+        $capitalInteres = $request->capitaInteres;
 
         $solicitud = Solicitud::create([
             'cliente_id' => $request->cliente,
@@ -70,7 +71,7 @@ class SolicitudesController extends Controller
         $year = Carbon::now()->year;
         
         //return redirect()->route('admin.solicitudes.index');
-        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'year'));
+        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'year', 'capitalInteres'));
     }
 
     /**

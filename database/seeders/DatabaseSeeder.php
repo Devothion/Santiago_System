@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\JCC::factory(5)->create();
         \App\Models\Asesor::factory(5)->create();
         \App\Models\Analista::factory(5)->create();
+        \App\Models\TipoCuenta::factory()->count(2)->create();
 
         $this->call(RoleSeeder::class);
 

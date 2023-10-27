@@ -52,6 +52,8 @@
                         <dd class="col-sm-5">{{"S/. ".$calculo['valor_cuota_correcto']}}</dd>
                         <dt class="col-sm-7">Saldo principal:</dt>
                         <dd class="col-sm-5">S/. 0.00 (*)</dd>
+                        <dt class="col-sm-7">Capital+Interes</dt>
+                        <dd class="col-sm-5">{{"S/. "$capitalInteres}}</dd>
                     </div>
                 </div>
             </dl>
@@ -73,8 +75,8 @@
                     <tr>
                         <td>{{$fecha_pago->format('d-m-Y')}}</td>
                         <td>1</td>
-                        <td>{{"S/. ".$calculo['valor_cuota_correcto']}}</td>
-                        <td>{{"S/. ".$calculo['pago_capital']}}</td>
+                        <td class="pago_cuota">{{"S/. ".$calculo['valor_cuota_correcto']}}</td>
+                        <td class="pago_capital">{{"S/. ".$calculo['pago_capital']}}</td>
                         <td>{{"S/. ".$calculo['interes']}}</td>
                         <td>{{"S/. ".$calculo['comision']}}</td>
                         <td>{{"S/. ".$calculo['igv']}}</td>

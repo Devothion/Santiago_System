@@ -56,9 +56,11 @@ class ClientesController extends Controller
         // Valida que el archivo haya sido cargado
         if ($request->hasFile('file')) {
             // Almacena la imagen en el disco 'public' y obtén su nombre
-            $nombreImagen = $request->file('file')->store('img/cientes_img', 'public');
-        } else {
+            $nombreImagen = $request->file('file')->store('img/clientes_img', 'public');
+        } elseif ($request->file) {
             $nombreImagen = $request->file;
+        } else {
+            $nombreImagen = "img/clientes_img/userDefaultPhoto.jpeg";
         }
 
         // Resto del código del método store...

@@ -183,9 +183,9 @@
                         <div class="form-group">
                             <label for="tCuenta">Tipo de Cuenta</label>
                             <select class="form-control" id="tCuenta" name="tCuenta">
-                                <option value=""{{ old('sucursal', $cliente->tipoCuenta) == '' ? ' selected' : '' }}>Selecciona</option>
+                                <option value=""{{ old('tCuenta', $cliente->tipoCuenta) == '' ? ' selected' : '' }}>Selecciona</option>
                                 @foreach ($tipoCuentas as $tipoCuenta)
-                                    <option value="{{ $tipoCuenta->id }}"{{ old('sucursal', $cliente->tipoCuenta) == $tipoCuenta->id ? ' selected' : '' }}>{{ $tipoCuenta->tipo }}</option>
+                                    <option value="{{ $tipoCuenta->id }}"{{ old('tCuenta', $cliente->tipoCuenta) == $tipoCuenta->id ? ' selected' : '' }}>{{ $tipoCuenta->tipo }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -339,16 +339,16 @@
 
     <script>
         // TODAVIA FALTAN LAS FUNCIONES PARA PREVISUALIZAR LAS FOTOS //
-        $('#tCuenta').change(function() {
-            var x = document.getElementById('cuenta-terceros-section')
-            var y = document.getElementById('finanzas-section')
+        function mostrarTipoCuenta() {
+            var x = document.getElementById('cuenta-terceros-section');
+            var y = document.getElementById('finanzas-section');
             let estado = $('#tCuenta').val();
             console.log('Estas seleccionando: '+estado);
             switch (estado) {
                 case '1':
                     x.setAttribute('hidden', true);
                     y.removeAttribute('hidden');
-                    break
+                    break;
                 case '2':
                     x.removeAttribute('hidden');
                     y.setAttribute('hidden', true);
@@ -358,8 +358,9 @@
                     y.setAttribute('hidden', true);
                     break;
             }
-        });
-        $('#aval').change(function() {
+        }
+
+        function mostrarAval() {
             var z = document.getElementById('aval-section');
             let estado = $('#aval').val();
             if (estado == 1) {
@@ -367,8 +368,22 @@
             } else {
                 z.setAttribute('hidden', true);
             }
-        });
+        }
 
+        $(document).ready(function() {
+            // Llamar a la función al cargar la página
+            mostrarTipoCuenta();
+            mostrarAval();
+
+            $('#tCuenta').change(function() {
+                // Llamar a la función cuando el valor del input cambia
+                mostrarTipoCuenta();
+            });
+            $('#aval').change(function() {
+                mostrarAval();
+            }); 
+        });
+        
         const departamento = document.getElementById('departamento')
         const provincia = document.getElementById('provincia')
         const zona = document.getElementById('zona')

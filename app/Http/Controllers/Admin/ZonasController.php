@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Zona;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class ZonasController extends Controller
 {
     /**
@@ -38,8 +38,13 @@ class ZonasController extends Controller
         }
 
         $validarDatos = $request->validate([
-            'nombreZona' => 'required|unique:Zonas,zona',
-            'nuevoTipoZona' => 'unique:Zonas,tipo'
+            'nombreZona' => [
+                'required',
+                Rule::unique('zonas', 'zona')->where(function ($query) use ($request) {
+                    return $query->where('distrito_id', $request->distritoZona_id);
+                }),
+            ],
+            'nuevoTipoZona' => 'unique:zonas,tipo'
         ]);
 
         Zona::create([
