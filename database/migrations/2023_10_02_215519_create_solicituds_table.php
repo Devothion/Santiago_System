@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('cliente_id')->references('id')->on('clientes');
-            $table->string('estado');
             $table->string('nombre_cliente');
+            $table->string('estado');
             $table->string('tip_sol');
             $table->string('cta_asig');
             $table->date('fech_ate');

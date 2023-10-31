@@ -10,7 +10,7 @@ class Cuenta extends Model
     use HasFactory;
 
     protected $fillable = [
-        'banco_id',
+        'entidad_bancaria_id',
         'numero_cuenta',
         'codigo'
     ];

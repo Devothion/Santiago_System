@@ -19,7 +19,7 @@
                     <a href="#" class="btn btn-block btn-dark w-25 m-2"><i class="fa-solid fa-file-pen mr-1"></i>Actualizar Status</a>
                 </div>
                 <div class="d-flex">
-                    <input type="text" wire:keydown="reset_page" wire:model="search-prestamo" class="form-control" placeholder="Buscar por DNI, Apellidos o Estado">
+                    <input type="text" class="form-control" placeholder="Buscar por DNI, Apellidos o Estado">
                 </div>
             </div>
             <div class="card-body">

@@ -1,3 +1,6 @@
+@php
+use App\Models\Cuota;
+@endphp 
 @extends('adminlte::page')
 
 @section('title', 'Calculo de Solicitud')
@@ -53,7 +56,7 @@
                         <dt class="col-sm-7">Saldo principal:</dt>
                         <dd class="col-sm-5">S/. 0.00 (*)</dd>
                         <dt class="col-sm-7">Capital+Interes</dt>
-                        <dd class="col-sm-5">{{"S/. "$capitalInteres}}</dd>
+                        <dd class="col-sm-5">{{"S/. ".$capitalInteres}}</dd>
                     </div>
                 </div>
             </dl>
@@ -70,7 +73,7 @@
                 </thead>
                 <tbody class="text-center">
                     @php
-                        $fecha_pago = \Carbon\Carbon::parse($fecha_pago);;
+                        $fecha_pago = \Carbon\Carbon::parse($fecha_pago);
                     @endphp
                     <tr>
                         <td>{{$fecha_pago->format('d-m-Y')}}</td>
@@ -85,6 +88,20 @@
                     @php
                         $saldo_capital = $calculo['saldo_capital'];
                         $pago_capital = $calculo['pago_capital'];
+
+                        $pago = new Cuota;
+                        $pago->solicitud_id = $id;
+                        $pago->fecha = $fecha_pago;
+                        $pago->numero = 1;
+                        $pago->cuota = $calculo['valor_cuota_correcto'];
+                        $pago->pagoCapital = $pago_capital;
+                        $pago->interes = $calculo['interes'];
+                        $pago->comision = $calculo['comision'];
+                        $pago->igv = $calculo['igv'];
+                        $pago->saldoCapital = abs(round($saldo_capital, 2));
+                        $pago->statusPago = 0;
+                        $pago->save();
+
                     @endphp
                     @for($i = 2; $i <= $calculo['semanas']; $i++)
                         @php
@@ -96,6 +113,19 @@
                             $igv = round((round(($saldo_capital*$calculo['tasa_semanal_porcentaje'])/1.18, 2)+round(($saldo_capital*$calculo['com_porcentaje'])/1.18, 2))*0.18, 2);
                             $pago_capital = $cuota-$interes-$comision-$igv;
                             $saldo_capital = $saldo_capital - $pago_capital;
+
+                            $pago = new Cuota;
+                            $pago->solicitud_id = $id;
+                            $pago->fecha = $fecha_pago;
+                            $pago->numero = $i;
+                            $pago->cuota = $cuota;
+                            $pago->pagoCapital = $pago_capital;
+                            $pago->interes = $interes;
+                            $pago->comision = $comision;
+                            $pago->igv = $igv;
+                            $pago->saldoCapital = abs(round($saldo_capital, 2));
+                            $pago->statusPago = 0;
+                            $pago->save();
 
                         @endphp
                         <tr>

@@ -31,7 +31,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nCuenta">Numero de cuenta</label>
-                            <input type="number" class="form-control" name="nCuenta" id="nCuenta">
+                            <input type="number" class="form-control" name="nCuenta" id="nCuenta" max="16">
                         </div>
                     </div>
                     <div class="col-3">

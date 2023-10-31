@@ -129,7 +129,7 @@
                                 <option value=""{{ old('sucursal', $cliente->distrito) == '' ? ' selected' : '' }}>Selecciona</option>
                                 <option value="">Selecciona</option>
                                 @foreach ($distritos as $distrito)
-                                    <option value="{{ $distrito->id }}"{{ old('sucursal', $cliente->distrito) == $distrito->id ? ' selected' : '' }}>{{ $distrito->distrito }}</option>
+                                    <option value="{{ $distrito->id }}"{{ old('distrito', $cliente->distrito) == $distrito->id ? ' selected' : '' }}>{{ $distrito->distrito }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -331,7 +331,80 @@
             </div>
         </div>
     </div>
-    @livewire('clientes.zona.create-zona')
+    <div id="agregarZona-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="#" id="agregarZona-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ingresar nueva zona</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12" hidden>
+                                <div class="form-group">
+                                    <label for="distritoZona_id">Distrito ID</label>
+                                    <input type="text" class="form-control" name="distritoZona_id" id="distritoZona_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="distritoZona">Distrito</label>
+                                    <input type="text" class="form-control" name="distritoZona" id="distritoZona" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="nombreZona">Ingrese el nombre de la zona</label>
+                                    <input type="text" class="form-control" name="nombreZona" id="nombreZona">
+                                    <div class="valid-feedback">
+                                        Zona valida!
+                                    </div>
+                                    <div class="invalid-feedback errorZona">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="tipoZona">Tipo de zona</label>
+                                    <div class="input-group">
+                                        <select class="custom-select" id="tipoZona" name="tipoZona">
+                                            <option value="" selected>Selecciona</option>
+                                            @foreach ($zonas as $zona)
+                                                <option value="{{$zona->tipo}}">{{$zona->tipo}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-info" id="btnNuevoTipoZona"><i class='fa-solid fa-circle-plus'></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="nuevoTipoZona-section">
+                                <div class="form-group">
+                                    <label for="nuevoTipoZona">Ingrese el tipo de zona</label>
+                                    <input type="text" class="form-control" name="nuevoTipoZona" id="nuevoTipoZona">
+                                    <div class="valid-feedback">
+                                        Tipo de zona valida!
+                                    </div>
+                                    <div class="invalid-feedback errorTipoZona">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @stop
 
@@ -343,7 +416,6 @@
             var x = document.getElementById('cuenta-terceros-section');
             var y = document.getElementById('finanzas-section');
             let estado = $('#tCuenta').val();
-            console.log('Estas seleccionando: '+estado);
             switch (estado) {
                 case '1':
                     x.setAttribute('hidden', true);
@@ -386,6 +458,7 @@
         
         const departamento = document.getElementById('departamento')
         const provincia = document.getElementById('provincia')
+        const distrito = document.getElementById('distrito')
         const zona = document.getElementById('zona')
         const tZona = document.getElementById('tZona')
 
@@ -398,7 +471,10 @@
             } else {
                 const response = await fetch(`/api/departamento/${e.target.value}/provincias`)
                 const data = await response.json();
-                let options = '';
+                distrito.innerHTML = `<option value=''>Selecciona</option>`
+                zona.innerHTML = `<option value=''>Selecciona</option>`
+                tZona.innerHTML = `<option value=''>Selecciona</option>`
+                let options = `<option value=''>Selecciona</option>`;
                 data.forEach(element => {
                     options = options + `<option value='${element.id}'>${element.provincia}</option>`
                 })
@@ -409,22 +485,18 @@
         provincia.addEventListener('change', async (e)=> {
             const response = await fetch(`/api/provincia/${e.target.value}/distritos`)
             const data = await response.json();
-            let options = '';
+            let options = `<option value=''>Selecciona</option>`;
             data.forEach(element => {
                 options = options + `<option value='${element.id}'>${element.distrito}</option>`
             })
             distrito.innerHTML = options
         })
 
-        // Dispara el evento change para la provincia
-        var event_p = new Event('change');
-        provincia.dispatchEvent(event_p);
-
         distrito.addEventListener('change', async (e)=> {
             const response = await fetch(`/api/distrito/${e.target.value}/zonas`)
             const data = await response.json();
-            let options_z = '';
-            let options_tz = '';
+            let options_z = `<option value=''>Selecciona</option>`;
+            let options_tz = `<option value=''>Selecciona</option>`;
             data.forEach(element_z => {
                 options_z = options_z + `<option value='${element_z.id}'>${element_z.zona}</option>`
             })
@@ -435,9 +507,15 @@
             tZona.innerHTML = options_tz
         })
 
-        // Dispara el evento change para la distrito
-        var event_d = new Event('change');
-        distrito.dispatchEvent(event_d);
+        // Escucha el evento 'change' del input en el formulario de clientes
+        document.getElementById('distrito').addEventListener('change', function() {
+            // Obtiene el valor del input
+            var valorInptuDistrito = this.value;
+            var nombreInputDitrito = this.options[this.selectedIndex].text;
+            // Asigna el valor al input en el formulario de crear zonas
+            document.getElementById('distritoZona_id').value = valorInptuDistrito;
+            document.getElementById('distritoZona').value = nombreInputDitrito;
+        });
 
         const defaultFile = 'https://th.bing.com/th/id/OIP.SZEx8juvNTfQweNxIMGUxgHaHa?pid=ImgDet&rs=1';
 
@@ -458,16 +536,6 @@
         }
         });
 
-
-        // Escucha el evento 'change' del input en el formulario de clientes
-        document.getElementById('distrito').addEventListener('change', function() {
-            // Obtiene el valor del input
-            var valorInptuDistrito = this.value;
-            var nombreInputDitrito = this.options[this.selectedIndex].text;
-            // Asigna el valor al input en el formulario de crear zonas
-            document.getElementById('distritoZona_id').value = valorInptuDistrito;
-            document.getElementById('distritoZona').value = nombreInputDitrito;
-        });
     </script>
 
 @stop

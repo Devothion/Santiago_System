@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('entidad_bancarias_id')->references('id')->on('entidad_bancarias');
-            $table->integer('numero_cuenta');
+            $table->foreignId('entidad_bancaria_id')->references('id')->on('entidad_bancarias');
+            $table->bigInteger('numero_cuenta');
             $table->integer('codigo');
 
             $table->timestamps();

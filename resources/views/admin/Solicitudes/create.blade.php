@@ -57,7 +57,7 @@
                             <select class="form-control" id="tSolicitud" name="tSolicitud">
                                 <option value="" selected>Selecciona</option>
                                 <option>Nueva</option>
-                                <option>Antigua</option>
+                                <option>Renovacion</option>
                             </select>
                         </div>
                     </div>
@@ -66,11 +66,9 @@
                             <label for="cuentaAsignada">Cuenta Asignada</label>
                             <select class="form-control" id="cuentaAsignada" name="cuentaAsignada">
                                 <option value="" selected>Selecciona</option>
-                                <option>BCP-5</option>
-                                <option>BBVA-5</option>
-                                <option>Scotiabank-1</option>
-                                <option>BCP-1</option>
-                                <option>BCP-2</option>
+                                @foreach ($cuentas as $cuenta)
+                                    <option value="{{$cuenta->id}}">{{$cuenta->entidadBancaria->banco.' - '.$cuenta->codigo}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -107,7 +105,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="capitalInteres">Capital + Interes</label>
-                            <input type="number" class="form-control" name="capitaInteres" id="capitaInteres" placeholder="0.00">
+                            <input type="number" class="form-control" name="capitalInteres" id="capitalInteres" placeholder="0.00">
                         </div>
                     </div>
                     <div class="col-3">
@@ -135,7 +133,7 @@
                         <div class="form-group">
                             <label for="asesorCredito">Asesor de credito</label>
                             <select class="form-control" id="asesorCredito" name="asesorCredito">
-                                <option value="1" selected>Selecciona</option>
+                                <option value="" selected>Selecciona</option>
                                 @foreach ($asesores as $asesor)
                                     <option value="{{$asesor->id}}">{{$asesor->codigo.' '.$asesor->nombres}}</option>
                                 @endforeach
@@ -195,7 +193,7 @@
                 $('#tasaInteres').val(tasaInteres);
             });
             $('#montoSolicitado').on('input', function() {
-                $('#capitaInteres').val(this.value * (1 + tasaCliente));
+                $('#capitalInteres').val(this.value * (1 + tasaCliente));
             });
         });
     </script>

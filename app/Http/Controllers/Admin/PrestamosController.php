@@ -15,7 +15,7 @@ class PrestamosController extends Controller
      */
     public function index()
     {
-        return view('admin.prestamos.index');
+        return view('admin.Prestamos.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class PrestamosController extends Controller
         $clientes = Cliente::all();
         $asesores = Asesor::all();
 
-        return view('admin.prestamos.create', compact('clientes', 'asesores'));
+        return view('admin.Prestamos.create', compact('clientes', 'asesores'));
     }
 
     /**

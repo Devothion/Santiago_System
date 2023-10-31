@@ -47,7 +47,7 @@ class SolicitudesController extends Controller
         $tipo = $request->frecuenciaPago;
         $tasa_interes = $request->tasaInteres;
         $fecha_pago = $request->fechaPrimerPago;
-        $capitalInteres = $request->capitaInteres;
+        $capitalInteres = $request->capitalInteres;
 
         $solicitud = Solicitud::create([
             'cliente_id' => $request->cliente,
@@ -59,7 +59,7 @@ class SolicitudesController extends Controller
             'plazo' => $request->plazo,
             'mon_sol' => $request->montoSolicitado,
             'tas_int' => $request->tasaInteres,
-            'cap_int' => $request->capitaInteres,
+            'cap_int' => $request->capitalInteres,
             'tas_mor' => $request->tasaMora,
             'fre_pag' => $request->frecuenciaPago,
             'fpri_pag' => $request->fechaPrimerPago,

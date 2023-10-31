@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cuenta;
-use App\Models\EntidadBancaria;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
-class CuentasController extends Controller
+class GestionCobranzaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {   
-        return view('admin.Cuentas.index');
+    {
+        //
     }
 
     /**
@@ -22,9 +21,7 @@ class CuentasController extends Controller
      */
     public function create()
     {
-        $entBancarias = EntidadBancaria::all();
-
-        return view('admin.Cuentas.create', compact('entBancarias'));
+        //
     }
 
     /**
@@ -32,16 +29,7 @@ class CuentasController extends Controller
      */
     public function store(Request $request)
     {
-
-        //dd($request->all());
-
-        Cuenta::create([
-            'entidad_bancaria_id' => $request->entidadFinanciera,
-            'numero_cuenta' => $request->nCuenta,
-            'codigo' => $request->codigo,
-        ]);
-
-        return redirect()->route('admin.cuentas.index');
+        //
     }
 
     /**
@@ -57,10 +45,9 @@ class CuentasController extends Controller
      */
     public function edit(string $id)
     {
-        $entBancarias = EntidadBancaria::all();
+        $solicitud = Solicitud::find($id);
 
-        $cuenta = Cuenta::find($id);
-        return view('admin.Cuentas.edit', compact('cuenta', 'entBancarias'));
+        return view('admin.Prestamos.GestionCobranzas.create', compact('solicitud'));
     }
 
     /**
