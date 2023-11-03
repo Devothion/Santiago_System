@@ -11,23 +11,23 @@ class Cliente extends Model
 
     protected $fillable = [
         'imagen',
-        'sucursal',
-        'jcc',
-        'asesor',
+        'sucursal_id',
+        'jcc_id',
+        'asesor_id',
         'documento',
         'nombres',
         'ape_pat',
         'ape_mat',
         'telefono',
-        'departamento',
-        'provincia',
-        'distrito',
+        'departamento_id',
+        'provincia_id',
+        'distrito_id',
         'zona',
         'nlote',
         'direccion',
         'referencia',
-        'tipoCuenta',
-        'entidad',
+        'tipo_cuenta_id',
+        'entidad_bancaria_id',
         'cuentafi',
         'entidadter',
         'cuentater',
@@ -45,6 +45,21 @@ class Cliente extends Model
     public function solicitud()
     {
         return $this->hasMany(Solicitud::class);
+    }
+
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursal::class);
+    }
+
+    public function jcc()
+    {
+        return $this->belongsTo(JCC::class);
+    }
+
+    public function asesor()
+    {
+        return $this->belongsTo(Asesor::class);
     }
 
 }

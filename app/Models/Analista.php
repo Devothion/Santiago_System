@@ -19,4 +19,9 @@ class Analista extends Model
         'codigo'
     ];
 
+    public function solicitud() 
+    {
+        return $this->hasMany(Solicitud::class);
+    }
+
 }

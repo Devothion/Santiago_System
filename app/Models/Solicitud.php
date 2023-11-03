@@ -23,13 +23,18 @@ class Solicitud extends Model
         'tas_mor',
         'fre_pag',
         'fpri_pag',
-        'ana_cre',
+        'analista_id',
         'observ'
     ];
 
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    public function analista()
+    {
+        return $this->belongsTo(Analista::class);
     }
 
 }

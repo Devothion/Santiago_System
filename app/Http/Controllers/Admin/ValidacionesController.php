@@ -11,7 +11,7 @@ class ValidacionesController extends Controller
     public function validarDNI(Request $request)
     {
         $request->validate([
-            'documento' => 'required|digits:8|unique:Clientes',
+            'documento' => 'required|digits:8|unique:clientes',
         ]);
 
         return response()->json(['mensaje' => 'DNI válido']);
@@ -32,7 +32,7 @@ class ValidacionesController extends Controller
     public function validarTipoZona(Request $request)
     {
         $request->validate([
-            'tipo' => 'unique:Zonas',
+            'tipo' => 'unique:zonas',
         ]);
 
         return response()->json(['mensaje' => 'Tipo de zona válida']);

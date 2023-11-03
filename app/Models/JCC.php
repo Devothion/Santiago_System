@@ -18,4 +18,10 @@ class JCC extends Model
         'email',
         'codigo'
     ];
+
+    public function cliente() 
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
 }

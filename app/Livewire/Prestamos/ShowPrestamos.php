@@ -3,7 +3,6 @@
 namespace App\Livewire\Prestamos;
 
 use Livewire\Component;
-use App\Models\Prestamo;
 use App\Models\Solicitud;
 
 class ShowPrestamos extends Component

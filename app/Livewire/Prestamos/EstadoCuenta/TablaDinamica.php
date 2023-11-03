@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Prestamos\EstadoCuenta;
 
+use App\Models\Cuota;
 use Livewire\Component;
 
 class TablaDinamica extends Component
@@ -20,4 +21,19 @@ class TablaDinamica extends Component
         $this->tabla = $tabla;
         $this->activeButton = $tabla;
     }
+
+    public $cuotas;
+
+    public function cuotas($cuotas)
+    {
+        $this->cuotas = $cuotas;
+    }
+
+    public $id;
+    
+    public function solicitud($id)
+    {
+        $this->id = $id;
+    }
+
 }

@@ -6,6 +6,8 @@ use App\Models\Cliente;
 use App\Models\Prestamo;
 use App\Models\Asesor;
 use App\Http\Controllers\Controller;
+use App\Models\Cuota;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 
 class PrestamosController extends Controller
@@ -66,7 +68,11 @@ class PrestamosController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.Prestamos.show');
+        $prestamos = Solicitud::with('cliente')->with('analista')->find($id);
+        $valor = Cuota::where('solicitud_id', $id)->first();
+        $cuotas = Cuota::where('solicitud_id', $id)->get();
+
+        return view('admin.Prestamos.show', compact('prestamos', 'valor', 'cuotas', 'id'));
     }
 
     /**
@@ -76,6 +82,7 @@ class PrestamosController extends Controller
     {
         return view('admin.Prestamos.edit');
     }
+
 
     /**
      * Update the specified resource in storage.

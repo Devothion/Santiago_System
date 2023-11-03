@@ -19,4 +19,9 @@ class Asesor extends Model
         'codigo'
     ];
 
+    public function cliente() 
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
 }

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->float('tas_mor');
             $table->string('fre_pag');
             $table->date('fpri_pag');
-            $table->string('ana_cre');
+            $table->foreignId('analista_id')->references('id')->on('analistas');
             $table->text('observ')->nullable();
 
             $table->timestamps();

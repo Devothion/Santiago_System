@@ -63,7 +63,7 @@ class SolicitudesController extends Controller
             'tas_mor' => $request->tasaMora,
             'fre_pag' => $request->frecuenciaPago,
             'fpri_pag' => $request->fechaPrimerPago,
-            'ana_cre' => $request->asesorCredito,
+            'analista_id' => $request->asesorCredito,
             'observ' => $request->observaciones
         ]);
 

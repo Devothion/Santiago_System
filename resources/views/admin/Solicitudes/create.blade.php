@@ -105,7 +105,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="capitalInteres">Capital + Interes</label>
-                            <input type="number" class="form-control" name="capitalInteres" id="capitalInteres" placeholder="0.00">
+                            <input type="number" step="0.01" class="form-control" name="capitalInteres" id="capitalInteres" placeholder="0.00">
                         </div>
                     </div>
                     <div class="col-3">

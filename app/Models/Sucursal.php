@@ -16,6 +16,11 @@ class Sucursal extends Model
         'distrito_id'
     ];
 
+    public function cliente() 
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
     public function departamento()
     {
         return $this->belongsTo(Departamento::class);
