@@ -115,9 +115,9 @@
                                         <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estado de Cuenta</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Control de Pagos</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Cronograma</a>
-                                        <a href="{{ route('admin.registrarpago.edit', ['registrar_pago' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
+                                        <a href="{{ route('admin.registrarpago.create2', ['registrar_pago' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
                                         <a href="{{ route('admin.registrarpagolibre.edit', ['registrar_pago_libre' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pago Libre</a>
-                                        <a href="{{ route('admin.gestioncobranza.edit', ['gestion_cobranza' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-chart-simple mr-1"></i>Gestion Cobranza</a> 
+                                        <a href="{{ route('admin.gestioncobranza.create', ['solicitud_id' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-chart-simple mr-1"></i>Gestion Cobranza</a> 
                                     </div>
                                 </div>
                             </td>

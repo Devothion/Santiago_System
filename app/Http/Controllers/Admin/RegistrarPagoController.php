@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cuota;
+use App\Models\Pago;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Svg\Tag\Rect;
 
 class RegistrarPagoController extends Controller
 {
@@ -19,9 +22,29 @@ class RegistrarPagoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $solicitud_id = $request->query('solicitud_id');
+        $solicitud = Solicitud::find($solicitud_id);
+        $cuota_id = $request->query('cuota_id');
+        $cuota_normal = Cuota::where('id', $cuota_id)->value('cuota');
+
+        $capital_total = Solicitud::where('id', $solicitud_id)->value('mon_sol');
+        $cuotas_pagadas = Cuota::where('solicitud_id', $solicitud_id)->where('statusPago', 1)->sum('cuota');
+        $saldo_prestamo = $capital_total - $cuotas_pagadas;
+
+
+        return view('admin.Prestamos.RegistrarPago.create', compact('solicitud', 'saldo_prestamo', 'cuota_normal', 'cuota_id'));
+    }
+
+    public function create2(Request $request)
+    {
+        $solicitud_id = $request->query('registrar_pago');
+        $solicitud = Solicitud::find($solicitud_id);
+
+        $cuota = Cuota::where('solicitud_id', $solicitud_id)->where('statusPago', '0')->first();
+
+        return view('admin.Prestamos.RegistrarPago.create_2', compact('solicitud', 'cuota'));
     }
 
     /**
@@ -29,7 +52,37 @@ class RegistrarPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+
+        Pago::create([
+            'cliente' => $request->cliente,
+            'fecha_creacion' => $request->fechaOperacion,
+            'capital' => $request->capital,
+            'saldo_prestamo' => $request->saldoPrestamo,
+            'saldo_deuda_hasta' => $request->saldoDeuda,
+            'saldo_mora' => $request->saldoMora,
+            'cuota_normal' => $request->cuotaNormal,
+            'total_pagar' => $request->totalPagar,
+            'metodo_pago_id' => $request->metodoPago,
+            'abono' => $request->abono,
+            'moras' => $request->mora,
+            'gas' => $request->gas
+        ]);
+
+        if ($request->abono >= $request->cuotaNormal) {
+            $cuota = Cuota::where('id', $request->cuotaId)->first();
+            $cuota->statusPago = 1;
+            $cuota->save();
+        } elseif (0 < $request->abono || $request->abono < $request->cuotaNormal) {
+            $cuota = Cuota::where('id', $request->cuotaId)->first();
+            $cuota->statusPago = 2;
+            $cuota->save();
+        } else {
+            echo "Todos los procedimientos han fallado";
+        }
+
+        return redirect()->route('admin.prestamos.show', ['prestamo' => $request->solicitudId ]);
+
     }
 
     /**
@@ -39,13 +92,13 @@ class RegistrarPagoController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
         $solicitud = Solicitud::find($id);
+        // $saldo_prestamo = 
 
         return view('admin.Prestamos.RegistrarPago.create', compact('solicitud'));
     }

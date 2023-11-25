@@ -3,6 +3,20 @@
         <div class="card-header">
             <div class="d-flex w-full justify-content-around">
                 <div class="row " style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;">
+                    <div class="btn-group btn-group-toggle col-12 my-3" data-toggle="buttons">
+                        <label class="btn btn-transparent border border-secondary m-2">
+                          <input type="radio" name="metodoPago" id="efectivo" value="1" autocomplete="off" required><p>Aprobado: </p><p class="font-weight-bold">{{$cant_aprobado}}</p>
+                        </label>
+                        <label class="btn btn-transparent border border-secondary m-2">
+                          <input type="radio" name="metodoPago" id="deposito_cuenta" value="2" autocomplete="off"><p>En Analisis: </p><p class="font-weight-bold">{{$cant_analisis}}</p>
+                        </label>
+                        <label class="btn btn-transparent border border-secondary m-2">
+                          <input type="radio" name="metodoPago" id="transferencia_bancaria" value="3" autocomplete="off"><p>En Espera: </p><p class="font-weight-bold">{{$cant_espera}}</p>
+                        </label>
+                        <label class="btn btn-transparent border border-secondary m-2">
+                          <input type="radio" name="metodoPago" id="pago_yape" value="4" autocomplete="off"><p>Finalizado: </p><p class="font-weight-bold">{{$cant_finalizado}}</p>
+                        </label>
+                    </div>
                     <div style="display: flex;padding: 12px;width: 150px;background-color: #5cb85c;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Aprobado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_aprobado}}</p></div>
                     <div style="display: flex;padding: 12px;width: 150px;background-color: #5bc0de;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">En Analisis:</p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_analisis}}</p></div>
                     <div style="display: flex;padding: 12px;width: 150px;background-color: #f0ad4e;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">En Espera: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">{{$cant_espera}}</p></div>
@@ -129,5 +143,30 @@
             @endif
             
         </div>
+
+        <script>
+
+            // Obtén todos los botones
+            var buttons = document.querySelectorAll('.btn-group-toggle .btn');
+
+            // Añade un controlador de eventos a cada botón
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Elimina la clase 'btn-transparent' y añade la clase 'btn-secondary' al botón clicado
+                    this.classList.remove('btn-transparent');
+                    this.classList.add('btn-secondary');
+
+                    // Para los demás botones, elimina la clase 'btn-secondary' y añade la clase 'btn-transparent'
+                    buttons.forEach(function(otherButton) {
+                        if (otherButton !== this) {
+                            otherButton.classList.remove('btn-secondary');
+                            otherButton.classList.add('btn-transparent');
+                        }
+                    }, this);
+                });
+            });
+
+        </script>
+
     </div>  
 </div>

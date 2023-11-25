@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PrestamosController;
 use App\Http\Controllers\Admin\ClientesController;
+use App\Http\Controllers\Admin\CompromisosController;
 use App\Http\Controllers\Admin\ZonasController;
 use App\Http\Controllers\Admin\SimuladorController;
 use App\Http\Controllers\Admin\SucursalesController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\Admin\CuentasController;
 use App\Http\Controllers\Admin\FondoProvicionalController;
 use App\Http\Controllers\Admin\GestionCobranzaController;
+use App\Http\Controllers\Admin\GestionesController;
+use App\Http\Controllers\Admin\OperacionesController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegistrarPagoController;
 use App\Http\Controllers\Admin\RegistrarPagoLibreController;
@@ -21,7 +24,11 @@ Route::get('', [HomeController::class, 'index'])->name('admin.index');
 
 //Prestamos
 Route::resource('/prestamos', PrestamosController::class)->names('admin.prestamos');
+Route::resource('/operaciones', OperacionesController::class)->names('admin.operaciones');
+Route::resource('/gestiones', GestionesController::class)->names('admin.gestiones');
+Route::resource('/compromisos', CompromisosController::class)->names('admin.compromisos');
 Route::resource('/prestamos/registrar-pago', RegistrarPagoController::class)->names('admin.registrarpago');
+Route::get('admin/registrarpago/create2', 'App\Http\Controllers\Admin\RegistrarPagoController@create2')->name('admin.registrarpago.create2');
 Route::resource('/prestamos/registrar-pago-libre', RegistrarPagoLibreController::class)->names('admin.registrarpagolibre');
 Route::resource('/prestamos/gestion-cobranza', GestionCobranzaController::class)->names('admin.gestioncobranza');
 

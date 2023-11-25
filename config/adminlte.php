@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => 'Grupo <b>Santiago</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/SantiagoSoloLogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/SantiagoSoloLogoDark.png',
     'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -358,15 +358,15 @@ return [
                 ],
                 [
                     'text' => 'operations',
-                    'url' => 'admin/settings',
+                    'route' => 'admin.operaciones.index',
                 ],
                 [
                     'text' => 'efforts',
-                    'url' => 'admin/settings',
+                    'route' => 'admin.gestiones.index',
                 ],
                 [
                     'text' => 'commitments',
-                    'url' => 'admin/settings',
+                    'route' => 'admin.compromisos.index',
                 ]
             ]
         ],

@@ -55,18 +55,40 @@
                             <td></td>
                             @switch($cuota->statusPago)
                                 @case(2)
-                                    <td class="text-center"><a href="{{ route('admin.registrarpago.edit', ['registrar_pago' => $id, 'cuota_id' => $cuota->id]) }}" class="btn btn-warning"><i class="fa-solid fa-coins"></i></a></td>
+                                    <td class="text-center"><a href="{{ route('admin.registrarpago.create', ['solicitud_id' => $id, 'cuota_id' => $cuota->id]) }}" class="btn btn-warning"><i class="fa-solid fa-coins"></i></a></td>
                                 @break
                                 @case(1)
-                                    <td class="text-center"><button class="btn btn-success"><i class="fa-solid fa-check"></i></button></td>    
+                                    <td class="text-center"><a data-toggle="modal" data-target="#mostrarBoleta-modal" class="btn btn-success"><i class="fa-solid fa-check"></i></a></td>    
                                 @break 
                                 @default
-                                    <td class="text-center"><a href="{{ route('admin.registrarpago.edit', ['registrar_pago' => $id, 'cuota_id' => $cuota->id]) }}" class="btn btn-danger"><i class="fa-solid fa-sack-dollar"></i></a></td>
+                                    <td class="text-center"><a href="{{ route('admin.registrarpago.create', ['solicitud_id' => $id, 'cuota_id' => $cuota->id]) }}" class="btn btn-danger"><i class="fa-solid fa-sack-dollar"></i></a></td>
                             @endswitch
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div id="mostrarBoleta-modal" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="#" id="mostrarBoleta-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Boleta de Pago</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Imprimir</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             @break
             @case('2')
                 <table id="" class="table table-bordered table-striped">

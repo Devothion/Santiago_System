@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="#" method="POST">
+    <form action="{{ route('admin.registrarpago.store') }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">
@@ -15,8 +15,20 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
+                            {{-- <label for="solicitudId">Solicitud ID</label> --}}
+                            <input type="hidden" class="form-control" name="solicitudId" id="solicitudId" value="{{$solicitud->id}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{-- <label for="cuotaId">Cuota ID</label> --}}
+                            <input type="hidden" class="form-control" name="cuotaId" id="cuotaId" value="{{$cuota_id ?? ''}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
                             <label for="cliente">Cliente</label>
-                            <input type="text" class="form-control" name="cliente" id="cliente" value="{{$solicitud->nombre_cliente}}">
+                            <input type="text" class="form-control" name="cliente" id="cliente" value="{{$solicitud->nombre_cliente}}" readonly>
                         </div>
                     </div>
                     <div class="col-6">
@@ -28,13 +40,13 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="capital">Capital</label>
-                            <input type="number" class="form-control" name="capital" id="capital" value="{{$solicitud->mon_sol}}">
+                            <input type="number" class="form-control" name="capital" id="capital" value="{{$solicitud->mon_sol}}" readonly>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="saldoPrestamo">Saldo Préstamo</label>
-                            <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo">
+                            <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo" value="{{$saldo_prestamo ?? ''}}" readonly>
                         </div>
                     </div>
                 </div>
@@ -43,25 +55,25 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="saldoDeuda">Saldo deuda hasta</label>
-                            <input type="number" class="form-control" name="saldoDeuda" id="saldoDeuda">
+                            <input type="number" class="form-control" name="saldoDeuda" id="saldoDeuda" readonly>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="saldoMora">Saldo Mora</label>
-                            <input type="number" class="form-control" name="saldoMora" id="saldoMora">
+                            <input type="number" class="form-control" name="saldoMora" id="saldoMora" value="0.00" readonly>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="cuotaNormal">Cuota Normal</label>
-                            <input type="number" class="form-control" name="cuotaNormal" id="cuotaNormal">
+                            <input type="number" class="form-control" name="cuotaNormal" id="cuotaNormal" value="{{$cuota_normal ?? ''}}" readonly>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="totalPagar">Total a Pagar</label>
-                            <input type="number" class="form-control" name="totalPagar" id="totalPagar">
+                            <input type="number" class="form-control" name="totalPagar" id="totalPagar" readonly>
                         </div>
                     </div>
                 </div>
@@ -69,25 +81,25 @@
                 <div class="row">
                     <div class="btn-group btn-group-toggle col-12 my-3" data-toggle="buttons">
                         <label class="btn btn-transparent border border-secondary m-2">
-                          <input type="radio" name="options" id="option1" autocomplete="off">EFECTIVO
+                          <input type="radio" name="metodoPago" id="efectivo" value="1" autocomplete="off" required>EFECTIVO
                         </label>
                         <label class="btn btn-transparent border border-secondary m-2">
-                          <input type="radio" name="options" id="option2" autocomplete="off">DEPÓSITOS EN CUENTA
+                          <input type="radio" name="metodoPago" id="deposito_cuenta" value="2" autocomplete="off">DEPÓSITOS EN CUENTA
                         </label>
                         <label class="btn btn-transparent border border-secondary m-2">
-                          <input type="radio" name="options" id="option3" autocomplete="off">TRANSFERENCIA BANCARIA
+                          <input type="radio" name="metodoPago" id="transferencia_bancaria" value="3" autocomplete="off">TRANSFERENCIA BANCARIA
                         </label>
                         <label class="btn btn-transparent border border-secondary m-2">
-                          <input type="radio" name="options" id="option3" autocomplete="off">PAGO CON YAPE
+                          <input type="radio" name="metodoPago" id="pago_yape" value="4" autocomplete="off">PAGO CON YAPE
                         </label>
                         <label class="btn btn-transparent border border-secondary m-2">
-                          <input type="radio" name="options" id="option3" autocomplete="off">PAGO CON PLIN
+                          <input type="radio" name="metodoPago" id="pago_plin" value="5" autocomplete="off">PAGO CON PLIN
                         </label>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="abono">Abono</label>
-                            <input type="number" class="form-control" name="abono" id="abono">
+                            <input type="number" class="form-control" name="abono" id="abono" value="{{$cuota_normal ?? ''}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">

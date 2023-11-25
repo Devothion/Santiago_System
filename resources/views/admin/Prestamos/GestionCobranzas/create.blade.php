@@ -7,11 +7,17 @@
 @stop
 
 @section('content')
-    <form action="#" method="POST">
+    <form action="{{ route('admin.gestioncobranza.store') }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <div class="col-12" hidden>
+                        <div class="form-group">
+                            <label for="cliente_id">Cliente ID</label>
+                            <input type="text" class="form-control" name="cliente_id" id="cliente_id" value="{{$solicitud->cliente_id}}">
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="cliente">Cliente</label>
@@ -29,11 +35,10 @@
                             <label for="estado">Estado</label>
                             <select class="form-control" id="estado" name="estado">
                                 <option selected>Selecciona</option>
-                                <option value="1">Por Desembolsar</option>
-                                <option value="2">Vigente</option>
-                                <option value="3">Pagado</option>
-                                <option value="4">Moroso</option>
-                                <option value="5">Cancelado</option>
+                                <option value="Cliente no estuvo">Cliente no estuvo</option>
+                                <option value="Nadie en casa">Nadie en casa</option>
+                                <option value="Se coordinó con familiar">Se coordinó con familiar</option>
+                                <option value="Atendio el mismo cliente">Atendio el mismo cliente</option>
                             </select>
                         </div>
                     </div>
@@ -46,7 +51,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="saldoPrestamo">Saldo Préstamo</label>
-                            <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo">
+                            <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo" value="{{$saldo_prestamo}}">
                         </div>
                     </div>
                     <div class="col-12">
@@ -58,32 +63,34 @@
                     <div class="col-12">
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Compromiso de Pago?</label>
-                              </div>
+                                <input type="checkbox" class="custom-control-input" id="compromisoPago" name="compromisoPago" value="1">
+                                <label class="custom-control-label" for="compromisoPago">Compromiso de Pago?</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="fecha">Fecha</label>
-                            <input type="date" class="form-control" name="fecha" id="fecha" value="{{ date('Y-m-d') }}">
+                    <div class="col-12" id="compromiso-pago-section" hidden>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" class="form-control" name="fecha" id="fecha" value="{{ date('Y-m-d') }}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="hora">Hora</label>
+                                    <input type="time" class="form-control" name="hora" id="hora" value="{{ date('H:i') }}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="monto">Monto</label>
+                                    <input type="number" class="form-control" name="monto" id="monto">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="hora">Hora</label>
-                            <input type="time" class="form-control" name="hora" id="hora" value="{{ date('H:i') }}">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="monto">Monto</label>
-                            <input type="number" class="form-control" name="monto" id="monto">
-                        </div>
-                    </div>
+                    </div> 
                 </div>    
-
-                    
                 <div class="col-12">
                     <div class="d-flex justify-content-between mb-4">
                         <a href="{{ route('admin.prestamos.index') }}" class="btn btn-lg btn-dark mr-4"><i class="fa-solid fa-right-from-bracket mr-1"></i>Cancelar</a>
@@ -93,11 +100,19 @@
             </div>
         </div>
     </form>
-
 @stop
 
 @section('js')
     <script>
+
+        document.getElementById('compromisoPago').addEventListener('change', function() {
+            var x = document.getElementById('compromiso-pago-section');
+            if (this.checked) {
+                x.removeAttribute('hidden');
+            } else {
+                x.setAttribute('hidden', '');
+            }
+        });
 
         window.onload = function() {
             var hora = document.getElementById('hora');
