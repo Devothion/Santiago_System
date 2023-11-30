@@ -3,10 +3,12 @@
 @section('title', 'Registrar Pagos')
 
 @section('content_header')
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <h1 class="m-0 text-dark">Registrar Pagos</h1>
 @stop
 
 @section('content')
+    @livewireScripts
     <form action="{{ route('admin.registrarpago.store') }}" method="POST">
         @csrf
         <div class="card">
@@ -15,50 +17,48 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            {{-- <label for="solicitudId">Solicitud ID</label> --}}
                             <input type="hidden" class="form-control" name="solicitudId" id="solicitudId" value="{{$solicitud->id}}" readonly>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            {{-- <label for="cuotaId">Cuota ID</label> --}}
                             <input type="hidden" class="form-control" name="cuotaId" id="cuotaId" value="{{$cuota_id ?? ''}}" readonly>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="cliente">Cliente</label>
                             <input type="text" class="form-control" name="cliente" id="cliente" value="{{$solicitud->nombre_cliente}}" readonly>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="fechaOperacion">Fecha de operacion</label>
-                            <input type="date" class="form-control" name="fechaOperacion" id="fechaOperacion" value="{{ date('Y-m-d') }}">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="capital">Capital</label>
-                            <input type="number" class="form-control" name="capital" id="capital" value="{{$solicitud->mon_sol}}" readonly>
-                        </div>
-                    </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="saldoPrestamo">Saldo Préstamo</label>
                             <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo" value="{{$saldo_prestamo ?? ''}}" readonly>
                         </div>
                     </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="capital">Capital</label>
+                            <input type="number" class="form-control" name="capital" id="capital" value="{{$solicitud->mon_sol}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="fechaOperacion">Fecha de operacion</label>
+                            <input type="date" class="form-control" name="fechaOperacion" id="fechaOperacion" value="{{ date('Y-m-d') }}">
+                        </div>
+                    </div>
                 </div>
                 <h3 class="text-secondary"><strong>DETALLE DE PAGO</strong></h3>
                 
-                @livewire('prestamos.registrar-pago.show-tabla-cuotas', ['cuota' => $cuota])
+                @livewire('prestamos.registrar-pago.show-tabla-cuotas', ['cuota' => $cuota, 'solicitud_id' => $solicitud->id])
                 
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="saldoDeuda">Saldo deuda hasta</label>
-                            <input type="number" class="form-control" name="saldoDeuda" id="saldoDeuda" readonly>
+                            <label for="saldoDeuda">Saldo deuda hasta ( {{ \Carbon\Carbon::now()->format('d-m-Y') }} )</label>
+                            <input type="number" class="form-control" name="saldoDeuda" id="saldoDeuda" value="{{$saldo_deuda_hasta}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">
@@ -69,13 +69,7 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="cuotaNormal">Cuota Normal</label>
-                            <input type="number" class="form-control" name="cuotaNormal" id="cuotaNormal" value="{{$cuota_normal ?? ''}}" readonly>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="totalPagar">Total a Pagar</label>
+                            <label class="font-weight-bold" for="totalPagar">Total a Pagar</label>
                             <input type="number" class="form-control" name="totalPagar" id="totalPagar" readonly>
                         </div>
                     </div>
@@ -99,12 +93,7 @@
                           <input type="radio" name="metodoPago" id="pago_plin" value="5" autocomplete="off">PAGO CON PLIN
                         </label>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="abono">Abono</label>
-                            <input type="number" class="form-control" name="abono" id="abono" value="{{$cuota_normal ?? ''}}" readonly>
-                        </div>
-                    </div>
+                    @livewire('prestamos.registrar-pago.show-sub-total')
                     <div class="col-4">
                         <div class="form-group">
                             <label for="mora">Moras</label>
@@ -115,6 +104,69 @@
                         <div class="form-group">
                             <label for="gas">Gas</label>
                             <input type="number" class="form-control" name="gas" id="gas">
+                        </div>
+                    </div>
+                    <div class="col-12" id="detalle-transferencia-section" hidden>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cuenta">Cuenta Asignada</label>
+                                    <select class="form-control" id="cuenta" name="cuenta">
+                                        <option value="" selected>Selecciona</option>
+                                        @foreach ($cuentas as $cuenta)
+                                            <option value="{{$cuenta->id}}">{{$cuenta->entidadBancaria->banco." - ".$cuenta->numero_cuenta}}</option>
+                                        @endforeach
+                                    </select>    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="nrOperacion">Numero de Operacion</label>
+                                    <input type="number" class="form-control" name="nrOperacion" id="nrOperacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="detalle-yape-section" hidden>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cuenta">Numero Asignado</label>
+                                    <select class="form-control" id="cuenta" name="cuenta">
+                                        <option value="" selected>Selecciona</option>
+                                        @foreach ($cuentas_yape as $cuenta_yape)
+                                            <option value="{{$cuenta_yape->id}}">{{$cuenta_yape->entidadBancaria->banco." - ".$cuenta_yape->numero_cuenta}}</option>
+                                        @endforeach
+                                    </select>    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="nrOperacion">Numero de Operacion</label>
+                                    <input type="number" class="form-control" name="nrOperacion" id="nrOperacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="detalle-plin-section" hidden>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cuenta">Numero Asignado</label>
+                                    <select class="form-control" id="cuenta" name="cuenta">
+                                        <option value="" selected>Selecciona</option>
+                                        @foreach ($cuentas_plin as $cuenta_plin)
+                                            <option value="{{$cuenta_plin->id}}">{{$cuenta_plin->entidadBancaria->banco." - ".$cuenta_plin->numero_cuenta}}</option>
+                                        @endforeach
+                                    </select>    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="nrOperacion">Numero de Operacion</label>
+                                    <input type="number" class="form-control" name="nrOperacion" id="nrOperacion">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>    
@@ -153,6 +205,58 @@
                 }
             }, this);
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioButtons = document.querySelectorAll('input[name="metodoPago"]');
+        const transferenciaSection = document.getElementById('detalle-transferencia-section');
+        const yapeSection = document.getElementById('detalle-yape-section');
+        const plinSection = document.getElementById('detalle-plin-section');
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value === '2' || this.value === '3') {
+                    transferenciaSection.removeAttribute('hidden');
+                } else {
+                    transferenciaSection.setAttribute('hidden', '');
+                    clearSection(transferenciaSection);
+                }
+
+                if (this.value === '4') {
+                    yapeSection.removeAttribute('hidden');
+                    
+                } else {
+                    yapeSection.setAttribute('hidden', '');
+                    clearSection(yapeSection);
+                }
+
+                if (this.value === '5') {
+                    plinSection.removeAttribute('hidden');
+                    
+                } else {
+                    plinSection.setAttribute('hidden', '');
+                    clearSection(plinSection);
+                }
+
+            });
+        });
+    });
+
+    function clearSection(section) {
+        const inputs = section.querySelectorAll('input');
+        const selects = section.querySelectorAll('select');
+
+        inputs.forEach(input => {
+            input.value = '';
+        });
+
+        selects.forEach(select => {
+            select.selectedIndex = 0;
+        });
+    }
+
+    window.addEventListener('actualizarSubtotal', event => {
+        console.log(event);
     });
 
     </script>

@@ -28,7 +28,7 @@ Route::resource('/operaciones', OperacionesController::class)->names('admin.oper
 Route::resource('/gestiones', GestionesController::class)->names('admin.gestiones');
 Route::resource('/compromisos', CompromisosController::class)->names('admin.compromisos');
 Route::resource('/prestamos/registrar-pago', RegistrarPagoController::class)->names('admin.registrarpago');
-Route::get('admin/registrarpago/create2', 'App\Http\Controllers\Admin\RegistrarPagoController@create2')->name('admin.registrarpago.create2');
+Route::get('registrarpago/create2', 'App\Http\Controllers\Admin\RegistrarPagoController@create2')->name('admin.registrarpago.create2');
 Route::resource('/prestamos/registrar-pago-libre', RegistrarPagoLibreController::class)->names('admin.registrarpagolibre');
 Route::resource('/prestamos/gestion-cobranza', GestionCobranzaController::class)->names('admin.gestioncobranza');
 

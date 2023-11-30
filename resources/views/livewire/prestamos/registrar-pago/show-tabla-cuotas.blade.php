@@ -10,45 +10,30 @@
                 <thead>
                     <tr>
                         <th>N° Operacion</th>
-                        <th>Recepción</th>
+                        {{-- <th>Recepción</th> --}}
                         <th>Fecha de Vencimiento</th>
                         <th>Cuota</th>
-                        <th>Pago</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        
-                        <td>
-                            <input type="text" class="form-control" value="{{$cuota->id}}" readonly>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" value="----" readonly>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($cuota->fecha)->format('d-m-Y') }}" readonly>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" value="{{"S/ ".$cuota->cuota}}" readonly>
-                        </td>
-                    </tr>
                     @foreach($rows as $index => $row)
                         <tr>
                             <td>
                                 <input type="text" class="form-control" value="{{ $row['column1'] }}" readonly>
                             </td>
-                            <td>
+                            {{-- <td>
                                 <input type="text" class="form-control" value="{{ $row['column2'] }}" readonly>
-                            </td>
+                            </td> --}}
                             <td>
-                                <input type="text" class="form-control" value="{{ $row['column3'] }}" readonly>
+                                <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($row['column3'])->format('d-m-Y') }}" readonly>
                             </td>
                             <td>
                                 <input type="text" class="form-control" value="{{"S/ ".$row['column4']}}" readonly>
                             </td>
-                            <td>
-                                <button class="btn btn-danger"><i class="fa-solid fa-xmark"></i></button>
-                            </td>
+                            @if($row['column1'] != $baseRowId && $isLastRow && $loop->last)
+                                <td><button wire:click.prevent="eliminarCuota({{ $row['column1'] }})" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></button></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
@@ -57,7 +42,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="text-primary font-weight-bold align-middle">Sub total: S/ 149.92</td>
+                        <td class="text-primary font-weight-bold align-middle" id="subTotal">Sub total: S/ {{$subtotal}}</td>
                     </tr>
                     
                 </tfoot>

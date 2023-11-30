@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cuenta;
 use App\Models\Cuota;
 use App\Models\Pago;
 use App\Models\Solicitud;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Svg\Tag\Rect;
-
 class RegistrarPagoController extends Controller
 {
     /**
@@ -41,10 +41,15 @@ class RegistrarPagoController extends Controller
     {
         $solicitud_id = $request->query('registrar_pago');
         $solicitud = Solicitud::find($solicitud_id);
+        $cuentas = Cuenta::whereIn('entidad_bancaria_id', [1, 2, 3, 4])->with('entidadBancaria')->get();
+        $cuentas_yape = Cuenta::where('entidad_bancaria_id', 5)->with('entidadBancaria')->get();
+        $cuentas_plin = Cuenta::where('entidad_bancaria_id', 6)->with('entidadBancaria')->get();
 
+        $hoy = Carbon::now();
+        $saldo_deuda_hasta = Cuota::where('fecha', '<', $hoy)->where('solicitud_id', $solicitud_id)->where('statusPago', 0)->sum('cuota');
         $cuota = Cuota::where('solicitud_id', $solicitud_id)->where('statusPago', '0')->first();
 
-        return view('admin.Prestamos.RegistrarPago.create_2', compact('solicitud', 'cuota'));
+        return view('admin.Prestamos.RegistrarPago.create_2', compact('solicitud', 'cuota', 'cuentas', 'saldo_deuda_hasta', 'cuentas_yape', 'cuentas_plin'));
     }
 
     /**
