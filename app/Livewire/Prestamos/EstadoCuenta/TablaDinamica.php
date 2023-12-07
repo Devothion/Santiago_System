@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Prestamos\EstadoCuenta;
 
-use App\Models\Cuota;
+use App\Models\Solicitud;
 use Livewire\Component;
 
 class TablaDinamica extends Component
@@ -10,11 +10,6 @@ class TablaDinamica extends Component
 
     public $tabla = '1';
     public $activeButton = '1';
-
-    public function render()
-    {
-        return view('livewire.prestamos.estado-cuenta.tabla-dinamica');
-    }
 
     public function mostrarTabla($tabla)
     {
@@ -34,6 +29,14 @@ class TablaDinamica extends Component
     public function solicitud($id)
     {
         $this->id = $id;
+    }
+
+    public function render()
+    {
+        // dd($this->id);
+        $solicitud = Solicitud::find($this->id);
+
+        return view('livewire.prestamos.estado-cuenta.tabla-dinamica', compact('solicitud'));
     }
 
 }

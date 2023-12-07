@@ -2,16 +2,16 @@
     <div class="card-header">
         <ul class="nav nav-pills nav-justified m-3" style="background-color: rgb(230, 230, 230)">
             <li class="nav-item">
-                <a class="nav-link {{ $activeButton == '1' ? 'active' : '' }}" href="#" wire:click="mostrarTabla('1')">Estado de Cuenta</a>
+                <a class="nav-link {{ $activeButton == '1' ? 'active' : '' }}" style="cursor: pointer" wire:click.prevent="mostrarTabla('1')">Estado de Cuenta</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $activeButton == '2' ? 'active' : '' }}" href="#" wire:click="mostrarTabla('2')">Lista de Transacciones</a>
+                <a class="nav-link {{ $activeButton == '2' ? 'active' : '' }}" style="cursor: pointer" wire:click.prevent="mostrarTabla('2')">Lista de Transacciones</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $activeButton == '3' ? 'active' : '' }}" href="#" wire:click="mostrarTabla('3')">Plan de Pago</a>
+                <a class="nav-link {{ $activeButton == '3' ? 'active' : '' }}" style="cursor: pointer" wire:click.prevent="mostrarTabla('3')">Plan de Pago</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $activeButton == '4' ? 'active' : '' }}" href="#" wire:click="mostrarTabla('4')">Gestion de Cobranza</a>
+                <a class="nav-link {{ $activeButton == '4' ? 'active' : '' }}" style="cursor: pointer" wire:click.prevent="mostrarTabla('4')">Gestion de Cobranza</a>
             </li>
         </ul>
     </div>
@@ -43,7 +43,7 @@
                             <td>{{$cuota->numero}}</td>
                             <td>{{\DateTime::createFromFormat('Y-m-d', $cuota->fecha)->format('d-m-Y')}}</td>
                             <td></td>
-                            <td>{{"S/ ".$cuota->saldoCapital}}</td>
+                            <td>{{"S/ ".$solicitud->cap_int}}</td>
                             <td>{{"S/ ".$cuota->cuota}}</td>
                             <td>{{"S/ ".$cuota->interes}}</td>
                             <td>{{"S/ ".$cuota->comision}}</td>

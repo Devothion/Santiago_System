@@ -9,9 +9,10 @@
             <table id="" class="table table-sm">
                 <thead>
                     <tr>
-                        <th>N° Operacion</th>
-                        {{-- <th>Recepción</th> --}}
+                        <th >ID de Cuota</th>
+                        <th>N° Cuota</th>
                         <th>Fecha de Vencimiento</th>
+                        <th>Interes</th>
                         <th>Cuota</th>
                         <th>Acciones</th>
                     </tr>
@@ -19,14 +20,17 @@
                 <tbody>
                     @foreach($rows as $index => $row)
                         <tr>
-                            <td>
+                            <td >
                                 <input type="text" class="form-control" value="{{ $row['column1'] }}" readonly>
                             </td>
-                            {{-- <td>
-                                <input type="text" class="form-control" value="{{ $row['column2'] }}" readonly>
-                            </td> --}}
+                            <td>
+                                <input type="text" class="form-control" value="{{ $row['column5'] }}" readonly>
+                            </td>
                             <td>
                                 <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($row['column3'])->format('d-m-Y') }}" readonly>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" value="{{"S/ ".$row['column2']}}" readonly>
                             </td>
                             <td>
                                 <input type="text" class="form-control" value="{{"S/ ".$row['column4']}}" readonly>
@@ -41,8 +45,8 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td class="text-primary font-weight-bold align-middle" id="subTotal">Sub total: S/ {{$subtotal}}</td>
+                        <td class="text-primary font-weight-bold align-middle pl-3" id="subTotal">S/  {{$totalInteres}}</td>
+                        <td class="text-primary font-weight-bold align-middle pl-3" id="subTotal">S/ {{$subtotal}}</td>
                     </tr>
                     
                 </tfoot>

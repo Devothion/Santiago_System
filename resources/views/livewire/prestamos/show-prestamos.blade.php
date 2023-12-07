@@ -60,7 +60,7 @@
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
                             @endif</th>
-                            <th style="cursor: pointer;" wire:click="order('mon_sol')">Monto
+                            {{-- <th style="cursor: pointer;" wire:click="order('mon_sol')">Monto
                             <!-- Sort -->
                             @if ($sort == 'mon_sol')
                                 @if ($direction == 'asc')
@@ -70,7 +70,7 @@
                                 @endif
                             @else
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
-                            @endif</th>
+                            @endif</th> --}}
                             <th>Estado</th>
                             <th style="cursor: pointer;" wire:click="order('created_at')">Fecha de Creacion
                             <!-- Sort -->
@@ -92,7 +92,7 @@
                             <td>{{$prestamo->id}}</td>
                             <td>{{$prestamo->nombre_cliente}}</td>
                             <td>{{$prestamo->cliente->documento}}</td>
-                            <td>S/. {{$prestamo->mon_sol}}</td>
+                            {{-- <td>S/. {{$prestamo->mon_sol}}</td> --}}
                             <td>
                                 @if ($prestamo->estado == 'Aprobado')
                                     <span class="badge badge-success">Aprobado</span>
@@ -107,6 +107,7 @@
                             </td>
                             <td>{{$prestamo->fech_ate}}</td>
                             <td>
+                                <a href="{{ route('admin.registrarpago.create2', ['registrar_pago' => $prestamo->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
                                 <div class="btn-group">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         Acciones

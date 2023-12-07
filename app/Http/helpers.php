@@ -36,8 +36,10 @@ function realizar_calculo($pres, $sem) {
     }
 
     $tasa_interes_semanal = round((pow(1+$tasa_interes,1/$semanas)-1)*100, 2);
-
     $tasa_interes_semanal_porcetaje = porcentaje($tasa_interes_semanal);
+
+    $total_total = $prestamo*(1+$tasa_interes_semanal_porcetaje);
+
     $com_porcentaje = $tasa_interes_semanal_porcetaje - $tasa_semanal_porcentaje;
     $com = $tasa_interes_semanal - $tasa_semanal;
 

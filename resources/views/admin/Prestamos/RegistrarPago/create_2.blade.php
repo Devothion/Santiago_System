@@ -25,36 +25,24 @@
                             <input type="hidden" class="form-control" name="cuotaId" id="cuotaId" value="{{$cuota_id ?? ''}}" readonly>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-8">
                         <div class="form-group">
                             <label for="cliente">Cliente</label>
                             <input type="text" class="form-control" name="cliente" id="cliente" value="{{$solicitud->nombre_cliente}}" readonly>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="saldoPrestamo">Saldo Préstamo</label>
                             <input type="number" class="form-control" name="saldoPrestamo" id="saldoPrestamo" value="{{$saldo_prestamo ?? ''}}" readonly>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="capital">Capital</label>
                             <input type="number" class="form-control" name="capital" id="capital" value="{{$solicitud->mon_sol}}" readonly>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="fechaOperacion">Fecha de operacion</label>
-                            <input type="date" class="form-control" name="fechaOperacion" id="fechaOperacion" value="{{ date('Y-m-d') }}">
-                        </div>
-                    </div>
-                </div>
-                <h3 class="text-secondary"><strong>DETALLE DE PAGO</strong></h3>
-                
-                @livewire('prestamos.registrar-pago.show-tabla-cuotas', ['cuota' => $cuota, 'solicitud_id' => $solicitud->id])
-                
-                <div class="row">
                     <div class="col-4">
                         <div class="form-group">
                             <label for="saldoDeuda">Saldo deuda hasta ( {{ \Carbon\Carbon::now()->format('d-m-Y') }} )</label>
@@ -69,12 +57,63 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
+                            <label for="fechaOperacion">Fecha de operacion</label>
+                            <input type="date" class="form-control" name="fechaOperacion" id="fechaOperacion" value="{{ date('Y-m-d') }}">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-secondary"><strong>DETALLE DE PAGO</strong></h3>
+                
+                @livewire('prestamos.registrar-pago.show-tabla-cuotas', ['cuota' => $cuota, 'solicitud_id' => $solicitud->id])
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
                             <label class="font-weight-bold" for="totalPagar">Total a Pagar</label>
                             <input type="number" class="form-control" name="totalPagar" id="totalPagar" readonly>
                         </div>
                     </div>
                 </div>
                 <h3 class="text-secondary"><strong>MÉTODOS DE PAGO</strong></h3>
+
+                <div class="card p-2" id="liquidacion-section" style="background-color: rgb(255, 199, 199)" hidden>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="motivo_liquidacion">Motivo</label>
+                                <select class="form-control" name="motivo_liquidacion" id="motivo_liquidacion">
+                                    <option value="">Selecciona</option>
+                                    <option value="">Prestamo Impago</option>
+                                    <option value="">Pago Total</option>
+                                    <option value="">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="desTotal">Descuento Total</label>
+                                <input type="number" class="form-control" name="desTotal" id="desTotal">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="motivo_liquidacion">Calificacíon Cliente</label>
+                                <select class="form-control" name="motivo_liquidacion" id="motivo_liquidacion">
+                                    <option value="">Selecciona</option>
+                                    <option class="bg-success" value="">Buen pagador</option>
+                                    <option class="bg-danger" value="">Mal pagador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="desTotal">Comentario</label>
+                                <input type="text" class="form-control" name="desTotal" id="desTotal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="btn-group btn-group-toggle col-12 my-3" data-toggle="buttons">
                         <label class="btn btn-transparent border border-secondary m-2">
@@ -171,13 +210,20 @@
                     </div>
                 </div>    
 
-                    
-                <div class="col-12">
+                <div class="col-12 mt-2">
                     <div class="d-flex justify-content-between mb-4">
-                        <a href="{{ route('admin.prestamos.index') }}" class="btn btn-lg btn-dark mr-4"><i class="fa-solid fa-right-from-bracket mr-1"></i>Cancelar</a>
-                        <button type="submit" class="btn btn-lg btn-success"><i class="fa-solid fa-floppy-disk mr-1"></i>Procesar</button>
+                        <div>
+                            <a href="{{ route('admin.prestamos.index') }}" class="btn btn-lg btn-dark mr-2"><i class="fa-solid fa-right-from-bracket mr-1"></i>Cancelar</a>
+                            <label class="btn btn-outline-danger btn-lg mt-2" id="liquidar_btn">
+                                <input class="d-none" type="checkbox" name="liquidar" id="liquidar" autocomplete="off"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Liquidar
+                            </label>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="btn btn-lg btn-success"><i class="fa-solid fa-floppy-disk mr-1"></i>Procesar Pago</button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </form>
@@ -242,6 +288,26 @@
         });
     });
 
+    window.addEventListener('actualizarSubtotal', event => {
+        console.log(event);
+    });
+
+    $('#liquidar').change(function() {
+        event.preventDefault();
+        const liquidarSection = document.getElementById('liquidacion-section')
+
+        if($(this).is(":checked")) {
+            $('#liquidacion-section').removeAttr('hidden');
+            $('#liquidar_btn').addClass('btn-danger');
+            $('#liquidar_btn').addClass('text-white');
+        } else {
+            $('#liquidacion-section').attr('hidden', 'hidden');
+            $('#liquidar_btn').removeClass('btn-danger');
+            $('#liquidar_btn').removeClass('text-white');
+            clearSection(liquidarSection);
+        }
+    });
+
     function clearSection(section) {
         const inputs = section.querySelectorAll('input');
         const selects = section.querySelectorAll('select');
@@ -254,10 +320,6 @@
             select.selectedIndex = 0;
         });
     }
-
-    window.addEventListener('actualizarSubtotal', event => {
-        console.log(event);
-    });
 
     </script>
 @stop
