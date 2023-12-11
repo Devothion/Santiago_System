@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegistrarPagoController;
 use App\Http\Controllers\Admin\RegistrarPagoLibreController;
 use App\Http\Controllers\Admin\SolicitudesController;
+use App\Http\Controllers\Admin\TasasController;
 use App\Http\Controllers\Admin\ValidacionesController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.index');
@@ -54,6 +55,9 @@ Route::resource('/sucursales', SucursalesController::class)->names('admin.sucurs
 
 //Cuentas
 Route::resource('/cuentas', CuentasController::class)->names('admin.cuentas');
+
+//Tasas
+Route::resource('/tasas', TasasController::class)->names('admin.tasas');
 
 //Perfil
 Route::resource('/perfil', ProfileController::class)->names('admin.perfil');

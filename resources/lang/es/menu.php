@@ -31,4 +31,5 @@ return [
     'accounts'                      => 'Cuentas',
     'config'                        => 'CONFIGURACIÓN',
     'profiles'                      => 'PERFIL',
+    'rates'                         => 'Tasas',
 ];

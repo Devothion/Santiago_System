@@ -19,17 +19,23 @@ class ShowTablaCuotas extends Component
 
     public function mount(Cuota $cuota)
     {
-        $this->cuota = $cuota;
+        //$this->cuota = $cuota;
         $this->baseRowId = $cuota->id;
+        $cuota = Cuota::where('solicitud_id', $cuota->solicitud_id)->where('statusPago', 0)->where('fecha', '<', now())->get();
+        //dd($cuota);
 
         // Añadir la primera fila al array de filas
-        $this->rows[] = [
-            'column1' => $cuota->id,
-            'column2' => $cuota->interes,
-            'column3' => $cuota->fecha,
-            'column4' => $cuota->cuota,
-            'column5' => $cuota->numero,
-        ];
+        foreach ($cuota as $cuota) {
+            $this->rows[] = [
+                'column1' => $cuota->id,
+                'column2' => $cuota->interes,
+                'column3' => $cuota->fecha,
+                'column4' => $cuota->cuota,
+                'column5' => $cuota->numero,
+            ];
+
+            $this->cuota = $cuota;
+        }
 
         // Verificar si la fila actual es la primera
         //$this->isFirstRow = $cuota->id === Cuota::where('solicitud_id', $this->solicitud_id)->where('statusPago', '!=', 0)->oldest()->first()->id;

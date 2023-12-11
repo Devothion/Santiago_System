@@ -9,7 +9,7 @@
             <table id="" class="table table-sm">
                 <thead>
                     <tr>
-                        <th >ID de Cuota</th>
+                        <th class="d-none">ID de Cuota</th>
                         <th>N° Cuota</th>
                         <th>Fecha de Vencimiento</th>
                         <th>Interes</th>
@@ -20,7 +20,7 @@
                 <tbody>
                     @foreach($rows as $index => $row)
                         <tr>
-                            <td >
+                            <td class="d-none">
                                 <input type="text" class="form-control" value="{{ $row['column1'] }}" readonly>
                             </td>
                             <td>

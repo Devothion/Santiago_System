@@ -419,6 +419,11 @@ return [
                 ]
             ]
         ],
+        [
+            'text' => 'rates',
+            'route'  => 'admin.tasas.index',
+            'icon' => 'fas fa-fw fa-percent mr-1',
+        ],
         ['header' => 'profiles'],
         [
             'text' => 'profile',
