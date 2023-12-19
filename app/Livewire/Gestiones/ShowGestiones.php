@@ -14,9 +14,10 @@ class ShowGestiones extends Component
 
     public function render()
     {
-        $gestiones = Gestion::where('compromiso_pago', 0)
+        $gestiones = Gestion::with('cliente')
+                            ->where('compromiso_pago', 0)
                             ->where(function ($query) {
-                                $query->where('cliente', 'like', '%'. $this->search .'%')
+                                $query->where('nombre_cliente', 'like', '%'. $this->search .'%')
                                     ->orWhere('estado', 'like', '%'. $this->search .'%');
                             })
                             ->orderBy($this->sort, $this->direction)            

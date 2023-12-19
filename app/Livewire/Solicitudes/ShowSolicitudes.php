@@ -11,6 +11,13 @@ class ShowSolicitudes extends Component
     public $search;
     public $sort = 'id';
     public $direction = 'desc';
+    public $selectedOption = 'Aprobado';
+
+    public function updateSearch($value)
+    {
+        $this->search = $value;
+        $this->selectedOption = $value;
+    }
 
     public function render()
     {

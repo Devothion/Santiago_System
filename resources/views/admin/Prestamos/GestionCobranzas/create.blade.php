@@ -12,12 +12,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12" hidden>
-                        <div class="form-group">
-                            <label for="cliente_id">Cliente ID</label>
-                            <input type="text" class="form-control" name="cliente_id" id="cliente_id" value="{{$solicitud->cliente_id}}">
-                        </div>
-                    </div>
+
+                    <input type="hidden" class="form-control" name="cliente_id" id="cliente_id" value="{{$solicitud->cliente_id}}">
+
                     <div class="col-12">
                         <div class="form-group">
                             <label for="cliente">Cliente</label>

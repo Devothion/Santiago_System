@@ -62,4 +62,9 @@ class Cliente extends Model
         return $this->belongsTo(Asesor::class);
     }
 
+    public function gestion()
+    {
+        return $this->habesMany(Gestion::class);
+    }
+
 }

@@ -10,7 +10,8 @@ class Gestion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cliente',
+        'cliente_id',
+        'nombre_cliente',
         'fecha_operacion',
         'estado',
         'capital',
@@ -21,4 +22,10 @@ class Gestion extends Model
         'fecha_compromiso',
         'monto_compromiso'
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
 }

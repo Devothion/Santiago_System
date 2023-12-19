@@ -45,7 +45,8 @@ class GestionCobranzaController extends Controller
         }
 
         Gestion::create([
-            'cliente' => $request->cliente,
+            'cliente_id' => $request->cliente_id,
+            'nombre_cliente' => $request->cliente,
             'fecha_operacion' => $request->fechaOperacion,
             'estado' => $request->estado,
             'capital' => $request->capital,

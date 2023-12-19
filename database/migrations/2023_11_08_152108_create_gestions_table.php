@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('gestions', function (Blueprint $table) {
             $table->id();
 
-            $table->string('cliente');
+            $table->foreignId('cliente_id')->references('id')->on('clientes');
+
+            $table->string('nombre_cliente');
             $table->date('fecha_operacion');
             $table->string('estado');
             $table->float('capital');
@@ -23,7 +25,7 @@ return new class extends Migration
             $table->boolean('compromiso_pago');
             $table->time('hora');
             $table->date('fecha_compromiso');
-            $table->float('monto_compromiso');
+            $table->float('monto_compromiso')->nullable();
 
             $table->timestamps();
         });

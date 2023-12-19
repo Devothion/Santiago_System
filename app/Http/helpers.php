@@ -1,5 +1,9 @@
 <?php 
 
+use App\Models\Tasa;
+
+
+
 function pago($tasa, $nper, $va) {
     $tasa = $tasa / 100;
     return ($va * $tasa) / (1 - pow(1 + $tasa, -$nper));
@@ -13,8 +17,8 @@ function realizar_calculo($pres, $sem) {
     $prestamo = $pres;
     $semanas = $sem;
 
-    $tasa_semanal = 1.31;
-    $tasa_semanal_porcentaje = porcentaje(1.31);
+    $tasa_semanal = Tasa::where('id', 1)->value('valor');
+    $tasa_semanal_porcentaje = porcentaje($tasa_semanal);
 
     switch ($semanas) {
         case 20:

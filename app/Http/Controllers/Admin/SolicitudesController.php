@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Cuenta;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SolicitudesController extends Controller
 {
@@ -79,7 +79,8 @@ class SolicitudesController extends Controller
      */
     public function show(string $id)
     {   
-        //return view('admin.PDF.calculo', compact('id'));
+        //return view('admin.PDF.pdf');
+
         $pdf = Pdf::loadView('admin.PDF.pdf', ['id' => $id]);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
