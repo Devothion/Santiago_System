@@ -28,11 +28,11 @@
             width: 100%;
         }
         .header-container{
-            height: 40px;
+            height: 60px;
             margin: 0 30px 0 30px;
         }
         .input-container{
-            height: 30px;
+            height: 26px;
             margin: 0 30px 0 30px;
         }
         .table-container{
@@ -40,10 +40,14 @@
         }
         .condiciones-container{
             margin: 0 30px 0 30px;
+            position: absolute;
+            bottom: 120;
         }
         .foot-logo-container{
             display: flex;
             justify-content: center;
+            position: absolute;
+            bottom: 0;
         }
         .foot-logo{
             width: 100%;
@@ -53,15 +57,20 @@
             flex-wrap: wrap;
             align-content: center;
             justify-content: center;
-            border: 1px black solid;
+            /* border: 1px black solid; */
         }
         .form-input{
             display: flex;
             flex-wrap: wrap;
             align-content: center;
             justify-content: flex-start;
-            border: 1px black solid;
+            border: 1px rgba(0, 0, 0, 0.27) solid;
             border-radius: 5px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .form-input span{
+            color: #004070;
         }
         .all-width{
             width: 100%;
@@ -151,8 +160,8 @@
         .primera-caja{
             color: white;
             background-color: #004070;
-            font-size: 25px;
-            font-weight: 800;
+            font-size: 30px;
+            font-weight: 400;
             text-align: center;
             border-bottom-left-radius: 10px;
 
@@ -160,7 +169,7 @@
         .segunda-caja{
             color: white;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 400;
             text-align: center;
         }
         .segunda-caja-1, .segunda-caja-2{
@@ -176,16 +185,16 @@
         }
         .tercera-caja{
             color: black;
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 400;
         }
         .tercera-caja-1, .tercera-caja-2{
             height: 49%;
         }
         .cuarta-caja{
             color: black;
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 400;
         }
         .cuarta-caja-1, .cuarta-caja-2{
             height: 49%;
@@ -193,14 +202,17 @@
         .quinta-caja{
             color: black;
             background-color: #d2d3d5;
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 27px;
+            font-weight: bold;
             text-align: center;
         }
         .sexta-caja{
             color: black;
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 400;
+        }
+        .sexta-caja span{
+            color: #004070;
         }
         .sexta-caja-1, .sexta-caja-2{
             height: 49%;
@@ -217,17 +229,17 @@
             background-color: #004070;
             height: 2em;
             width: 22.5% !important;
-            font-size: 30px;
+            font-size: 23px;
             font-weight: 400;
         }
         .table-header{
             background-color: #004070;
             color: #d2d3d5;
             border: 0.1px white solid;
-            font-size: 13px;
+            font-size: 12px;
         }
         .table-body{
-            font-size: 12px;
+            font-size: 10px;
         }
         .monto-table{
             background-color: #004070;
@@ -238,7 +250,7 @@
             font-weight: bold;
         }
         .condiciones-container p{
-            font-size: 10px;
+            font-size: 8px;
         }
         .condiciones-container b{
             color: #004070;
@@ -263,67 +275,67 @@
             <div class="caja segunda-caja-2">DO15</div>
         </div>
         <div class="two columns all-height tercera-caja">
-            <div class="caja tercera-caja-1 jc-f-start">AS017</div>
-            <div class="caja tercera-caja-2 jc-f-start">DO15</div>
+            <div class="caja tercera-caja-1 jc-f-start">NUEVO</div>
+            <div class="caja tercera-caja-2 jc-f-start">RENOV</div>
         </div>
         <div class="two columns all-height cuarta-caja">
-            <div class="caja cuarta-caja-1 jc-f-start">AS017</div>
-            <div class="caja cuarta-caja-2 jc-f-start">DO15</div>
+            <div class="caja cuarta-caja-1 jc-f-start">EFECTIVO</div>
+            <div class="caja cuarta-caja-2 jc-f-start">TRANSF. BANC</div>
         </div>
         <div class="two columns caja all-height quinta-caja">
             LC023
         </div>
         <div class="three columns all-height sexta-caja">
-            <div class="form-input sexta-caja-1 jc-f-start">AS017</div>
-            <div class="form-input sexta-caja-2 jc-f-start">DO15</div>
+            <div class="form-input sexta-caja-1 jc-f-start">F. Entr. <span>20/12/2023</span></div>
+            <div class="form-input sexta-caja-2 jc-f-start">F. Vcto. <span>20/12/2023</span></div>
         </div>
     </div>
 
     <div class="row input-container mt-3">
         <div class="nine columns form-input all-height">
-             LC023
+             Titular: <span>Julio Cesar Espinoza Trujillo</span>
         </div>
         <div class="three columns form-input all-height">
-            LC023
+            DNI: <span>74863124</span>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="u-full-width form-input all-height">
-            hola
+            Direccion: <span>Mz H 23 Lt 10</span>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="nine columns form-input all-height">
-             LC023
+            Aval: <span>--</span>
         </div>
         <div class="three columns form-input all-height">
-            LC023
+            DNI: <span>--</span>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="u-full-width form-input all-height">
-            hola
+            Direccion: <span>--</span>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="one columns form-input all-height">
-            hola
+            Pro
         </div>
         <div class="two columns form-input all-height">
-            hola
+            Scotiabank
         </div>
         <div class="three columns form-input all-height">
-            hola
+            
         </div>
         <div class="three columns form-input all-height">
-            hola
+            
         </div>
         <div class="three columns cuadro-dia">
             Martes
         </div>
     </div>
     <div class="table-container mt-5">
-        <table class="u-full-width table-cuotas mb-1">
+        <table class="u-full-width table-cuotas mb-2">
             <thead class="table-header">
                 <th class="txt-center">IT</th>
                 <th class="txt-center">FECHA DE PAGO</th>
