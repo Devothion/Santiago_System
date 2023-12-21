@@ -69,7 +69,11 @@
             font-size: 12px;
             font-weight: 400;
         }
-        .form-input span{
+        .input-value{
+            margin-top: 2px;
+            margin-left: 10px
+        }
+        .input-value span{
             color: #004070;
         }
         .all-width{
@@ -161,7 +165,7 @@
             color: white;
             background-color: #004070;
             font-size: 30px;
-            font-weight: 400;
+            font-weight: bold;
             text-align: center;
             border-bottom-left-radius: 10px;
 
@@ -186,7 +190,7 @@
         .tercera-caja{
             color: black;
             font-size: 10px;
-            font-weight: 400;
+            font-weight: bold;
         }
         .tercera-caja-1, .tercera-caja-2{
             height: 49%;
@@ -194,7 +198,7 @@
         .cuarta-caja{
             color: black;
             font-size: 10px;
-            font-weight: 400;
+            font-weight: bold;
         }
         .cuarta-caja-1, .cuarta-caja-2{
             height: 49%;
@@ -208,14 +212,24 @@
         }
         .sexta-caja{
             color: black;
-            font-size: 10px;
             font-weight: 400;
         }
         .sexta-caja span{
             color: #004070;
         }
+        .sexta-caja .input-value{
+            margin-top: 4px;
+        }
         .sexta-caja-1, .sexta-caja-2{
-            height: 49%;
+            height: 45%;
+            width: 185px !important;
+            font-size: 10px;
+        }
+        .sexta-caja-1{
+
+        }
+        .sexta-caja-2{
+
         }
         .cuadro-dia{
             display: flex;
@@ -230,7 +244,7 @@
             height: 2em;
             width: 22.5% !important;
             font-size: 23px;
-            font-weight: 400;
+            font-weight: bold;
         }
         .table-header{
             background-color: #004070;
@@ -286,43 +300,67 @@
             LC023
         </div>
         <div class="three columns all-height sexta-caja">
-            <div class="form-input sexta-caja-1 jc-f-start">F. Entr. <span>20/12/2023</span></div>
-            <div class="form-input sexta-caja-2 jc-f-start">F. Vcto. <span>20/12/2023</span></div>
+            <div class="form-input sexta-caja-1 jc-f-start mb-1">
+                <div class="input-value">
+                    F. Entrega: <span>20/12/2023</span>
+                </div>
+            </div>
+            <div class="form-input sexta-caja-2 jc-f-start mt-1">
+                <div class="input-value">
+                    F. Vencimiento: <span>20/12/2023</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row input-container mt-3">
         <div class="nine columns form-input all-height">
-             Titular: <span>Julio Cesar Espinoza Trujillo</span>
+            <div class="input-value">
+                Titular: <span>Julio Cesar Espinoza Trujillo</span>
+            </div>
         </div>
         <div class="three columns form-input all-height">
-            DNI: <span>74863124</span>
+            <div class="input-value">
+                DNI: <span>74863124</span>
+            </div>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="u-full-width form-input all-height">
-            Direccion: <span>Mz H 23 Lt 10</span>
+            <div class="input-value">
+                Direccion: <span>Mz H 23 Lt 10</span>
+            </div>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="nine columns form-input all-height">
-            Aval: <span>--</span>
+            <div class="input-value">
+                Aval: <span>--</span>
+            </div>
         </div>
         <div class="three columns form-input all-height">
-            DNI: <span>--</span>
+            <div class="input-value">
+                DNI: <span>--</span>
+            </div>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="u-full-width form-input all-height">
-            Direccion: <span>--</span>
+            <div class="input-value">
+                Direccion: <span>--</span>
+            </div>
         </div>
     </div>
     <div class="row input-container mt-3">
         <div class="one columns form-input all-height">
-            Pro
+            <div class="input-value">
+                Pro
+            </div>
         </div>
         <div class="two columns form-input all-height">
-            Scotiabank
+            <div class="input-value">
+                Scotiabank
+            </div>
         </div>
         <div class="three columns form-input all-height">
             
@@ -334,7 +372,7 @@
             Martes
         </div>
     </div>
-    <div class="table-container mt-5">
+    <div class="table-container mt-4">
         <table class="u-full-width table-cuotas mb-2">
             <thead class="table-header">
                 <th class="txt-center">IT</th>
