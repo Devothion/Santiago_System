@@ -296,7 +296,7 @@
     <div class="container calculo simulador">
         <form>
                 <div class="logo_top">
-                    <img class="bgform" src="#">
+                    <img class="bgform" src="{{ public_path('img/pdf/header.png') }}">
                 </div>
                 
                 <div class="content_simulador">
@@ -535,14 +535,11 @@
                 </div>
             
                 <a href="https://wa.me/51999654321" target="_BLANK">
-                    <img class="bgform" src="#">
+                    <img class="bgform" src="{{ public_path('img/pdf/footer.png') }}">
                 </a>
 
         </form>
     </div>
-    
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </body>

@@ -1,296 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet"  media="print">
-    {{-- <link rel="stylesheet" href="{{ public_path('css/bootstrap/bootstrap.min.css') }}"> --}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>Calculo de Solicitud - APP</title>
+    <link rel="stylesheet" href="{{ public_path('css/skeleton/skeleton.css') }}"> 
+    <link rel="stylesheet" href="{{ public_path('css/skeleton/normalize.css') }}">
+
+    {{-- <link rel="stylesheet" href="{{ asset('css/skeleton/skeleton.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/skeleton/normalize.css') }}"> --}}
+    
+    <title>Document</title>
+
+    <style>
+        @import url('{{ public_path('fonts/Roboto-Regular.ttf') }}');
+        *{
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .top-logo-container{
+            display: flex;
+            justify-content: center;
+        }
+        .top-logo{
+            width: 100%;
+        }
+        .header-container{
+            height: 40px;
+            margin: 0 30px 0 30px;
+        }
+        .input-container{
+            height: 30px;
+            margin: 0 30px 0 30px;
+        }
+        .table-container{
+            margin: 0 30px 0 30px;
+        }
+        .condiciones-container{
+            margin: 0 30px 0 30px;
+        }
+        .foot-logo-container{
+            display: flex;
+            justify-content: center;
+        }
+        .foot-logo{
+            width: 100%;
+        }
+        .caja{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            border: 1px black solid;
+        }
+        .form-input{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: flex-start;
+            border: 1px black solid;
+            border-radius: 5px;
+        }
+        .all-width{
+            width: 100%;
+        }
+        .all-height{
+            height: 98%;
+        }
+
+        .mr-0{
+            margin-right: 0 !important;
+        }
+        .mr-1{
+            margin-right: 0.25rem !important;
+        }
+        .mr-2{
+            margin-right: 0.5rem !important;
+        }
+        .mr-3{
+            margin-right: 1rem !important;
+        }
+        .mr-4{
+            margin-right: 1.5rem !important;
+        }
+        .mr-5{
+            margin-right: 3rem !important;
+        }
+        .ml-0{
+            margin-left: 0 !important;
+        }
+        .ml-1{
+            margin-left: 0.25rem !important;
+        }
+        .ml-2{
+            margin-left: 0.5rem !important;
+        }
+        .ml-3{
+            margin-left: 1rem !important;
+        }
+        .ml-4{
+            margin-left: 1.5rem !important;
+        }
+        .ml-5{
+            margin-left: 2.2rem !important;
+        }
+        .mt-0{
+            margin-top: 0 !important; 
+        }
+        .mt-1{
+            margin-top: 0.25rem !important;
+        }
+        .mt-2{
+            margin-top: 0.5rem !important;
+        }
+        .mt-3{
+            margin-top: 1rem !important;
+        }
+        .mt-4{
+            margin-top: 1.5rem !important;
+        }
+        .mt-5{
+            margin-top: 2.2rem !important;
+        }
+        .mb-0{
+            margin-bottom: 0 !important;
+        }
+        .mb-1{
+            margin-bottom: 0.25rem !important;
+        }
+        .mb-2{
+            margin-bottom: 0.5rem !important;
+        }
+        .mb-3{
+            margin-bottom: 1rem !important;
+        }
+        .mb-4{
+            margin-bottom: 1.5rem !important;
+        }
+        .jc-f-start{
+            justify-content: flex-start !important;
+        }
+        .txt-center{
+            text-align: center !important;
+        }
+
+        /*** Variables unicas ***/
+
+        .primera-caja{
+            color: white;
+            background-color: #004070;
+            font-size: 25px;
+            font-weight: 800;
+            text-align: center;
+            border-bottom-left-radius: 10px;
+
+        }
+        .segunda-caja{
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .segunda-caja-1, .segunda-caja-2{
+            height: 49%;
+        }
+        .segunda-caja-1{
+            color: white;
+            background-color: #004070;
+        }
+        .segunda-caja-2{
+            color: black;
+            background-color: #d2d3d5;
+        }
+        .tercera-caja{
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .tercera-caja-1, .tercera-caja-2{
+            height: 49%;
+        }
+        .cuarta-caja{
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .cuarta-caja-1, .cuarta-caja-2{
+            height: 49%;
+        }
+        .quinta-caja{
+            color: black;
+            background-color: #d2d3d5;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .sexta-caja{
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .sexta-caja-1, .sexta-caja-2{
+            height: 49%;
+        }
+        .cuadro-dia{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px black solid;
+            border-radius: 15px 15px 0 0;
+            color: #d2d3d5;
+            background-color: #004070;
+            height: 2em;
+            width: 22.5% !important;
+            font-size: 30px;
+            font-weight: 400;
+        }
+        .table-header{
+            background-color: #004070;
+            color: #d2d3d5;
+            border: 0.1px white solid;
+            font-size: 13px;
+        }
+        .table-body{
+            font-size: 12px;
+        }
+        .monto-table{
+            background-color: #004070;
+            color: #d2d3d5;
+        }
+        .titulo-condiciones{
+            color: #004070;
+            font-weight: bold;
+        }
+        .condiciones-container p{
+            font-size: 10px;
+        }
+        .condiciones-container b{
+            color: #004070;
+        }
+
+
+    </style>
 
 </head>
 <body>
 
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        .simulador {
-            padding: 0;
-            width: 100%;
-        }
-        .simulador form {
-            padding: 0;
-            border-radius: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-
-        .simulador{
-            width: 80px;
-            margin: auto;
-            display: block;
-        }
-        .logo_top_container{
-            width: 100%;
-        }
-        .bgform{
-            width: 100%;
-        }
-        .logo_foot_container{
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-        }
-        .credito_cont{
-            padding: 20px;
-            position: absolute;
-            bottom: 110;
-        }
-        .credito_cont h3 {
-            color: #004070;
-            font-weight: 800;
-            font-family: 'Roboto', sans-serif;
-            margin: 5px 0 5px 0 !important;
-            font-size: 13px;
-        }
-        .credito_cont p {
-            font-size: 10px;
-            margin-bottom: 0;
-        }
-        .credito_cont b {
-            color: #004070;
-            font-weight: 800;
-        }
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-
-        .row:before {
-            display: table;
-            content: " ";
-        }
-
-        .col {
-            padding: 0;
-            float: left;
-            position: relative;
-            min-height: 1px;
-        }
-
-        .col1 {
-            width: 8.33333333%;
-        }
-        .col2 {
-            width: 16.66666667%;
-        }
-        .col3 {
-            width: 16.66666667%;
-        }
-        .col4 {
-            width: 16.66666667%;
-        }
-        .col5 {
-            width: 16.66666667%;
-        }
-        .col6 {
-            width: 25%;
-        }
-
-        .cuadra .form-group {
-            margin-bottom: 5px;
-        }
-
-        .cuadro_a {
-            background: #004070;
-            color: #fff;
-            text-align: center;
-            border-bottom-left-radius: 10px;
-            font-size: 25px;
-            padding: 9px 0;
-            font-weight: bold;
-        }
-        .cuadro_b {
-            background: #004070;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-            margin: 0 5px;
-            padding: 5px 0px;
-            font-size: 14px;
-        }
-        .cuadro_c {
-            background: #d2d3d5;
-            color: #000;
-            text-align: center;
-            font-weight: bold;
-            margin: 0 5px;
-            padding: 3px 0px;
-            font-size: 14px;
-        }
-        .cuadro_d {
-            background: #d2d3d5;
-            color: #000;
-            text-align: center;
-            font-size: 25px;
-            padding: 9px 0;
-            font-weight: bold;
-        }
-        .label_c {
-            padding-left: 10px;
-        }
-        .label_c label {
-            font-size: 11px;
-            margin-bottom: 0;
-        }
-        .label_c input {
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            display: inline-block;
-            width: 28%;
-            height: 20px;
-            margin: 0;
-        }
-        .l2 {
-            padding-left: 0; 
-        }
-        .fechc {
-            font-size: 11px;
-            border: 1px solid #d2d3d5;
-            border-radius: 5px;
-            margin: 0 5px 5px 10px;
-            padding: 4px 9px;
-            color: #000;
-        }
-        .fechc span {
-            color: #004070;
-            font-weight: 800;
-            font-size: 11px;
-        }
-        .simulador .content_simulador {
-            padding: 20px 40px;
-        }
-
-    </style>
-
-    <div class="">
-        <form>
-            <div class="logo_top_container">
-                <img class="bgform" src="{{ public_path('img/pdf/header.png') }}">
-            </div>
-
-            <div class="">
-                <div class="row">
-                    <div class="col col1">
-                        <div class="cuadro_a cuadra">
-                            5
-                        </div>
-                    </div>
-                    
-                    <div class="col col2">
-                        <div class="cuadro_b cuadra">
-                            GB156
-                        </div>
-
-                        <div class="cuadro_c cuadra">
-                            GB156
-                        </div>
-                    </div>
-
-                    <div class="col col3">
-                        <div class="label_c cuadra">
-                            <div class="form-group">
-                                <label>
-                                    <span>NUEVO</span>
-                                </label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>
-                                    <span>RENOV</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col col4">
-                        <div class="label_c l2 cuadra">
-                            <div class="form-group">
-                                <label>
-                                    <span>EFECTIVO</span>
-                                </label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>
-                                    <span>TRANF. BANC</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col col5">
-                        <div class="cuadro_d cuadra">
-                            Julio Cesar
-                        </div>
-                    </div>
-                    
-                    <div class="col col6">
-                        <div class="fechc cuadra">
-                            F. Entr. <span>10/11/2023<span>
-                        </div>
-
-                        <div class="fechc cuadra">
-                            F. Vcto. <span>
-                                28/10/2023
-                            <span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="credito_cont">
-                    <h3>
-                        CONDICIONES DEL CREDITO
-                    </h3>
-                    
-                    <p>
-                        <b>1. </b> Realizar sus pagos solo en agentes de los bancos indicados, puede hacer sus pagos en agentes, cajeros deposito, transferencia de cuenta a cuenta y por internet o banca personal.
-                    </p>
-                    
-                    <p>
-                        <b>2. </b> Esta prohibido pagar en la oficina del mismo banco, el cobro adicional por movimiento del banco es de S/9.00 soles, prohibido hacer sus pagos fuera de Lima, el cobro adicional por giro del banco es de S/7.50 soles.
-                    </p>
-                    
-                    <p>
-                        <b>3. </b> El pago de la cuota no incluye la comisión cobrada por el banco, es decir son pagos diferentes, para no generar por parte de la entidad bancaria, respetemos los párrafos 1 y 2. conserve su voucher por seguridad.
-                    </p>
-                    
-                    <p>
-                        <b>4. </b> Confirmar su deposito mediante la fotografía de su voucher vía WHATSAPP, 1ero  deberá escribir su nombre y sus apellidos en la parte superior del voucher sin tapar las letras impresas del mismo voucher.
-                    </p>
-                    
-                    <p class="fondo_credito">
-                        <b>5. </b> Evite interés moratorio, el pago de las cuotas realizadas después del día de vencimiento, se le cobrara EL PAGO DE S/4.00 SOLES ADICIONALES POR CADA DIA DE ATRASO.
-                    </p>
-                </div>
-
-            </div>
-
-
-
-            <div class="logo_foot_container">
-                <a href="https://wa.me/51999654321" target="_BLANK" >
-                    <img class="bgform" src="{{ public_path('img/pdf/footer.png') }}">
-                </a>
-            </div>
-                
-        </form>
+    <div class="top-logo-container">
+        <img class="top-logo" src="{{ public_path('img/pdf/header.png') }}">
+        {{-- <img class="top-logo" src="{{ asset('img/pdf/header.png') }}"> --}}
     </div>
-    {{-- <script src="{{ public_path('js/bootstrap/bootstrap.min.js') }}"></script> --}}
+    <div class="row header-container">
+        <div class="one columns caja all-height primera-caja">
+            5
+        </div>
+        <div class="two columns all-height segunda-caja" >
+            <div class="caja segunda-caja-1">AS017</div>
+            <div class="caja segunda-caja-2">DO15</div>
+        </div>
+        <div class="two columns all-height tercera-caja">
+            <div class="caja tercera-caja-1 jc-f-start">AS017</div>
+            <div class="caja tercera-caja-2 jc-f-start">DO15</div>
+        </div>
+        <div class="two columns all-height cuarta-caja">
+            <div class="caja cuarta-caja-1 jc-f-start">AS017</div>
+            <div class="caja cuarta-caja-2 jc-f-start">DO15</div>
+        </div>
+        <div class="two columns caja all-height quinta-caja">
+            LC023
+        </div>
+        <div class="three columns all-height sexta-caja">
+            <div class="form-input sexta-caja-1 jc-f-start">AS017</div>
+            <div class="form-input sexta-caja-2 jc-f-start">DO15</div>
+        </div>
+    </div>
+
+    <div class="row input-container mt-3">
+        <div class="nine columns form-input all-height">
+             LC023
+        </div>
+        <div class="three columns form-input all-height">
+            LC023
+        </div>
+    </div>
+    <div class="row input-container mt-3">
+        <div class="u-full-width form-input all-height">
+            hola
+        </div>
+    </div>
+    <div class="row input-container mt-3">
+        <div class="nine columns form-input all-height">
+             LC023
+        </div>
+        <div class="three columns form-input all-height">
+            LC023
+        </div>
+    </div>
+    <div class="row input-container mt-3">
+        <div class="u-full-width form-input all-height">
+            hola
+        </div>
+    </div>
+    <div class="row input-container mt-3">
+        <div class="one columns form-input all-height">
+            hola
+        </div>
+        <div class="two columns form-input all-height">
+            hola
+        </div>
+        <div class="three columns form-input all-height">
+            hola
+        </div>
+        <div class="three columns form-input all-height">
+            hola
+        </div>
+        <div class="three columns cuadro-dia">
+            Martes
+        </div>
+    </div>
+    <div class="table-container mt-5">
+        <table class="u-full-width table-cuotas mb-1">
+            <thead class="table-header">
+                <th class="txt-center">IT</th>
+                <th class="txt-center">FECHA DE PAGO</th>
+                <th class="txt-center">CAPITAL</th>
+                <th class="txt-center">MONTO CUOTA</th>
+                <th class="txt-center">BANCO</th>
+                <th class="txt-center">N° OP.</th>
+                <th class="txt-center">OBSERVACION</th>
+            </thead>
+            <tbody class="table-body">
+                @for($i = 1; $i < 19; $i++)
+                    <tr>
+                        <td class="txt-center">{{$i}}</td>
+                        <td class="txt-center">20/12/2023</td>
+                        <td class="txt-center">S/ 1860</td>
+                        <td class="monto-table txt-center">S/ 145</td>
+                        <td class="txt-center">Scotiabank</td>
+                        <td class="txt-center">0045125</td>
+                        <td class="txt-center">--</td>
+                    </tr>
+                @endfor
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="monto-table txt-center">Total: S/ 1860</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="condiciones-container mt-0">
+        <h6 class="titulo-condiciones mb-0">CONDICIONES DEL CREDITO</h6>
+        
+        <p class="mb-0">
+            <b>1. </b> Realizar sus pagos solo en agentes de los bancos indicados, puede hacer sus pagos en agentes, cajeros deposito, transferencia de cuenta a cuenta y por internet o banca personal.
+        </p>
+        
+        <p class="mb-0"> 
+            <b>2. </b> Esta prohibido pagar en la oficina del mismo banco, el cobro adicional por movimiento del banco es de S/9.00 soles, prohibido hacer sus pagos fuera de Lima, el cobro adicional por giro del banco es de S/7.50 soles.
+        </p>
+        
+        <p class="mb-0">
+            <b>3. </b> El pago de la cuota no incluye la comisión cobrada por el banco, es decir son pagos diferentes, para no generar por parte de la entidad bancaria, respetemos los párrafos 1 y 2. conserve su voucher por seguridad.
+        </p>
+        
+        <p class="mb-0">
+            <b>4. </b> Confirmar su deposito mediante la fotografía de su voucher vía WHATSAPP, 1ero  deberá escribir su nombre y sus apellidos en la parte superior del voucher sin tapar las letras impresas del mismo voucher.
+        </p>
+        <p class="mb-0">
+            <b>5. </b> Evite interés moratorio, el pago de las cuotas realizadas después del día de vencimiento, se le cobrara EL PAGO DE S/4.00 SOLES ADICIONALES POR CADA DIA DE ATRASO.
+        </p>
+    </div>
+    <div class="foot-logo-container">
+        <img class="foot-logo" src="{{ public_path('img/pdf/footer.png') }}">
+        {{-- <img class="top-logo" src="{{ asset('img/pdf/header.png') }}"> --}}
+    </div>
 </body>
 </html>
-
