@@ -16,18 +16,12 @@
                     <div class="col-12 mb-3">
                         <div class="form-group">
                             <div class="text-center">
-                                <img src="https://th.bing.com/th/id/OIP.SZEx8juvNTfQweNxIMGUxgHaHa?pid=ImgDet&rs=1" class="rounded mx-auto d-block" id="img" alt="userPhoto" style="height: 150px;">
+                                <img src="{{ asset('storage/'. $cliente->imagen) }}" class="rounded mx-auto d-block" id="img" alt="userPhoto" style="height: 150px;">
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="d-flex justify-content-center mb-4">
-                            <div class="form-group mr-1">
-                                <div class="adjuntar-foto">
-                                    <label for="file" class="btn btn-info"><i class="fa fa-upload mr-1"></i>Seleccionar foto</label>
-                                    <input id="file" type="file" name="file" style="display: none;" requerid>
-                                </div>
-                            </div>
                             <div class="form-group ml-1">
                                 <a data-toggle="modal" data-target="#verFoto-modal" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i><strong>Visualizar foto</strong></a>
                             </div>
@@ -36,21 +30,21 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="sucursal">Sucursal</label>
-                            <select class="form-control" id="sucursal" name="sucursal">
-                                <option value="" selected>Selecciona</option>
+                            <select class="form-control" id="sucursal" name="sucursal" disabled>
+                                <option value=""{{ old('sucursal', $cliente->sucursal) == '' ? ' selected' : '' }}>Selecciona</option>
                                 @foreach ($sucursales as $sucursal)
-                                    <option value="{{$sucursal->id}}">{{$sucursal->sucursal}}</option>
-                                @endforeach                            
+                                    <option value="{{ $sucursal->id }}"{{ old('sucursal', $cliente->sucursal_id) == $sucursal->id ? ' selected' : '' }}>{{ $sucursal->sucursal }}</option>
+                                @endforeach                     
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="jcc">JCC</label>
-                            <select class="form-control" id="jcc" name="jcc">
-                                <option value="" selected>Selecciona</option>
+                            <select class="form-control" id="jcc" name="jcc" disabled>
+                                <option value=""{{ old('jcc', $cliente->jcc) == '' ? ' selected' : '' }}>Selecciona</option>
                                 @foreach ($jccs as $jcc)
-                                    <option value="{{$jcc->id}}">{{$jcc->codigo.' '.$jcc->nombres}}</option>
+                                    <option value="{{ $jcc->id }}"{{ old('sucursal', $cliente->jcc_id) == $jcc->id ? ' selected' : '' }}>{{ $jcc->nombres }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -58,10 +52,10 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="asesorCredito">Asesor de Credito</label>
-                            <select class="form-control" id="asesorCredito" name="asesorCredito">
-                                <option value="" selected>Selecciona</option>
+                            <select class="form-control" id="asesorCredito" name="asesorCredito" disabled>
+                                <option value=""{{ old('asesorCredito', $cliente->asesor) == '' ? ' selected' : '' }}>Selecciona</option>
                                 @foreach ($asesores as $asesor)
-                                    <option value="{{$asesor->id}}">{{$asesor->codigo.' '.$asesor->nombres}}</option>
+                                    <option value="{{ $asesor->id }}"{{ old('sucursal', $cliente->asesor_id) == $asesor->id ? ' selected' : '' }}>{{ $asesor->nombres }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -69,7 +63,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nDocumento">Numero de documento</label>
-                            <input type="number" class="form-control" name="nDocumento" id="nDocumento">
+                            <input type="number" class="form-control" name="nDocumento" id="nDocumento" value="{{$cliente->documento}}" readonly>
                             <div class="valid-feedback">
                                 DNI Valido!
                             </div>
@@ -81,25 +75,25 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nombres">Nombres</label>
-                            <input type="text" class="form-control" name="nombres" id="nombres">
+                            <input type="text" class="form-control" name="nombres" id="nombres" value="{{$cliente->nombres}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="aPaterno">Apellido Paterno</label>
-                            <input type="text" class="form-control" name="aPaterno" id="aPaterno">
+                            <input type="text" class="form-control" name="aPaterno" id="aPaterno" value="{{$cliente->ape_pat}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="aMaterno">Apellido Materno</label>
-                            <input type="text" class="form-control" name="aMaterno" id="aMaterno">
+                            <input type="text" class="form-control" name="aMaterno" id="aMaterno" value="{{$cliente->ape_mat}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="telefono">Telefono</label>
-                            <input type="number" class="form-control" name="telefono" id="telefono">
+                            <input type="number" class="form-control" name="telefono" id="telefono" value="{{$cliente->telefono}}" readonly>
                         </div>
                     </div>
                     <div class="col-4">
@@ -141,7 +135,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="text-center">
-                                    <img src="https://th.bing.com/th/id/OIP.SZEx8juvNTfQweNxIMGUxgHaHa?pid=ImgDet&rs=1" class="rounded mx-auto d-block" id="view-img" alt="userPhoto" style="height: 400px;">
+                                    <img src="{{ asset('storage/'. $cliente->imagen) }}" class="rounded mx-auto d-block" id="view-img" alt="userPhoto" style="height: 400px;">
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-center">
@@ -159,45 +153,6 @@
 
 @section('js')
     <script>
-
-    // Obtén todos los botones
-    var buttons = document.querySelectorAll('.btn-group-toggle .btn');
-
-    // Añade un controlador de eventos a cada botón
-    buttons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            // Elimina la clase 'btn-transparent' y añade la clase 'btn-secondary' al botón clicado
-            this.classList.remove('btn-transparent');
-            this.classList.add('btn-secondary');
-
-            // Para los demás botones, elimina la clase 'btn-secondary' y añade la clase 'btn-transparent'
-            buttons.forEach(function(otherButton) {
-                if (otherButton !== this) {
-                    otherButton.classList.remove('btn-secondary');
-                    otherButton.classList.add('btn-transparent');
-                }
-            }, this);
-        });
-    });
-
-    const defaultFile = 'https://th.bing.com/th/id/OIP.SZEx8juvNTfQweNxIMGUxgHaHa?pid=ImgDet&rs=1';
-
-    const file = document.getElementById('file');
-    const img = document.getElementById('img');
-    const viewimg = document.getElementById('view-img');
-    file.addEventListener( 'change', e => {
-        if( e.target.files[0] ){
-            const reader = new FileReader( );
-            reader.onload = function( e ){
-            img.src = e.target.result;
-            viewimg.src = e.target.result;
-            }
-            reader.readAsDataURL(e.target.files[0])
-        }else{
-            img.src = defaultFile;
-            viewimg.src = defaultFile;
-        }
-    });
 
     </script>
 @stop

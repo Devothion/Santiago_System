@@ -30,8 +30,8 @@
                         <dd class="col-sm-8">{{$prestamos->cliente->asesor->nombres." - ".$prestamos->cliente->asesor->codigo}}</dd>
                         <dt class="col-sm-4">Tipo de solicitud:</dt>
                         <dd class="col-sm-8">{{$prestamos->tip_sol}}</dd>
-                        <dt class="col-sm-4">Fecha término:</dt>
-                        <dd class="col-sm-8">*</dd>
+                        <dt class="col-sm-4">Numero de Contrato:</dt>
+                        <dd class="col-sm-8">{{$prestamos->nro_contrato}}</dd>  
                     </div>
                 </div>
                 <div class="col-6">
@@ -46,6 +46,8 @@
                         <dd class="col-sm-8">{{$prestamos->tas_int." %"}}</dd>
                         <dt class="col-sm-4">Deducciones:</dt>
                         <dd class="col-sm-8">--</dd>
+                        <dt class="col-sm-4">Fecha término:</dt>
+                        <dd class="col-sm-8">*</dd>
                         <dt class="col-sm-4">Fecha Inicio:</dt>
                         <dd class="col-sm-8">{{\DateTime::createFromFormat('Y-m-d', $prestamos->fpri_pag)->format('d-m-Y')}}</dd>
                         <dt class="col-sm-4">Analista de credito:</dt>

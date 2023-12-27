@@ -420,6 +420,20 @@ return [
             ]
         ],
         [
+            'text' => 'methods',
+            'icon' => 'fas fa-fw fa-file-invoice-dollar mr-1',
+            'submenu' => [
+                [
+                    'text' => 'Listar Metodos',
+                    'route' => 'admin.metodosdepago.index',
+                ],
+                [
+                    'text' => 'Crear Metodo',
+                    'route' => 'admin.metodosdepago.create'
+                ]
+            ]
+        ],
+        [
             'text' => 'rates',
             'route'  => 'admin.tasas.index',
             'icon' => 'fas fa-fw fa-percent mr-1',
@@ -428,7 +442,6 @@ return [
         [
             'text' => 'profile',
             'url' => '/user/profile',
-            //'route'  => 'admin.perfil.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         // [

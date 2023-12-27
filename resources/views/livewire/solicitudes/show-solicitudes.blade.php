@@ -80,6 +80,17 @@
                                 <i class="fa-solid fa-sort float-right mt-1"></i>
                             @endif</th>
                             <th>Estado</th>
+                            <th style="cursor: pointer;" wire:click="order('mon_sol')">Fondo Provicional
+                                <!-- Sort -->
+                                @if ($sort == 'mon_sol')
+                                    @if ($direction == 'asc')
+                                        <i class="fa-solid fa-arrow-down-1-9 float-right mt-1"></i>
+                                    @else
+                                        <i class="fa-solid fa-arrow-down-9-1 float-right mt-1"></i>
+                                    @endif
+                                @else
+                                    <i class="fa-solid fa-sort float-right mt-1"></i>
+                                @endif</th>
                             <th style="cursor: pointer;" wire:click="order('created_at')">Fecha de Creacion
                             <!-- Sort -->
                             @if ($sort == 'created_at')
@@ -110,12 +121,18 @@
                                     <span class="badge badge-warning">En Espera</span>
                                 @else
                                     <span class="badge badge-danger">Finalizado</span>
-                                @endif
+                                @endif 
+                            </td>
+                            <td>
+                                @if($solicitud->fondo_provi === 1)
+                                    <a href="{{ route('admin.fondosprovicionales.show', ['fondo_provicional' => $solicitud->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-file-pdf mr-1"></i>Fondo</a>
+                                @elseif ($solicitud->fondo_provi === 0)
                                     
+                                @endif
                             </td>
                             <td>{{$solicitud->fech_ate}}</td>
                             <td>
-                                <div class="btn-group">
+                                <div class="btn-group dropleft">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         Acciones
                                     </button>
@@ -123,7 +140,9 @@
                                         <a href="{{ route('admin.solicitudes.edit', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="far fa-pen-to-square mr-1"></i>Editar</a>
                                         <a href="{{ route('admin.solicitudes.show', ['solicitude' => $solicitud->id ]) }}" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Ver Cronograma</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-trash mr-1"></i>Eliminar</a>
-                                        <a href="{{ route('admin.fondosprovicionales.edit', ['fondo_provicional' => $solicitud->id]) }}" class="dropdown-item"><i class="fas fa-money-bills mr-1"></i>Fondo Provicional</a>
+                                        @if($solicitud->fondo_provi === 0)
+                                            <a href="{{ route('admin.fondosprovicionales.create', ['solicitud_id' => $solicitud->id]) }}" class="dropdown-item"><i class="fas fa-money-bills mr-1"></i>Fondo Provicional</a>
+                                        @endif
                                     </div>
                                 </div>
                             </td>

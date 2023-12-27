@@ -39,7 +39,7 @@ class RegistrarPagoController extends Controller
 
     public function create2(Request $request)
     {
-        $solicitud_id = $request->query('registrar_pago');
+        $solicitud_id = $request->query('solicitud_id');
         $solicitud = Solicitud::find($solicitud_id);
         $cuentas = Cuenta::whereIn('entidad_bancaria_id', [1, 2, 3, 4])->with('entidadBancaria')->get();
         $cuentas_yape = Cuenta::where('entidad_bancaria_id', 5)->with('entidadBancaria')->get();

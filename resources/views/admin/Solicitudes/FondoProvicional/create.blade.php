@@ -7,11 +7,12 @@
 @stop
 
 @section('content')
-    <form action="#" method="POST">
+    <form action="{{ route('admin.fondosprovicionales.store') }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <input type="hidden" class="form-control" name="solicitud_id" id="solicitud_id" value="{{$solicitud->id}}">
                     <div class="col-12">
                         <div class="form-group">
                             <label for="cliente">Cliente</label>
@@ -23,11 +24,9 @@
                             <label for="cuentaAsignada">Cuenta Asignada</label>
                             <select class="form-control" id="cuentaAsignada" name="cuentaAsignada">
                                 <option value="" selected>Selecciona</option>
-                                <option>BCP-5</option>
-                                <option>BBVA-5</option>
-                                <option>Scotiabank-1</option>
-                                <option>BCP-1</option>
-                                <option>BCP-2</option>
+                                @foreach ($cuentas as $cuenta)
+                                    <option value="{{$cuenta->id}}">{{$cuenta->entidadBancaria->banco.' - '.$cuenta->codigo}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

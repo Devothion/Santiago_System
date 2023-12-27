@@ -64,14 +64,19 @@ class SolicitudesController extends Controller
             'fre_pag' => $request->frecuenciaPago,
             'fpri_pag' => $request->fechaPrimerPago,
             'analista_id' => $request->asesorCredito,
-            'observ' => $request->observaciones
+            'observ' => $request->observaciones,
+            'fondo_provi' => 0,
         ]);
 
         $id = $solicitud->id;
-        $year = Carbon::now()->year;
+        $fecha = Carbon::now()->format('dmY');
+        $nro_contrato = $fecha.'-'.$id;
+
+        $solicitud->nro_contrato = $nro_contrato;
+        $solicitud->save();
         
         //return redirect()->route('admin.solicitudes.index');
-        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'year', 'capitalInteres'));
+        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'nro_contrato', 'capitalInteres'));
     }
 
     /**
@@ -106,8 +111,7 @@ class SolicitudesController extends Controller
     public function update(Request $request, Solicitud $solicitude)
     {
 
-        //dd($request->all());
-
+        
         $cliente = Cliente::find($request->cliente);
         $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
 

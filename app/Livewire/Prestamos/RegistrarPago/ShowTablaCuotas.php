@@ -21,7 +21,15 @@ class ShowTablaCuotas extends Component
     {
         //$this->cuota = $cuota;
         $this->baseRowId = $cuota->id;
-        $cuota = Cuota::where('solicitud_id', $cuota->solicitud_id)->where('statusPago', 0)->where('fecha', '<', now())->get();
+        $query1 = Cuota::where('solicitud_id', $cuota->solicitud_id)->where('statusPago', 0)->where('fecha', '<=', now())->get();
+        $query2 = Cuota::where('solicitud_id', $cuota->solicitud_id)->where('statusPago', 0)->where('numero', 1)->get();
+
+        if ($query1->isNotEmpty()) {
+            $cuota = $query1;
+        } else {
+            $cuota = $query2;
+        }
+
         //dd($cuota);
 
         // Añadir la primera fila al array de filas
@@ -36,7 +44,7 @@ class ShowTablaCuotas extends Component
 
             $this->cuota = $cuota;
         }
-
+        
         // Verificar si la fila actual es la primera
         //$this->isFirstRow = $cuota->id === Cuota::where('solicitud_id', $this->solicitud_id)->where('statusPago', '!=', 0)->oldest()->first()->id;
         $firstCuota = Cuota::where('solicitud_id', $this->solicitud_id)

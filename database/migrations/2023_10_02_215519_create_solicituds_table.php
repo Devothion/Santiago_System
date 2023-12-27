@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
-
+            
+            $table->string('nro_contrato')->nullable();
             $table->foreignId('cliente_id')->references('id')->on('clientes');
             $table->string('nombre_cliente');
             $table->string('estado');
@@ -29,7 +30,9 @@ return new class extends Migration
             $table->date('fpri_pag');
             $table->foreignId('analista_id')->references('id')->on('analistas');
             $table->text('observ')->nullable();
-
+            $table->boolean('fondo_provi');
+            $table->string('pdf')->nullable();
+            
             $table->timestamps();
         });
     }

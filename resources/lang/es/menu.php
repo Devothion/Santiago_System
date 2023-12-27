@@ -32,4 +32,5 @@ return [
     'config'                        => 'CONFIGURACIÓN',
     'profiles'                      => 'PERFIL',
     'rates'                         => 'Tasas',
+    'methods'                         => 'Metodos de Pago',
 ];

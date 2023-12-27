@@ -43,7 +43,7 @@
                                 <select class="custom-select" id="cliente" name="cliente" data-live-search="true">
                                     <option value="" {{ old('cliente', $solicitud->cliente_id) == '' ? 'selected' : '' }}>Selecciona</option>
                                     @foreach ($clientes as $cliente)
-                                        <option value="{{$cliente->id}}" {{ old('cliente', $solicitud->id_cli) == $cliente->id ? 'selected' : '' }}>{{$cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat}}</option>
+                                        <option value="{{ $cliente->id }}" {{ old('cliente', $solicitud->cliente_id) == $cliente->id ? 'selected' : '' }}>{{ $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat }}</option>
                                     @endforeach
                                 </select>
                                 <div class="input-group-append">
@@ -66,13 +66,12 @@
                         <div class="form-group">
                             <label for="cuentaAsignada">Cuenta Asignada</label>
                             <select class="form-control" id="cuentaAsignada" name="cuentaAsignada">
-                                <option value="" selected>Selecciona</option>
-                                <option>BCP-5</option>
-                                <option>BBVA-5</option>
-                                <option>Scotiabank-1</option>
-                                <option>BCP-1</option>
-                                <option>BCP-2</option>
+                                <option value="" {{ old('cuentaAsignada', $solicitud->cta_asig) == '' ? 'selected' : '' }}>Selecciona</option>
+                                @foreach ($cuentas as $cuenta)
+                                    <option value="{{$cuenta->id}}" {{ old('cuentaAsignada', $cuenta->id) ? 'selected' : '' }}>{{$cuenta->entidadBancaria->banco.' - '.$cuenta->codigo}}</option>
+                                @endforeach
                             </select>
+
                         </div>
                     </div>
                     <div class="col-3">
@@ -86,10 +85,10 @@
                             <label for="plazo">Plazo</label>
                             <select class="form-control" id="plazo" name="plazo">
                                 <option value="" {{ old('plazo', $solicitud->plazo) == '' ? 'selected' : '' }}>Selecciona</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '12 semanas' ? 'selected' : '' }}>12 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '15 semanas' ? 'selected' : '' }}>15 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '18 semanas' ? 'selected' : '' }}>18 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '20 semanas' ? 'selected' : '' }}>20 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '12' ? 'selected' : '' }}>12 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '15' ? 'selected' : '' }}>15 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '18' ? 'selected' : '' }}>18 semanas</option>
+                                <option {{ old('plazo', $solicitud->plazo) == '20' ? 'selected' : '' }}>20 semanas</option>
                             </select>
                         </div>
                     </div>
@@ -102,19 +101,19 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="tasaInteres">Tasa de interes</label>
-                            <input type="number" class="form-control" name="tasaInteres" id="tasaInteres" placeholder="0.00">
+                            <input type="number" class="form-control" name="tasaInteres" id="tasaInteres" placeholder="0.00" value="{{$solicitud->tas_int}}" readonly>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="capitalInteres">Capital + Interes</label>
-                            <input type="number" class="form-control" name="capitaInteres" id="capitaInteres" placeholder="0.00">
+                            <input type="number" class="form-control" name="capitaInteres" id="capitaInteres" placeholder="0.00" value="{{$solicitud->cap_int}}" readonly>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="tasaMora">Tasa de Mora</label>
-                            <input type="number" class="form-control" name="tasaMora" id="tasaMora" value="5.00">
+                            <input type="number" class="form-control" name="tasaMora" id="tasaMora" value="5.00" readonly>
                         </div>
                     </div>
                     <div class="col-4">
@@ -138,7 +137,7 @@
                             <select class="form-control" id="asesorCredito" name="asesorCredito">
                                 <option value="1" {{ old('asesorCredito', $solicitud->asesorCredito) == 1 ? 'selected' : '' }}>Selecciona</option>
                                 @foreach ($asesores as $asesor)
-                                    <option value="{{$asesor->id}}" {{ old('asesorCredito', $solicitud->ana_cre) == $asesor->id ? 'selected' : '' }}>{{$asesor->codigo.' '.$asesor->nombres}}</option>
+                                    <option value="{{$asesor->id}}" {{ old('asesorCredito', $solicitud->analista_id) == $asesor->id ? 'selected' : '' }}>{{$asesor->codigo.' '.$asesor->nombres}}</option>
                                 @endforeach
                             </select>
                         </div>

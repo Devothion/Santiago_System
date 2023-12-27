@@ -10,6 +10,7 @@ class Solicitud extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nro_contrato',
         'cliente_id',
         'estado',
         'nombre_cliente',
@@ -24,7 +25,9 @@ class Solicitud extends Model
         'fre_pag',
         'fpri_pag',
         'analista_id',
-        'observ'
+        'observ',
+        'fondo_provi',
+        'pdf'
     ];
 
     public function cliente()
