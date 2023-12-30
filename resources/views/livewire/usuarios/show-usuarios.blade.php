@@ -1,16 +1,6 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <div class="d-flex w-full justify-content-around">
-                {{-- <div class="row " style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;">
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #c8eeba;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Habilitado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">200</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #f2c0c0;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Inhabilitado:</p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">40</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #ecdaae;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Pasivo: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">840</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #dac2f2;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Fallecido: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">385</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #a5e8fd;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Vitalicio: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">985</p></div>
-                    <div style="display: flex;padding: 12px;width: 150px;background-color: #d9d9d9;border-radius: 10px;height: 50px;color: black;justify-content: center;margin-right: 10px;text-transform: uppercase;  padding-top: 17px !important;"><p style="font-size: 10pt;">Retirado: </p> <p style="margin-left: 5px;font-weight: 600;font-size: 16pt;margin-top: -9px;">57</p></div>
-                </div> --}}
-            </div>
             <div class="d-flex">
                 <a href="{{ route('admin.usuarios.create') }}" class="btn btn-block btn-danger w-25 m-2"><i class="fa-solid fa-user-plus mr-1"></i>Nuevo Usuario</a>
                 <button class="btn btn-block btn-success w-25 m-2" wire:click='export'><i class="fa fa-file-excel mr-1"></i>Descargar Patron</button>
@@ -79,7 +69,8 @@
                             </td>
                             <td>{{$usuario->created_at}}</td>
                             <td>
-                                <a href="{{ route('admin.usuarios.edit', ['usuario' => $usuario->id ]) }}" class="btn btn-success"><i class="fas fa-pen-to-square mr-1"></i>Editar Usuario</a>
+                                <a href="{{ route('admin.usuarios.edit', ['usuario' => $usuario->id ]) }}" class="btn btn-success btn-sm"><i class="fas fa-pen-to-square mr-1"></i>Editar Usuario</a>
+                                <a href="#" class="btn btn-danger btn-sm" id="btn-eliminar" data-user-id="{{$usuario->id}}" data-user-name="{{$usuario->name}}"><i class="fas fa-user-xmark mr-1"></i>Eliminar Usuario</a>
                             </td>
                         </tr>  
                         @endforeach
@@ -93,3 +84,38 @@
         </div>
     </div> 
 </div>
+
+<script>
+
+    document.querySelectorAll('#btn-eliminar').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const userId = event.target.closest('a').dataset.userId;
+            const userName = event.target.closest('a').dataset.userName;
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: `¡No podrás revertir esto! El usuario ${userName} será eliminado permanentemente.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleteUser', {userId: userId});
+                    Livewire.on('userDeleted', (response) => {
+                        let data = response[0]; 
+                        Swal.fire({
+                            icon: data.icon,
+                            title: data.title,
+                            text: data.text,
+                            showConfirmButton: true,
+                        });
+                    });
+                }
+            });
+        });
+    });
+
+</script>

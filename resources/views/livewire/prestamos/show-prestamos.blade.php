@@ -92,33 +92,37 @@
                             <td>{{$prestamo->id}}</td>
                             <td>{{$prestamo->nombre_cliente}}</td>
                             <td>{{$prestamo->cliente->documento}}</td>
-                            {{-- <td>S/. {{$prestamo->mon_sol}}</td> --}}
                             <td>
-                                @if ($prestamo->estado == 'Aprobado')
-                                    <span class="badge badge-success">Aprobado</span>
-                                @elseif ($prestamo->estado == 'En Analisis')
-                                    <span class="badge badge-info">En Analisis</span>
-                                @elseif ($prestamo->estado == 'En Espera')
-                                    <span class="badge badge-warning">En Espera</span>
+                                @if ($prestamo->estado == 'Por Desembolsar')
+                                    <span class="badge badge-success">Por Desembolsar</span>
+                                @elseif ($prestamo->estado == 'Vigente')
+                                    <span class="badge badge-info">Vigente</span>
+                                @elseif ($prestamo->estado == 'Pagado')
+                                    <span class="badge badge-warning">Pagado</span>
+                                @elseif ($prestamo->estado == 'Moroso')
+                                    <span class="badge badge-warning">Moroso</span>
                                 @else
-                                    <span class="badge badge-danger">Finalizado</span>
+                                    <span class="badge badge-danger">Cancelado</span>
                                 @endif
                                     
                             </td>
-                            <td>{{$prestamo->fech_ate}}</td>
+                            <td>{{$prestamo->solicitud->fech_ate}}</td>
                             <td>
-                                <a href="{{ route('admin.registrarpago.create2', ['registrar_pago' => $prestamo->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
+                                <a href="{{ route('admin.registrarpago.create2', ['solicitud_id' => $prestamo->solicitud->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
                                 <div class="btn-group dropleft">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                         Acciones
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estado de Cuenta</a>
+                                        @if($prestamo->estado !== 'Vigente')
+                                            <a href="#" class="dropdown-item" id="btn-desembolsar" data-prestamo-id="{{$prestamo->id}}"><i class="fa-solid fa-sack-dollar mr-1"></i>Desembolsar</a>
+                                        @endif
+                                        <a href="{{ route('admin.prestamos.show', ['prestamo' => $prestamo->solicitud->id ]) }}" class="dropdown-item"><i class="far fa-eye mr-1"></i>Estado de Cuenta</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Control de Pagos</a>
                                         <a href="#" class="dropdown-item"><i class="fas fa-file-pdf mr-1"></i>Cronograma</a>
-                                        <a href="{{ route('admin.registrarpago.create2', ['solicitud_id' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
-                                        <a href="{{ route('admin.registrarpagolibre.create', ['solicitud_id' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pago Libre</a>
-                                        <a href="{{ route('admin.gestioncobranza.create', ['solicitud_id' => $prestamo->id]) }}" class="dropdown-item"><i class="fas fa-chart-simple mr-1"></i>Gestion Cobranza</a> 
+                                        <a href="{{ route('admin.registrarpago.create2', ['solicitud_id' => $prestamo->solicitud->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pagos</a>
+                                        <a href="{{ route('admin.registrarpagolibre.create', ['solicitud_id' => $prestamo->solicitud->id]) }}" class="dropdown-item"><i class="fas fa-dollar-sign mr-1"></i>Registrar Pago Libre</a>
+                                        <a href="{{ route('admin.gestioncobranza.create', ['solicitud_id' => $prestamo->solicitud->id]) }}" class="dropdown-item"><i class="fas fa-chart-simple mr-1"></i>Gestion Cobranza</a> 
                                     </div>
                                 </div>
                             </td>
@@ -139,3 +143,37 @@
         </div>
     </div>  
 </div>
+
+<script>
+
+    document.querySelectorAll('#btn-desembolsar').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const prestamoId = event.target.closest('a').dataset.prestamoId;
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: `¡Confima la operacion! Vamos a desembolsar el prestamo ${prestamoId}`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, desembolsar',
+                cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('desembolsarPrestamo', {prestamoId: prestamoId});
+                    Livewire.on('prestamoDesembolsado', (response) => {
+                        let data = response[0]; 
+                        Swal.fire({
+                            icon: data.icon,
+                            title: data.title,
+                            text: data.text,
+                            showConfirmButton: true,
+                        });
+                    });
+                }
+            });
+        });
+    });
+
+</script>

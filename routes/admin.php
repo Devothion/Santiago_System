@@ -20,19 +20,8 @@ use App\Http\Controllers\Admin\RegistrarPagoController;
 use App\Http\Controllers\Admin\RegistrarPagoLibreController;
 use App\Http\Controllers\Admin\SolicitudesController;
 use App\Http\Controllers\Admin\TasasController;
-use App\Http\Controllers\Admin\ValidacionesController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.index');
-
-//Prestamos
-Route::resource('/prestamos', PrestamosController::class)->names('admin.prestamos');
-Route::resource('/operaciones', OperacionesController::class)->names('admin.operaciones');
-Route::resource('/gestiones', GestionesController::class)->names('admin.gestiones');
-Route::resource('/compromisos', CompromisosController::class)->names('admin.compromisos');
-Route::resource('/prestamos/registrar-pago', RegistrarPagoController::class)->names('admin.registrarpago');
-Route::get('registrarpago/create2', 'App\Http\Controllers\Admin\RegistrarPagoController@create2')->name('admin.registrarpago.create2');
-Route::resource('/prestamos/registrar-pago-libre', RegistrarPagoLibreController::class)->names('admin.registrarpagolibre');
-Route::resource('/prestamos/gestion-cobranza', GestionCobranzaController::class)->names('admin.gestioncobranza');
 
 //Clientes
 Route::resource('/clientes', ClientesController::class)->names('admin.clientes');
@@ -49,6 +38,16 @@ Route::resource('/solicitudes', SolicitudesController::class)->names('admin.soli
 Route::middleware(['fondo_provi'])->group(function () {
     Route::resource('/solicitudes/fondo-provicional', FondoProvicionalController::class)->names('admin.fondosprovicionales');
 });
+
+//Prestamos
+Route::resource('/prestamos', PrestamosController::class)->names('admin.prestamos');
+Route::resource('/operaciones', OperacionesController::class)->names('admin.operaciones');
+Route::resource('/gestiones', GestionesController::class)->names('admin.gestiones');
+Route::resource('/compromisos', CompromisosController::class)->names('admin.compromisos');
+Route::resource('/prestamos/registrar-pago', RegistrarPagoController::class)->names('admin.registrarpago');
+Route::get('registrarpago/create2', 'App\Http\Controllers\Admin\RegistrarPagoController@create2')->name('admin.registrarpago.create2');
+Route::resource('/prestamos/registrar-pago-libre', RegistrarPagoLibreController::class)->names('admin.registrarpagolibre');
+Route::resource('/prestamos/gestion-cobranza', GestionCobranzaController::class)->names('admin.gestioncobranza');
 
 //Usuarios
 Route::resource('/usuarios', UsuariosController::class)->middleware('can:admin.usuarios.index')->names('admin.usuarios');

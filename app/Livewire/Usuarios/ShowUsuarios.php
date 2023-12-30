@@ -4,6 +4,7 @@ namespace App\Livewire\Usuarios;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class ShowUsuarios extends Component
 {
@@ -31,6 +32,19 @@ class ShowUsuarios extends Component
         } else {
             $this->sort = $sort;
             $this->direction = 'desc';
+        }
+    }
+
+    #[On('deleteUser')]
+    public function deleteUser($userId)
+    {
+        $user = User::find($userId);
+
+        if ($user) {
+            $user->delete();
+            $this->dispatch('userDeleted', ['icon' => 'success', 'title' => 'Tarea Realizada', 'text' => 'Usuario eliminado exitosamente.']);
+        } else {
+            $this->dispatch('userDeleted', ['icon' => 'error', 'title' => 'Tarea Fallida', 'text' => 'No se pudo eliminar el usuario.']);
         }
     }
 }

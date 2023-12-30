@@ -10,20 +10,26 @@ class Prestamo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_cli',
-        'estado',
-        'cliente',
-        'tip_sol',
-        'cta_asig',
-        'fech_ate',
-        'plazo',
-        'mon_sol',
-        'tas_int',
-        'cap_int',
-        'tas_mor',
-        'fre_pag',
-        'fpri_pag',
-        'ana_cre',
-        'observ'
+        'solicitud_id',
+        'cliente_id',
+        'analista_id',
+        'nombre_cliente',
+        'estado'
     ];
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function analista()
+    {
+        return $this->belongsTo(Analista::class);
+    }
+
 }

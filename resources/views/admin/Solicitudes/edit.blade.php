@@ -58,7 +58,7 @@
                             <select class="form-control" id="tSolicitud" name="tSolicitud">
                                 <option value="" {{ old('tSolicitud', $solicitud->tip_sol) == '' ? 'selected' : '' }}>Selecciona</option>
                                 <option {{ old('tSolicitud', $solicitud->tip_sol) == 'Nueva' ? 'selected' : '' }}>Nueva</option>
-                                <option {{ old('tSolicitud', $solicitud->tip_sol) == 'Antigua' ? 'selected' : '' }}>Antigua</option>
+                                <option {{ old('tSolicitud', $solicitud->tip_sol) == 'Renovacion' ? 'selected' : '' }}>Renovacion</option>
                             </select>
                         </div>
                     </div>
@@ -85,10 +85,10 @@
                             <label for="plazo">Plazo</label>
                             <select class="form-control" id="plazo" name="plazo">
                                 <option value="" {{ old('plazo', $solicitud->plazo) == '' ? 'selected' : '' }}>Selecciona</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '12' ? 'selected' : '' }}>12 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '15' ? 'selected' : '' }}>15 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '18' ? 'selected' : '' }}>18 semanas</option>
-                                <option {{ old('plazo', $solicitud->plazo) == '20' ? 'selected' : '' }}>20 semanas</option>
+                                <option value="12" {{ old('plazo', $solicitud->plazo) == '12' ? 'selected' : '' }}>12 semanas</option>
+                                <option value="15" {{ old('plazo', $solicitud->plazo) == '15' ? 'selected' : '' }}>15 semanas</option>
+                                <option value="18" {{ old('plazo', $solicitud->plazo) == '18' ? 'selected' : '' }}>18 semanas</option>
+                                <option value="20" {{ old('plazo', $solicitud->plazo) == '20' ? 'selected' : '' }}>20 semanas</option>
                             </select>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="capitalInteres">Capital + Interes</label>
-                            <input type="number" class="form-control" name="capitaInteres" id="capitaInteres" placeholder="0.00" value="{{$solicitud->cap_int}}" readonly>
+                            <input type="number" class="form-control" name="capitalInteres" id="capitalInteres" placeholder="0.00" value="{{$solicitud->cap_int}}" readonly>
                         </div>
                     </div>
                     <div class="col-3">
@@ -168,26 +168,45 @@
                 $(this).alert('close');
             });
 
-            $('#plazo').change(function(){
-                var plazo = $(this).val();
-                var tasaInteres;
+            var tasaInteres;
+            var tasaCliente;
+
+            function setTasas(plazo) {
                 switch(plazo) {
-                case '12 semanas':
-                    tasaInteres = 104;
-                    break;
-                case '15 semanas':
-                    tasaInteres = 130;
-                    break;
-                case '18 semanas':
-                    tasaInteres = 156;
-                    break;
-                case '20 semanas':
-                    tasaInteres = 173;
-                    break;
-                default:
-                    tasaInteres = '';
+                    case '12':
+                        tasaInteres = 104;
+                        tasaCliente = 44/100;
+                        break;
+                    case '15':
+                        tasaInteres = 130;
+                        tasaCliente = 50/100;
+                        break;
+                    case '18':
+                        tasaInteres = 156;
+                        tasaCliente = 50/100;
+                        break;
+                    case '20':
+                        tasaInteres = 173;
+                        tasaCliente = 50/100;
+                        break;
+                    default:
+                        tasaInteres = '';
+                        tasaCliente = '';
                 }
                 $('#tasaInteres').val(tasaInteres);
+            }
+
+            // Establecer tasas en la carga de la página
+            setTasas($('#plazo').val());
+
+            // Actualizar tasas cuando cambia #plazo
+            $('#plazo').change(function(){
+                setTasas($(this).val());
+            });
+
+            // Actualizar #capitalInteres cuando cambia #montoSolicitado
+            $('#montoSolicitado').on('input', function() {
+                $('#capitalInteres').val(this.value * (1 + tasaCliente));
             });
         });
     </script>

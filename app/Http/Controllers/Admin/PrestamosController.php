@@ -25,10 +25,7 @@ class PrestamosController extends Controller
      */
     public function create()
     {
-        $clientes = Cliente::all();
-        $asesores = Asesor::all();
-
-        return view('admin.Prestamos.create', compact('clientes', 'asesores'));
+        //
     }
 
     /**

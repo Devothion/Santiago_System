@@ -166,32 +166,43 @@
                 $(this).alert('close');
             });
 
-            $('#plazo').change(function(){
-                var plazo = $(this).val();
-                var tasaInteres;
+            var tasaInteres;
+            var tasaCliente;
+
+            function setTasas(plazo) {
                 switch(plazo) {
-                case '12':
-                    tasaInteres = 104;
-                    tasaCliente = 44/100;
-                    break;
-                case '15':
-                    tasaInteres = 130;
-                    tasaCliente = 50/100;
-                    break;
-                case '18':
-                    tasaInteres = 156;
-                    tasaCliente = 50/100;
-                    break;
-                case '20':
-                    tasaInteres = 173;
-                    tasaCliente = 50/100;
-                    break;
-                default:
-                    tasaInteres = '';
-                    tasaCliente = '';
+                    case '12':
+                        tasaInteres = 104;
+                        tasaCliente = 44/100;
+                        break;
+                    case '15':
+                        tasaInteres = 130;
+                        tasaCliente = 50/100;
+                        break;
+                    case '18':
+                        tasaInteres = 156;
+                        tasaCliente = 50/100;
+                        break;
+                    case '20':
+                        tasaInteres = 173;
+                        tasaCliente = 50/100;
+                        break;
+                    default:
+                        tasaInteres = '';
+                        tasaCliente = '';
                 }
                 $('#tasaInteres').val(tasaInteres);
+            }
+
+            // Establecer tasas en la carga de la página
+            setTasas($('#plazo').val());
+
+            // Actualizar tasas cuando cambia #plazo
+            $('#plazo').change(function(){
+                setTasas($(this).val());
             });
+
+            // Actualizar #capitalInteres cuando cambia #montoSolicitado
             $('#montoSolicitado').on('input', function() {
                 $('#capitalInteres').val(this.value * (1 + tasaCliente));
             });

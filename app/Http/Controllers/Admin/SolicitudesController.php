@@ -6,6 +6,8 @@ use App\Models\Cliente;
 use App\Models\Asesor;
 use App\Http\Controllers\Controller;
 use App\Models\Cuenta;
+use App\Models\Cuota;
+use App\Models\Prestamo;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -74,9 +76,22 @@ class SolicitudesController extends Controller
 
         $solicitud->nro_contrato = $nro_contrato;
         $solicitud->save();
+
+        $estado = $request->estado;
+        $prestamo_id = '';
+        if ($estado === 'Aprobado') {
+            $prestamo = Prestamo::create([
+                'solicitud_id' => $id,
+                'cliente_id' => $request->cliente,
+                'analista_id' => $request->asesorCredito,
+                'nombre_cliente' => $nombre,
+                'estado' => 'Por Desembolsar',
+            ]);
+            $prestamo_id = $prestamo->id;
+        }
         
         //return redirect()->route('admin.solicitudes.index');
-        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'nro_contrato', 'capitalInteres'));
+        return view('admin.Solicitudes.calculo', compact('calculo', 'nombre', 'tipo', 'tasa_interes', 'fecha_pago', 'id', 'nro_contrato', 'capitalInteres', 'estado', 'prestamo_id'));
     }
 
     /**
@@ -111,7 +126,6 @@ class SolicitudesController extends Controller
     public function update(Request $request, Solicitud $solicitude)
     {
 
-        
         $cliente = Cliente::find($request->cliente);
         $nombre = $cliente->nombres.' '.$cliente->ape_pat.' '.$cliente->ape_mat;
 
@@ -125,13 +139,28 @@ class SolicitudesController extends Controller
             'plazo' => $request->plazo,
             'mon_sol' => $request->montoSolicitado,
             'tas_int' => $request->tasaInteres,
-            'cap_int' => $request->capitaInteres,
+            'cap_int' => $request->capitalInteres,
             'tas_mor' => $request->tasaMora,
             'fre_pag' => $request->frecuenciaPago,
             'fpri_pag' => $request->fechaPrimerPago,
             'ana_cre' => $request->asesorCredito,
             'observ' => $request->observaciones
         ]);
+
+        $id = $solicitude->id;
+
+        if ($request->estado === 'Aprobado') {
+            $prestamo = Prestamo::create([
+                'solicitud_id' => $solicitude->id,
+                'cliente_id' => $request->cliente,
+                'analista_id' => $request->asesorCredito,
+                'nombre_cliente' => $nombre,
+                'estado' => 'Por Desembolsar',
+            ]);
+
+            Cuota::where('solicitud_id', $id)->update(['prestamo_id' => $prestamo->id]);
+
+        }
 
         return redirect()->route('admin.solicitudes.index');
     }

@@ -30,6 +30,11 @@ class Solicitud extends Model
         'pdf'
     ];
 
+    public function prestamo()
+    {
+        return $this->hasMany(Prestamo::class);
+    }
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);

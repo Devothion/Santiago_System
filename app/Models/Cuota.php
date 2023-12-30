@@ -10,6 +10,8 @@ class Cuota extends Model
     use HasFactory;
 
     protected $fillable = [
+        'solicitud_id',
+        'prestamo_id',
         'fecha',
         'numero',
         'cuota',

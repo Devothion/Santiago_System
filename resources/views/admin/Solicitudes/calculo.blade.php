@@ -91,6 +91,9 @@ use App\Models\Cuota;
 
                         $pago = new Cuota;
                         $pago->solicitud_id = $id;
+                        if ($estado === 'Aprobado') {
+                            $pago->prestamo_id = $prestamo_id;
+                        }
                         $pago->fecha = $fecha_pago;
                         $pago->numero = 1;
                         $pago->cuota = $calculo['valor_cuota_correcto'];
@@ -116,6 +119,9 @@ use App\Models\Cuota;
 
                             $pago = new Cuota;
                             $pago->solicitud_id = $id;
+                            if ($estado === 'Aprobado') {
+                                $pago->prestamo_id = $prestamo_id;
+                            }
                             $pago->fecha = $fecha_pago;
                             $pago->numero = $i;
                             $pago->cuota = $cuota;

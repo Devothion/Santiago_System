@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('solicitud_id')->references('id')->on('solicituds');
+            $table->foreignId('prestamo_id')->references('id')->on('prestamos')->nullable();;
             $table->date('fecha');
             $table->integer('numero');
             $table->float('cuota');
